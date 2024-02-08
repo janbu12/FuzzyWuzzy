@@ -156,9 +156,15 @@ def pertanyaan4_10122096(df_geolocation, order_reviews):
     review_distance_df   = orders_review_df.groupby("review_score")["distance_KM"].mean()
     mean_distance_deliver_time_df = orders_review_filtered.groupby("delivery_time")["distance_KM"].mean()
 
-    st.dataframe(review_distance_df)
-    st.write("Tabel Korelasi")
-    st.write(orders_review_df.corr("spearman"))
+    col1, col2 = st.columns(2)
+
+        with col1:
+            st.header("Dataframe")
+            st.dataframe(review_distance_df)
+
+        with col1:
+            st.header("Tabel Korelasi")
+            st.write(orders_review_df.corr("spearman"))
     
     plt.figure()
     sea.lineplot(x = review_distance_df.keys(), y = review_distance_df.values)

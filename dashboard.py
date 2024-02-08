@@ -315,8 +315,8 @@ if (selected == '10122096') :
     with tab3:
         pertanyaan3_10122096(delivered_orders, shipped_orders, approved_orders, order_items)
 
-    with tab4:
-        pertanyaan4_10122096(delivered_orders, df_geolocation, order_items)
+    # with tab4:
+    #     pertanyaan4_10122096(delivered_orders, df_geolocation, order_items)
 
 elif (selected == 'blablabla'):
     st.header(f"Dashboard Analisis E-Commerce oleh blablabla")

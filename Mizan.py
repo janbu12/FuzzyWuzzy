@@ -8,7 +8,7 @@ from collections import Counter
 from geopy.distance import geodesic
 
 def pertanyaan1_10122096(reviews):
-    st.subheader("Apakah highlight yang membuat customer memberikan review score yang kecil?")
+    st.write("<h4>Apakah highlight yang membuat customer memberikan review score yang kecil?<h4>", unsafe_allow_html=True)
     
     # Mendapatkan baris dengan nilai review_score kurang dari atau sama dengan 3
     low_scores = reviews[reviews['review_score'] <= 3]
@@ -85,7 +85,7 @@ def pertanyaan1_10122096(reviews):
     del low_scores, top_15_comment_titles, negative_words_pt, low_scores_len, negative_phrases_pt, negative_freq_pt, common_negative_pt, top_15_reasons_df, common_negative_df_pt
 
 def pertanyaan2_10122096(delivered_orders, shipped_orders, approved_orders, order_item):
-    st.header("Apakah kesamaan negara asal antara seller dan customer berpengaruh terhadap jumlah pembelian?")
+    st.write("<h4>Apakah kesamaan negara asal antara seller dan customer berpengaruh terhadap jumlah pembelian?<h4>",unsafe_allow_html=True)
     
     #Mengambil data orders dengan status terkirim, diproses, dikirim
     orders_concat = pd.concat([delivered_orders[delivered_orders["order_status"] != "canceled"], shipped_orders[shipped_orders['order_status'] != 'canceled']], ignore_index=True)
@@ -126,7 +126,7 @@ def pertanyaan2_10122096(delivered_orders, shipped_orders, approved_orders, orde
     del orders_concat, merge_order_for_state, transaction_count, top_5_transactions, heatmap_data, fig
 
 def pertanyaan3_10122096(df_geolocation):
-    st.header("Berapakah rata-rata jauh pengiriman yang sudah diterima berdasarkan seller state?")
+    st.write("<h4>Berapakah rata-rata jauh pengiriman yang sudah diterima berdasarkan seller state?<h4>",unsafe_allow_html=True)
     
     rata_rata_jarak2 = df_geolocation.groupby('seller_state')['distance_KM'].mean().reset_index()
     rata_rata_jarak2 = rata_rata_jarak2.sort_values(ascending=True, by='distance_KM', ignore_index=True)
@@ -156,7 +156,7 @@ def pertanyaan3_10122096(df_geolocation):
                  berdasarkan kesamaan state customer, yang cukup menjadi salah satu alasan mengapa seller state SP memiliki tingkat pembeli yang tinggi""")
 
 def pertanyaan4_10122096(df_geolocation, order_reviews):
-    st.header("Apakah jauh pengiriman berdampak pada waktu pengiriman dan review score?")
+    st.write("<h4>Apakah jauh pengiriman berdampak pada waktu pengiriman dan review score?<h4>", unsafe_allow_html=True)
     reviewsSort = order_reviews[["order_id", "review_score", "review_answer_timestamp"]].sort_values(["order_id", "review_answer_timestamp"])
     reviewsSort.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
     

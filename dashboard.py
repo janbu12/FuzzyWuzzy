@@ -6,7 +6,8 @@ import seaborn as sea
 from streamlit_option_menu import option_menu
 from collections import Counter
 from geopy.distance import geodesic
-@st.cache_data
+
+@st.cache
 #Load Data CSV
 def load_data(url) :
     df = pd.read_csv(url)

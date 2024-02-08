@@ -153,7 +153,7 @@ def pertanyaan3_10122096(df_geolocation):
     with st.expander("Penjelasan Mengenai Rata2 Jauh Pengiriman") :
         st.write("""dari grafik diatas bisa kita lihat bahwa SP merupakan seller state yang paling kecil rata-rata jarak pengirimannya, 
                  dan cocok dengan analasis pertanyaan sebelumnya tentang SP adalah seller state dengan tingkat populer yang tinggi 
-                 berdasarkan kesamaan state customer, yang cukup menjadi salah satu alasan mengapa seller state SP tingkat pembelinya tinggi""")
+                 berdasarkan kesamaan state customer, yang cukup menjadi salah satu alasan mengapa seller state SP memiliki tingkat pembeli yang tinggi""")
 
 def pertanyaan4_10122096(df_geolocation, order_reviews):
     st.header("Apakah jauh pengiriman berdampak pada waktu pengiriman dan review score?")
@@ -199,7 +199,7 @@ def pertanyaan4_10122096(df_geolocation, order_reviews):
 
     with st.expander("Penjelasan Mengenai Dampak Jauh Pengiriman pada Nilai Review") :
          st.write("""walaupun memang grafik terlihat signifikan semakin kecil reviewnya maka rata2 jaraknya semakin jauh pula, 
-                     tetapi pada tabel korelasi antara distance dan review score hanya (-0.064719) maka hampir tidak ada pengaruh sama sekali.""")
+                     tetapi pada tabel korelasi antara distance dan review score hanya (-0.064719) maka tidak ada pengaruh sama sekali bahkan sampai minus yang menunjukkan hubungan keterbalikan.""")
 
     with st.container(border=True):
         st.dataframe(mean_distance_deliver_time_df2.style.highlight_max(subset='distance', axis=0, color='#198754')
@@ -220,7 +220,7 @@ def pertanyaan4_10122096(df_geolocation, order_reviews):
     st.pyplot(fig)
     
     with st.expander("Penjelasan Mengenai Dampak Jauh Pengiriman pada Waktu Pengiriman") :
-        st.write("""Data waktu pengiriman yang diambil adalah 15 hari kebawah, dengan dari grafik dan tabel korelasi diatas dapat dilihat bahwa jarak pengiriman cukup berpegaruh terhadap waktu 
+        st.write("""Data waktu pengiriman yang diambil adalah 15 hari kebawah, dengan total data 79.715. Dari grafik dan tabel korelasi diatas dapat dilihat bahwa jarak pengiriman cukup berpegaruh terhadap waktu 
                     pegiriman dengan korelasi (0.615205) dan grafiknya menggambarkan kenaikan yang signifikan""")
     
     del reviewsSort, orders_review_filtered, review_distance_df, mean_distance_deliver_time_df, fig

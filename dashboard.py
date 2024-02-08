@@ -154,7 +154,7 @@ def hitung_jarak(row):
     seller_coords = (row['geolocation_lat_y'], row['geolocation_lng_y'])
     return geodesic(customer_coords, seller_coords).kilometers
 
-def pertanyaan4_10122096(orders, geolocation, df_order_item, customers, sellers):
+# def pertanyaan4_10122096(orders, geolocation, df_order_item, customers, sellers):
     # order_items = pd.merge(df_order_item, sellers, on='seller_id', how="inner")
     # order_items_geo = pd.merge(order_items, geolocation, left_on="seller_zip_code_prefix", right_on="geolocation_zip_code_prefix", how="inner")
     # order_items_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)

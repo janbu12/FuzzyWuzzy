@@ -187,7 +187,7 @@ def pertanyaan5_10122096(df_geolocation, order_reviews):
     reviewsSort = order_reviews[["order_id", "review_score", "review_answer_timestamp"]].sort_values(["order_id", "review_answer_timestamp"])
     reviewsSort.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
     
-    orders_review_df = pd.merge(df_geolocation[['order_id', 'distance_KM','delivery_time']], reviewsSort, on="order_id", how="inner")
+    orders_review_df = pd.merge(merge_orders_df[['order_id', 'distance_KM','delivery_time']], reviewsSort, on="order_id", how="inner")
     
     orders_review_df.drop(["order_id", "review_answer_timestamp"], axis = 1, inplace = True)
 
@@ -205,7 +205,7 @@ def pertanyaan5_10122096(df_geolocation, order_reviews):
     plt.figure()
     sea.lineplot(x = review_distance_df.keys(), y = review_distance_df.values)
     sea.lineplot(x = review_distance_df.keys(), y = review_distance_df.values, style = review_distance_df.keys(), 
-                markers =["o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o"], 
+                markers =["o", "o", "o", "o", "o"], 
                 dashes = False)
     plt.title("Korelasi jauh pengiriman dan nilai review")
     plt.xlabel("Nilai Review")
@@ -359,10 +359,10 @@ if (selected == '10122079') :
         # st.dataframe(df_geolocation_merging)
         
     with tab2:
-        pertanyaan5_10122096(df_geolocation_merging, df_order_review)
+        pertanyaan3_10122096(delivered_orders, shipped_orders, approved_orders, order_items)
         
     with tab3:
-        pertanyaan3_10122096(delivered_orders, shipped_orders, approved_orders, order_items)
+        pertanyaan5_10122096(df_geolocation_merging, df_order_review)
 
     # with tab4:
     #     pertanyaan4_10122096(df_orders, df_order_item, df_customers, df_sellers, df_geolocation)

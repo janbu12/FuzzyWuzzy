@@ -7,7 +7,7 @@ from streamlit_option_menu import option_menu
 from collections import Counter
 from geopy.distance import geodesic
 
-@st.cache_data
+@st.cache
 #Load Data CSV
 def load_data(url) :
     df = pd.read_csv(url)
@@ -132,47 +132,20 @@ def pertanyaan3_10122096(orders, order_item, sellers, customers):
     del orders, sellers, merge_order_for_state, transaction_count, top_5_transactions, heatmap_data
     
     
-def hitung_jarak(row):
-    customer_coords = (row['geolocation_lat_x'], row['geolocation_lng_x'])
-    seller_coords = (row['geolocation_lat_y'], row['geolocation_lng_y'])
-    return geodesic(customer_coords, seller_coords).kilometers
+def calculate_distance(row):
+    seller_coords = (row['geolocation_lat'], row['geolocation_lng'])
+    customer_coords = (row['customer_geolocation_lat'], row['customer_geolocation_lng'])
+    return geodesic(seller_coords, customer_coords).kilometers
 
 def pertanyaan1_10122096(order_item, sellers, orders, customers, geolocation):
-    st.header("Berapakah rata-rata jauh pengiriman yang sudah diterima berdasarkan seller state?")
-    geolocation = geolocation.rename(columns={'geolocation_zip_code_prefix': 'code_prefix'})
-    sellers = sellers.rename(columns={'seller_zip_code_prefix':'code_prefix'})
-    customers = customers.rename(columns={'customer_zip_code_prefix':'code_prefix'})
-    
-    order_items = pd.merge(order_item, sellers, on='seller_id', how="inner")
-    
-    order_items_geo = pd.merge(order_items, geolocation, on="code_prefix", how="inner")
-    order_items_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
-    order_items_geo = order_items_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state','seller_city'])
-    # orders = pd.merge(orders[orders['order_status']=='delivered'], customers, on='customer_id', how="inner")
-    # orders_geo =  pd.merge(orders, geolocation, left_on="customer_zip_code_prefix", right_on="geolocation_zip_code_prefix", how="inner")
-    # orders_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
-    # orders_geo = orders_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state','customer_city','order_status',
-    #                                     'order_purchase_timestamp', 'order_approved_at', 'order_delivered_carrier_date', 'order_delivered_customer_date',
-    #                                     'order_estimated_delivery_date', 'customer_unique_id'])
-    # merge_orders = pd.merge(orders_geo, order_items_geo, on="order_id", how="inner")
-    # merge_orders['distance_KM'] = merge_orders.apply(hitung_jarak, axis=1)
-    
-    # rata_rata_jarak2 = merge_orders.groupby('seller_state')['distance_KM'].mean().reset_index()
-    # rata_rata_jarak2 = rata_rata_jarak2.sort_values(ascending=True, by='distance_KM', ignore_index=True)
-    
-    # st.dataframe(rata_rata_jarak2)
-        
-    # sea.set_theme()
+    merged_data = pd.merge(order_item, sellers, on='seller_id', how='inner')
+    merged_data = pd.merge(merged_data, geolocation, left_on='seller_zip_code_prefix', right_on='geolocation_zip_code_prefix', how='inner')
 
-    # plt.figure(figsize=(10, 6))
-    # sea.barplot(data=rata_rata_jarak2, x='seller_state', y='distance_KM', palette='viridis', hue='seller_state')
-    # plt.xlabel('Seller State')
-    # plt.ylabel('Rata-rata Jarak (km)')
-    # plt.title('Rata-rata Jarak berdasarkan Seller State')
-    # plt.xticks(rotation=45)
-    # plt.tight_layout()
-    # fig = plt.gcf()
-    # st.pyplot(fig)
+    merged_data['distance_km'] = merged_data.apply(calculate_distance, axis=1)
+
+    avg_distance_by_state = merged_data.groupby('seller_state')['distance_km'].mean().reset_index()
+
+    return avg_distance_by_state
     # del  rata_rata_jarak2
     
     # with st.expander("Penjelasan Mengenai Rata2 Jauh Pengiriman") :

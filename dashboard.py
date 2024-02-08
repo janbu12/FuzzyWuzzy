@@ -153,7 +153,7 @@ def load_data(url) :
 #     del orders_df, merge_order_for_state, transaction_count, top_5_transactions, heatmap_data, order_item_df
 
 def pertanyaan4_10122096(df_orders, df_order_item, df_customers, df_sellers, df_geolocation):
-    order_items = pd.merge(order_item, sellers, on='seller_id', how='inner')
+    order_items = pd.merge(df_order_item, sellers, on='seller_id', how='inner')
     order_items.drop_duplicates(['order_id'], keep='last', inplace=True, ignore_index = True)
     order_items = order_items.drop(columns=['order_item_id', 'product_id', 'shipping_limit_date', 'price', 'freight_value', 'seller_city'])
     order_geo = pd.merge(order_items, df_geolocation, left_on='seller_zip_code_prefix', 

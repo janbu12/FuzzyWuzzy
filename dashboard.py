@@ -160,7 +160,7 @@ df_order_review = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzz
 df_orders = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/orders_dataset.csv")
 df_sellers = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/sellers_dataset.csv")
 df_customers = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/customers_dataset.csv")
-df_geolocation = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/geolocation_dataset.csv")
+df_geolocation_merging = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/Geolocation_merging.csv")
 products = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/products_dataset.csv")
 product_category_name_translation = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/product_category_name_translation.csv")
 
@@ -273,8 +273,9 @@ if (selected == '10122079') :
     st.header(f"Dashboard Analisis E-Commerce oleh Hana")
     tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
     
-    # with tab1:
+    with tab1:
         # pertanyaan4_10122096(df_orders, df_order_item, df_customers, df_sellers, df_geolocation)
+        st.dataframe(df_geolocation_merging)
         
     # with tab2:
     #     pertanyaan2_10122096(df_order_review)

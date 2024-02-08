@@ -46,6 +46,9 @@ def pertanyaan1_10122096(orders, reviews):
     #Expander Grafik
     with st.expander("Penjelasan Pengaruh Waktu Pengiriman terhadap Ulasan ") :
         st.write('Terlihat dari grafik diatas bahwa lama pengiriman cukup berpengaruh terhadap review score, hal yang bisa dilakukan adalah tahap processing ke shipped harus lebih diperbaiki untuk memperpendek jarak waktu dari kurir pada customer') 
+    del data, merge_reviews_deliver_order
+
+
 def pertanyaan2_10122096(reviews):
     st.header("Apakah highlight yang membuat customer memberikan review score yang kecil?")
     
@@ -111,6 +114,9 @@ def pertanyaan2_10122096(reviews):
                         <li> Pessimo = Sangat Buruk
                     </list>""", unsafe_allow_html=True)
         st.write("Dari grafik diatas dapat dilihat bahwa kata bermasalah sebanyak 303, cacat(154), dengan title Produk cacat(22), Produk salah(30), dll, walaupun terbilang sedikit, tetap saja harapannya perusahaan dapat memperbaiki produk yang salah, cacat, bahkan tidak terkirim, dll.")
+
+    del low_scores, top_15_comment_titles, negative_words_pt, low_scores_len, negative_phrases_pt, negative_freq_pt, common_negative_pt, top_15_reasons_df, common_negative_df_pt
+
 def pertanyaan3_10122096(orders, order_item, customers, sellers):
     st.header("Apakah kesamaan negara asal antara seller dan customer berpengaruh terhadap jumlah pembelian?")
     
@@ -143,6 +149,8 @@ def pertanyaan3_10122096(orders, order_item, customers, sellers):
     
     with st.expander("Penjelasan Mengenai Kesaaman State Antara Customer dan Seller") :
          st.write("Terlihat dari heatmap diatas seller state SP dan customer state SP dengan jumlah transaksi 31,065 yang menunjukkan bahwa kesamaan daerah asal antara seller dan customer sangat berpengaruh terhadap jumlah pembelian barang")
+
+    del orders_df, merge_order_for_state, transaction_count, top_5_transactions, heatmap_data, order_item_df
 
 def pertanyaan4_10122096(orders, order_item, customers, sellers):
     order_items = pd.merge(order_item, sellers, on='seller_id', how='inner')

@@ -140,7 +140,7 @@ def hitung_jarak(row):
 def pertanyaan1_10122096(order_item, sellers, orders, customers, geolocation):
     st.header("Berapakah rata-rata jauh pengiriman yang sudah diterima berdasarkan seller state?")
     
-    order_items = pd.merge(order_item, sellers, on='seller_id', how="inner")
+    order_items = pd.merge(order_item, sellers, on='seller_id', how="inner").head(30000)
     order_items_geo = pd.merge(order_items, geolocation, left_on="seller_zip_code_prefix", right_on="geolocation_zip_code_prefix", how="inner")
     order_items_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
     order_items_geo = order_items_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state','seller_city'])

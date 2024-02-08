@@ -191,10 +191,10 @@ def pertanyaan4_10122096(delivered_orders, df_geolocation, order_items):
         # st.pyplot(fig)
         # del  rata_rata_jarak2
         
-        with st.expander("Penjelasan Mengenai Rata2 Jauh Pengiriman") :
-            st.write("""dari grafik diatas bisa kita lihat bahwa SP merupakan seller state yang paling kecil rata-rata jarak pengirimannya, 
-                     dan cocok dengan analasis pertanyaan sebelumnya tentang SP adalah seller state dengan tingkat populer yang tinggi 
-                     berdasarkan kesamaan state customer, yang cukup menjadi salah satu alasan mengapa seller state SP tingkat pembelinya tinggi""")
+    with st.expander("Penjelasan Mengenai Rata2 Jauh Pengiriman") :
+        st.write("""dari grafik diatas bisa kita lihat bahwa SP merupakan seller state yang paling kecil rata-rata jarak pengirimannya, 
+                 dan cocok dengan analasis pertanyaan sebelumnya tentang SP adalah seller state dengan tingkat populer yang tinggi 
+                 berdasarkan kesamaan state customer, yang cukup menjadi salah satu alasan mengapa seller state SP tingkat pembelinya tinggi""")
 
     
 df_order_item = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_items_dataset.csv")

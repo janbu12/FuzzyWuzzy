@@ -161,7 +161,7 @@ def pertanyaan4_10122096(df_geolocation, order_reviews):
         st.header("Dataframe")
         st.dataframe(review_distance_df)
 
-        with col1:
+        with col2:
             st.header("Tabel Korelasi")
             st.write(orders_review_df.corr("spearman"))
     

@@ -191,14 +191,59 @@ del products
 
 order_items = order_items.join(df_sellers.set_index("seller_id"), "seller_id", validate = "m:1")
 order_items.drop("seller_id", axis = 1, inplace = True)
-order_items = pd.merge(order_items, df_geolocation, left_on='seller_zip_code_prefix', 
-                        right_on='geolocation_zip_code_prefix',
-                        how="inner")
 del df_sellers
 
 orders = df_orders.join(df_customers.set_index("customer_id"),"customer_id", validate = "1:1")
 orders.drop(["customer_id", "customer_unique_id"], axis = 1, inplace = True)
 del df_customers
+
+#Null Value Removal
+order_items.dropna(axis = 0, how = "any", inplace = True, ignore_index = True)
+
+order_reviews.drop(["review_comment_title", "review_comment_message"], axis = 1, inplace = True)
+
+canceled_orders    = orders[orders["order_status"] == "canceled"]
+created_orders     = orders[orders["order_status"] == "created"]
+shipped_orders     = orders[orders["order_status"] == "shipped"]
+unavailable_orders = orders[orders["order_status"] == "unavailable"]
+invoiced_orders    = orders[orders["order_status"] == "invoiced"]
+processing_orders  = orders[orders["order_status"] == "processing"]
+approved_orders    = orders[orders["order_status"] == "approved"]
+
+orders.drop(orders[orders["order_status"] == "canceled"].index, inplace = True)
+orders.drop(orders[orders["order_status"] == "created"].index, inplace = True)
+orders.drop(orders[orders["order_status"] == "unavailable"].index, inplace = True)
+orders.drop(orders[orders["order_status"] == "invoiced"].index, inplace = True)
+orders.drop(orders[orders["order_status"] == "processing"].index, inplace = True)
+orders.drop(orders[orders["order_status"] == "shipped"].index, inplace = True)
+orders.drop(orders[orders["order_status"] == "approved"].index, inplace = True)
+
+orders.dropna(axis = 0, how = "any", inplace = True, ignore_index = True)
+delivered_orders = orders
+del orders
+
+approved_orders = pd.concat([approved_orders, unavailable_orders, invoiced_orders, processing_orders], ignore_index = True)
+approved_orders.drop(["order_delivered_carrier_date", "order_delivered_customer_date"], axis = 1, inplace = True)
+del unavailable_orders, invoiced_orders, processing_orders
+
+created_orders.drop(["order_approved_at", "order_delivered_carrier_date", "order_delivered_customer_date"], axis = 1, inplace = True)
+shipped_orders.drop("order_delivered_customer_date", axis = 1, inplace = True)
+
+delivered = canceled_orders[canceled_orders["order_delivered_customer_date"].notnull()]
+shipped   = canceled_orders[(canceled_orders["order_delivered_carrier_date"].notnull()) & (canceled_orders["order_delivered_customer_date"].isnull())]
+approved  = canceled_orders[(canceled_orders["order_approved_at"].notnull()) & (canceled_orders["order_delivered_customer_date"].isnull()) & (canceled_orders["order_delivered_carrier_date"].isnull())]
+created   = canceled_orders[(canceled_orders["order_approved_at"].isnull()) & (canceled_orders["order_delivered_carrier_date"].isnull()) & (canceled_orders["order_delivered_customer_date"].isnull())]
+
+shipped.drop("order_delivered_customer_date", axis = 1, inplace = True)
+approved.drop(["order_delivered_customer_date", "order_delivered_carrier_date"], axis = 1, inplace = True)
+created.drop(["order_delivered_customer_date", "order_delivered_carrier_date", "order_approved_at"], axis = 1, inplace = True)
+
+delivered_orders = pd.concat([delivered_orders, delivered], ignore_index = True)
+shipped_orders   = pd.concat([shipped_orders, shipped], ignore_index = True)
+approved_orders  = pd.concat([approved_orders, approved], ignore_index = True)
+created_orders   = pd.concat([created_orders, created], ignore_index = True)
+
+del canceled_orders, delivered, shipped, approved, created
 
 st.markdown("""
     <header>

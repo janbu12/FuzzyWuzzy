@@ -138,10 +138,8 @@ def calculate_distance(row):
     return geodesic(seller_coords, customer_coords).kilometers
 
 def pertanyaan1_10122096(order_item, sellers, orders, customers, geolocation):
-<<<<<<< HEAD
     merged_data = pd.merge(order_item, sellers, on='seller_id', how='inner')
     merged_data = pd.merge(merged_data, geolocation, left_on='seller_zip_code_prefix', right_on='geolocation_zip_code_prefix', how='inner')
-=======
     st.header("Berapakah rata-rata jauh pengiriman yang sudah diterima berdasarkan seller state?")
     geolocation = geolocation.rename(columns={'geolocation_zip_code_prefix': 'code_prefix'})
     sellers = sellers.rename(columns={'seller_zip_code_prefix':'code_prefix'})
@@ -167,7 +165,6 @@ def pertanyaan1_10122096(order_item, sellers, orders, customers, geolocation):
     # st.dataframe(rata_rata_jarak2)
         
     # sea.set_theme()
->>>>>>> 3477c83be5fb96b4e9de8160e64ca953f2b2326a
 
     merged_data['distance_km'] = merged_data.apply(calculate_distance, axis=1)
 

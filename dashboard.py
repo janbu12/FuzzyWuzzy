@@ -7,7 +7,7 @@ from streamlit_option_menu import option_menu
 from collections import Counter
 from geopy.distance import geodesic
 
-@st.cache
+@st.cache_data
 #Load Data CSV
 def load_data(url) :
     df = pd.read_csv(url)
@@ -160,7 +160,7 @@ def pertanyaan4_10122096(df_orders, df_order_item, df_customers, df_sellers, df_
     order_geo = pd.merge(order_items, df_geolocation, left_on='seller_zip_code_prefix', 
                         right_on='geolocation_zip_code_prefix',
                         how="inner", )
-    st.dataframe(order_geo)
+    # st.dataframe(order_geo)
     
 df_order_item = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_items_dataset.csv")
 df_order_review = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_reviews_dataset.csv")

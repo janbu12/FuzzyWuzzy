@@ -34,7 +34,9 @@ def pertanyaan1_10122096(reviews):
     
     #Grafik berdasarkan title
     with st.container():
-        st.dataframe(top_15_reasons_df.style.highlight_max(subset='jumlah', axis=0).highlight_min(subset='jumlah', axis=0, color='red'), use_container_width=True)
+        st.dataframe(top_15_reasons_df.style.highlight_max(subset='jumlah', axis=0)
+                     .highlight_min(subset='jumlah', axis=0, color='red'), 
+                     use_container_width=True, hide_index=True)
         
     plt.figure(figsize=(10, 6))
     sea.countplot(x='review_score', hue='review_comment_title', data=top_15_reasons, palette='Set2')
@@ -48,7 +50,9 @@ def pertanyaan1_10122096(reviews):
     
     #Grafik berdasarkan kata2 
     with st.container():
-        st.dataframe(common_negative_df_pt, use_container_width=True)
+        st.dataframe(common_negative_df_pt.style.highlight_max(subset='Jumlah', axis=0)
+                     .highlight_min(subset='Jumlah', axis=0, color='red'), 
+                     use_container_width=True, hide_index=True)
         
     fig, ax = plt.subplots()
     ax.barh(common_negative_df_pt['Kata'], common_negative_df_pt['Jumlah'])
@@ -126,7 +130,9 @@ def pertanyaan3_10122096(df_geolocation):
     rata_rata_jarak2 = rata_rata_jarak2.sort_values(ascending=True, by='distance_KM', ignore_index=True)
     
     with st.container():
-        st.dataframe(rata_rata_jarak2, use_container_width=True)
+        st.dataframe(rata_rata_jarak2.style.highlight_max(subset='distance_KM', axis=0)
+                     .highlight_min(subset='distance_KM', axis=0, color='red'), 
+                     use_container_width=True, hide_index=True)
 
     sea.set_theme()
 

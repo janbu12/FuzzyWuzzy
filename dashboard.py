@@ -232,6 +232,7 @@ def pertanyaan5_10122096(df_geolocation, order_reviews):
     
     del reviewsSort, orders_review_filtered, review_distance_df, mean_distance_deliver_time_df, fig
     
+    
 df_order_item = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_items_dataset.csv")
 df_order_review = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_reviews_dataset.csv")
 df_orders = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/orders_dataset.csv")

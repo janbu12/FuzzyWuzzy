@@ -163,12 +163,12 @@ def pertanyaan4_10122096(delivered_orders, df_geolocation, order_items):
         orders_geo['delivery_time'] = orders_geo['order_delivered_customer_date'] - orders_geo['order_delivered_carrier_date']
         orders_geo['delivery_time'] = orders_geo['delivery_time'].dt.days
     
-        orders_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
-        orders_geo = orders_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state','customer_city','order_status',
-                                            'order_purchase_timestamp', 'order_approved_at', 'order_delivered_carrier_date', 'order_delivered_customer_date',
-                                            'order_estimated_delivery_date'])
+        # orders_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
+        # orders_geo = orders_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state','customer_city','order_status',
+        #                                     'order_purchase_timestamp', 'order_approved_at', 'order_delivered_carrier_date', 'order_delivered_customer_date',
+        #                                     'order_estimated_delivery_date'])
     
-        order_items_geo = pd.merge(order_items[['order_id', 'seller_zip_code_prefix', 'seller_state']], df_geolocation, left_on="seller_zip_code_prefix", right_on="geolocation_zip_code_prefix", how="inner")
+        # order_items_geo = pd.merge(order_items[['order_id', 'seller_zip_code_prefix', 'seller_state']], df_geolocation, left_on="seller_zip_code_prefix", right_on="geolocation_zip_code_prefix", how="inner")
     
         # order_items_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
         # order_items_geo = order_items_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state' ])

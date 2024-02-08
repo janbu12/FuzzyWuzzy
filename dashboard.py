@@ -257,6 +257,9 @@ with st.sidebar :
     default_index=0)
     
 if (selected == '10122096') :
+    st.header(f"Dashboard Analisis E-Commerce oleh Mizan")
+    tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
+
     #Geolocation analysis
     orders_geo = pd.merge(delivered_orders[delivered_orders["order_status"] != "canceled"], df_geolocation, 
                         left_on='customer_zip_code_prefix', 
@@ -278,9 +281,6 @@ if (selected == '10122096') :
 
     merge_orders_df = pd.merge(orders_geo, order_items_geo, on="order_id", how="inner")
     merge_orders_df['distance_KM'] = merge_orders_df.apply(hitung_jarak, axis=1)
-    
-    st.header(f"Dashboard Analisis E-Commerce oleh Mizan")
-    tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
     
     with tab1:
         pertanyaan1_10122096(df_orders, df_order_review)

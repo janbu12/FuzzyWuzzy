@@ -187,7 +187,7 @@ def pertanyaan5_10122096(df_geolocation, order_reviews):
     reviewsSort = order_reviews[["order_id", "review_score", "review_answer_timestamp"]].sort_values(["order_id", "review_answer_timestamp"])
     reviewsSort.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
     
-    orders_review_df = pd.merge(merge_orders_df[['order_id', 'distance_KM','delivery_time']], reviewsSort, on="order_id", how="inner")
+    orders_review_df = pd.merge(df_geolocation[['order_id', 'distance_KM','delivery_time']], reviewsSort, on="order_id", how="inner")
     
     orders_review_df.drop(["order_id", "review_answer_timestamp"], axis = 1, inplace = True)
 

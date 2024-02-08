@@ -175,7 +175,7 @@ def pertanyaan4_10122096(df_geolocation, order_reviews):
          st.write("""walaupun memang grafik terlihat signifikan semakin kecil reviewnya maka rata2 jaraknya semakin jauh pula, 
                      tetapi pada tabel korelasi antara distance dan review score hanya (-0.064719) maka hampir tidak ada pengaruh sama sekali.""")
         
-    st.dataframe(mean_distance_deliver_time_df )
+    st.dataframe(orders_review_filtered)
     
     plt.figure()
     sea.lineplot(x = mean_distance_deliver_time_df.keys(), y = mean_distance_deliver_time_df.values)

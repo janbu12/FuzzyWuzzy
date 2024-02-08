@@ -350,8 +350,8 @@ if (selected == '10122079') :
         pertanyaan4_10122096(df_geolocation_merging)
         # st.dataframe(df_geolocation_merging)
         
-    # with tab2:
-    #     pertanyaan2_10122096(df_order_review)
+    with tab2:
+        pertanyaan5_10122096(df_geolocation_merging, df_order_review)
         
     # with tab3:
     #     pertanyaan3_10122096(df_orders, df_order_item, df_customers, df_sellers)

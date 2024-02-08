@@ -152,14 +152,14 @@ def load_data(url) :
 
 #     del orders_df, merge_order_for_state, transaction_count, top_5_transactions, heatmap_data, order_item_df
 
-# def pertanyaan4_10122096(orders, order_item, customers, sellers, geolocation):
-#     order_items = pd.merge(order_item, sellers, on='seller_id', how='inner')
-#     order_items.drop_duplicates(['order_id'], keep='last', inplace=True, ignore_index = True)
-#     order_items = order_items.drop(columns=['order_item_id', 'product_id', 'shipping_limit_date', 'price', 'freight_value', 'seller_city'])
-#     order_items = pd.merge(order_items, df_geolocation, left_on='seller_zip_code_prefix', 
-#                         right_on='geolocation_zip_code_prefix',
-#                         how="inner", )
-#     st.dataframe(order_items)
+def pertanyaan4_10122096(orders, order_item, customers, sellers, geolocation):
+    order_items = pd.merge(order_item, sellers, on='seller_id', how='inner')
+    order_items.drop_duplicates(['order_id'], keep='last', inplace=True, ignore_index = True)
+    order_items = order_items.drop(columns=['order_item_id', 'product_id', 'shipping_limit_date', 'price', 'freight_value', 'seller_city'])
+    order_items = pd.merge(order_items, df_geolocation, left_on='seller_zip_code_prefix', 
+                        right_on='geolocation_zip_code_prefix',
+                        how="inner", )
+    st.dataframe(order_items)
     
 df_order_item = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_items_dataset.csv")
 df_order_review = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_reviews_dataset.csv")
@@ -178,8 +178,8 @@ if (selected == '10122096') :
     st.header(f"Dashboard Analisis E-Commerce oleh Mizan")
     tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
     
-    # with tab1:
-    #     pertanyaan1_10122096(df_orders, df_order_review)
+    with tab1:
+        pertanyaan4_10122096(df_orders, df_order_item, df_customers, df_sellers, df_geolocation)
         
     # with tab2:
     #     pertanyaan2_10122096(df_order_review)

@@ -287,8 +287,8 @@ if (selected == '10122079') :
     tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
     
     with tab1:
-        # pertanyaan4_10122096(df_orders, df_order_item, df_customers, df_sellers, df_geolocation)
-        st.dataframe(df_geolocation_merging)
+        pertanyaan4_10122096(df_geolocation_merging)
+        # st.dataframe(df_geolocation_merging)
         
     # with tab2:
     #     pertanyaan2_10122096(df_order_review)

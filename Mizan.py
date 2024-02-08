@@ -7,6 +7,13 @@ from streamlit_option_menu import option_menu
 from collections import Counter
 from geopy.distance import geodesic
 
+def make_pretty(styler):
+    styler.set_caption("Weather Conditions")
+    styler.format(rain_condition)
+    styler.format_index(lambda v: v.strftime("%A"))
+    styler.background_gradient(axis=None, vmin=1, vmax=5, cmap="YlGnBu")
+    return styler
+
 def pertanyaan1_10122096(reviews):
     st.write("<h4>Apakah highlight yang membuat customer memberikan review score yang kecil?<h4>", unsafe_allow_html=True)
     

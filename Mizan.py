@@ -158,11 +158,11 @@ def pertanyaan4_10122096(df_geolocation, order_reviews):
 
     col1, col2 = st.columns(2)
     with col1:
-        st.header("Dataframe")
+        st.write("Dataframe")
         st.dataframe(review_distance_df)
 
         with col2:
-            st.header("Tabel Korelasi")
+            st.write("Tabel Korelasi")
             st.write(orders_review_df.corr("spearman"))
     
     plt.figure()

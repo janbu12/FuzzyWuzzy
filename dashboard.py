@@ -170,7 +170,7 @@ df_customers = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/m
 df_geolocation = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/geolocation_dataset.csv")
 
 with st.sidebar :
-    selected = option_menu('Menu',['10122096', '10122095'],
+    selected = option_menu('Menu',['10122096', 'blablabla'],
     icons =["easel2", "graph-up"],
     menu_icon="cast",
     default_index=0)
@@ -188,6 +188,6 @@ if (selected == '10122096') :
     with tab3:
         pertanyaan3_10122096(df_orders, df_order_item, df_customers, df_sellers)
 
-elif (selected == '10122095'):
-    st.header(f"Dashboard Analisis E-Commerce oleh Singgih")
+elif (selected == 'blablabla'):
+    st.header(f"Dashboard Analisis E-Commerce oleh blablabla")
     tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])

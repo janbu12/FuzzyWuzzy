@@ -34,7 +34,7 @@ def pertanyaan1_10122096(reviews):
     
     #Grafik berdasarkan title
     with st.container():
-        st.dataframe(top_15_reasons_df.style.highlight_max(subset='jumlah', axis=0)
+        st.dataframe(top_15_reasons_df.style.highlight_max(subset='jumlah', axis=0, color='#198754')
                      .highlight_min(subset='jumlah', axis=0, color='#dc3545'), 
                      use_container_width=True, hide_index=True)
         
@@ -50,7 +50,7 @@ def pertanyaan1_10122096(reviews):
     
     #Grafik berdasarkan kata2 
     with st.container():
-        st.dataframe(common_negative_df_pt.style.highlight_max(subset='Jumlah', axis=0)
+        st.dataframe(common_negative_df_pt.style.highlight_max(subset='Jumlah', axis=0, color='#198754')
                      .highlight_min(subset='Jumlah', axis=0, color='#dc3545'), 
                      use_container_width=True, hide_index=True)
         
@@ -108,7 +108,7 @@ def pertanyaan2_10122096(delivered_orders, shipped_orders, approved_orders, orde
 
     # Grafik Heatmap
     with st.container():
-        st.dataframe(heatmap_data, use_container_width=True)
+        st.dataframe(heatmap_data.style.highlight_max(axis=0, color='#198754'), use_container_width=True)
 
     plt.figure()
     sea.heatmap(heatmap_data, cmap='coolwarm', annot=True, fmt='g')
@@ -130,8 +130,8 @@ def pertanyaan3_10122096(df_geolocation):
     rata_rata_jarak2 = rata_rata_jarak2.sort_values(ascending=True, by='distance_KM', ignore_index=True)
     
     with st.container():
-        st.dataframe(rata_rata_jarak2.style.highlight_max(subset='distance_KM', axis=0)
-                     .highlight_min(subset='distance_KM', axis=0, color='red'), 
+        st.dataframe(rata_rata_jarak2.style.highlight_max(subset='distance_KM', axis=0, color='#198754')
+                     .highlight_min(subset='distance_KM', axis=0, color='#dc3545'), 
                      use_container_width=True, hide_index=True)
 
     sea.set_theme()

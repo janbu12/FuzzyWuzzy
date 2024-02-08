@@ -149,6 +149,11 @@ def pertanyaan3_10122096(delivered_orders, shipped_orders, approved_orders, orde
     
     del orders_concat, merge_order_for_state, transaction_count, top_5_transactions, heatmap_data
 
+def hitung_jarak(row):
+    customer_coords = (row['geolocation_lat_x'], row['geolocation_lng_x'])
+    seller_coords = (row['geolocation_lat_y'], row['geolocation_lng_y'])
+    return geodesic(customer_coords, seller_coords).kilometers
+
 def pertanyaan4_10122096(delivered_orders, df_geolocation, order_items):
         orders_geo = pd.merge(delivered_orders[delivered_orders["order_status"] != "canceled"], df_geolocation, 
                             left_on='customer_zip_code_prefix', 
@@ -169,25 +174,25 @@ def pertanyaan4_10122096(delivered_orders, df_geolocation, order_items):
         order_items_geo = order_items_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state' ])
     
         merge_orders_df = pd.merge(orders_geo, order_items_geo, on="order_id", how="inner")
-        merge_orders_df['distance_KM'] = merge_orders_df.apply(hitung_jarak, axis=1)
+        # merge_orders_df['distance_KM'] = merge_orders_df.apply(hitung_jarak, axis=1)
 
-        rata_rata_jarak2 = merge_orders_df.groupby('seller_state')['distance_KM'].mean().reset_index()
-        rata_rata_jarak2 = rata_rata_jarak2.sort_values(ascending=True, by='distance_KM', ignore_index=True)
+        # rata_rata_jarak2 = merge_orders_df.groupby('seller_state')['distance_KM'].mean().reset_index()
+        # rata_rata_jarak2 = rata_rata_jarak2.sort_values(ascending=True, by='distance_KM', ignore_index=True)
         
-        st.dataframe(rata_rata_jarak2)
+        # st.dataframe(rata_rata_jarak2)
             
-        sea.set_theme()
+        # sea.set_theme()
     
-        plt.figure(figsize=(10, 6))
-        sea.barplot(data=rata_rata_jarak2, x='seller_state', y='distance_KM', palette='viridis', hue='seller_state')
-        plt.xlabel('Seller State')
-        plt.ylabel('Rata-rata Jarak (km)')
-        plt.title('Rata-rata Jarak berdasarkan Seller State')
-        plt.xticks(rotation=45)
-        plt.tight_layout()
-        fig = plt.gcf()
-        st.pyplot(fig)
-        del  rata_rata_jarak2
+        # plt.figure(figsize=(10, 6))
+        # sea.barplot(data=rata_rata_jarak2, x='seller_state', y='distance_KM', palette='viridis', hue='seller_state')
+        # plt.xlabel('Seller State')
+        # plt.ylabel('Rata-rata Jarak (km)')
+        # plt.title('Rata-rata Jarak berdasarkan Seller State')
+        # plt.xticks(rotation=45)
+        # plt.tight_layout()
+        # fig = plt.gcf()
+        # st.pyplot(fig)
+        # del  rata_rata_jarak2
         
         with st.expander("Penjelasan Mengenai Rata2 Jauh Pengiriman") :
             st.write("""dari grafik diatas bisa kita lihat bahwa SP merupakan seller state yang paling kecil rata-rata jarak pengirimannya, 
@@ -315,8 +320,8 @@ if (selected == '10122096') :
     with tab3:
         pertanyaan3_10122096(delivered_orders, shipped_orders, approved_orders, order_items)
 
-    # with tab4:
-    #     pertanyaan4_10122096(delivered_orders, df_geolocation, order_items)
+    with tab4:
+        pertanyaan4_10122096(delivered_orders, df_geolocation, order_items)
 
 elif (selected == 'blablabla'):
     st.header(f"Dashboard Analisis E-Commerce oleh blablabla")

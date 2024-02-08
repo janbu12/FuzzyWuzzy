@@ -166,7 +166,7 @@ def pertanyaan4_10122096(df_geolocation):
     sea.set_theme()
 
     plt.figure(figsize=(10, 6))
-    sea.barplot(data=rata_rata_jarak2, x='seller_state', y='distance_KM', palette='viridis')
+    sea.barplot(data=rata_rata_jarak2, x='seller_state', y='distance_KM', palette='viridis', hue='seller_state')
     plt.xlabel('Seller State')
     plt.ylabel('Rata-rata Jarak (km)')
     plt.title('Rata-rata Jarak berdasarkan Seller State')
@@ -205,7 +205,7 @@ def pertanyaan5_10122096(df_geolocation, order_reviews):
     plt.figure()
     sea.lineplot(x = review_distance_df.keys(), y = review_distance_df.values)
     sea.lineplot(x = review_distance_df.keys(), y = review_distance_df.values, style = review_distance_df.keys(), 
-                markers =["o", "o", "o", "o", "o"], 
+                markers =["o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o"], 
                 dashes = False)
     plt.title("Korelasi jauh pengiriman dan nilai review")
     plt.xlabel("Nilai Review")

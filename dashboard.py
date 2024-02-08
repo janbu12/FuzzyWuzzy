@@ -257,6 +257,28 @@ with st.sidebar :
     default_index=0)
     
 if (selected == '10122096') :
+    #Geolocation analysis
+    orders_geo = pd.merge(delivered_orders[delivered_orders["order_status"] != "canceled"], df_geolocation, 
+                        left_on='customer_zip_code_prefix', 
+                        right_on='geolocation_zip_code_prefix',
+                        how="inner")
+        
+    orders_geo['delivery_time'] = orders_geo['order_delivered_customer_date'] - orders_geo['order_delivered_carrier_date']
+    orders_geo['delivery_time'] = orders_geo['delivery_time'].dt.days
+
+    orders_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
+    orders_geo = orders_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state','customer_city','order_status',
+                                        'order_purchase_timestamp', 'order_approved_at', 'order_delivered_carrier_date', 'order_delivered_customer_date',
+                                        'order_estimated_delivery_date'])
+
+    order_items_geo = pd.merge(order_items[['order_id', 'seller_zip_code_prefix', 'seller_state']], df_geolocation, left_on="seller_zip_code_prefix", right_on="geolocation_zip_code_prefix", how="inner")
+
+    order_items_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
+    order_items_geo = order_items_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state' ])
+
+    merge_orders_df = pd.merge(orders_geo, order_items_geo, on="order_id", how="inner")
+    merge_orders_df['distance_KM'] = merge_orders_df.apply(hitung_jarak, axis=1)
+    
     st.header(f"Dashboard Analisis E-Commerce oleh Mizan")
     tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
     

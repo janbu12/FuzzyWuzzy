@@ -170,6 +170,11 @@ def pertanyaan4_10122096(df_geolocation, order_reviews):
     plt.ylabel("Rata-rata Pengiriman (km)")
     fig = plt.gcf()
     st.pyplot(fig)
+
+    with st.expander("Penjelasan Mengenai Dampak Jauh Pengiriman pada Nilai Review") :
+         st.write("""walaupun memang grafik terlihat signifikan semakin kecil reviewnya maka rata2 jaraknya semakin jauh pula, 
+                     tetapi pada tabel korelasi antara distance dan review score hanya (-0.064719) maka hampir tidak ada pengaruh sama sekali.""")
+    st.dataframe(orders_review_filtered)
     
     plt.figure()
     sea.lineplot(x = mean_distance_deliver_time_df.keys(), y = mean_distance_deliver_time_df.values)
@@ -183,12 +188,8 @@ def pertanyaan4_10122096(df_geolocation, order_reviews):
     fig = plt.gcf()
     st.pyplot(fig)
     
-    with st.expander("Penjelasan Mengenai Dampak Jauh Pengiriman pada Nilai Review dan Waktu Pengiriman") :
-        st.write("""<li>Korelasi Jauh Pengiriman pada Nilai Review</li>
-                        walaupun memang grafik terlihat signifikan semakin kecil reviewnya maka rata2 jaraknya semakin jauh pula, 
-                        tetapi pada tabel korelasi antara distance dan review score hanya (-0.064719) maka hampir tidak ada pengaruh sama sekali.
-                    <li>Korelasi Jauh Pengiriman pada Waktu Pengiriman</li>
-                        dari grafik dan tabel korelasi diatas dapat dilihat bahwa jarak pengiriman cukup berpegaruh terhadap waktu 
-                        pegiriman dengan korelasi (0.615205) dan grafiknya menggambarkan kenaikan yang signifikan""", unsafe_allow_html=True)
+    with st.expander("Penjelasan Mengenai Dampak Jauh Pengiriman pada Waktu Pengiriman") :
+        st.write("""Data waktu pengiriman yang diambil adalah 15 hari kebawah, dengan dari grafik dan tabel korelasi diatas dapat dilihat bahwa jarak pengiriman cukup berpegaruh terhadap waktu 
+                    pegiriman dengan korelasi (0.615205) dan grafiknya menggambarkan kenaikan yang signifikan""")
     
     del reviewsSort, orders_review_filtered, review_distance_df, mean_distance_deliver_time_df, fig

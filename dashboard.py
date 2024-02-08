@@ -152,8 +152,21 @@ def load_data(url) :
 
 #     del orders_df, merge_order_for_state, transaction_count, top_5_transactions, heatmap_data, order_item_df
 
-# def pertanyaan4_10122096(df_orders, df_order_item, df_customers, df_sellers, df_geolocation):
-    # st.dataframe(order_geo)
+def pertanyaan4_10122096(df_geolocation):
+    rata_rata_jarak2 = df_geolocation.groupby('seller_state')['distance_KM'].mean().reset_index()
+    rata_rata_jarak2 = rata_rata_jarak2.sort_values(ascending=True, by='distance_KM', ignore_index=True)
+
+    sea.set_theme()
+
+    plt.figure(figsize=(10, 6))
+    sea.barplot(data=rata_rata_jarak2, x='seller_state', y='distance_KM', palette='viridis')
+    plt.xlabel('Seller State')
+    plt.ylabel('Rata-rata Jarak (km)')
+    plt.title('Rata-rata Jarak berdasarkan Seller State')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    fig = plt.gcf()
+    st.pyplot(fig)
     
 df_order_item = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_items_dataset.csv")
 df_order_review = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_reviews_dataset.csv")

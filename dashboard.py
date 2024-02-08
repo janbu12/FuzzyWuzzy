@@ -49,73 +49,73 @@ def load_data(url) :
 #     del data, merge_reviews_deliver_order
 
 
-# def pertanyaan2_10122096(reviews):
-#     st.header("Apakah highlight yang membuat customer memberikan review score yang kecil?")
+def pertanyaan2_10122096(reviews):
+    st.header("Apakah highlight yang membuat customer memberikan review score yang kecil?")
     
-#     # Mendapatkan baris dengan nilai review_score kurang dari atau sama dengan 3
-#     low_scores = reviews[reviews['review_score'] <= 3]
-#     # Mendapatkan 15 judul komentar teratas yang paling sering muncul dalam DataFrame low_scores
-#     top_15_comment_titles = low_scores['review_comment_title'].value_counts().nlargest(15).index
-#     # Mendapatkan baris dari DataFrame low_scores di mana review_comment_title termasuk dalam 15 judul komentar teratas
-#     top_15_reasons = low_scores[low_scores['review_comment_title'].isin(top_15_comment_titles)]
-#     # Daftar kata-kata negatif dalam bahasa Portugis
-#     negative_words_pt = ['ruim', 'lento', 'danificado', 'decepcionado', 'decepcionante', 'problema', 'chato', 'péssimo', 'horroroso', 'terrível', 'frustrante', 'errado', 'defeito']
-#     # Mendapatkan baris dari DataFrame low_scores di mana panjang review_comment_message setidaknya 4 karakter
-#     low_scores_len = low_scores[low_scores['review_comment_message'].str.len() >= 4]
-#     # Mendapatkan frasa-frasa negatif yang diekstraksi dari kolom review_comment_message dalam DataFrame low_scores_len
-#     negative_phrases_pt = low_scores_len['review_comment_message'].apply(lambda x: [word.lower() for word in x.split() if word.lower() in negative_words_pt])
-#     negative_phrases_pt = [phrase for sublist in negative_phrases_pt for phrase in sublist]
-#     # Menghitung frekuensi kemunculan setiap kata negatif
-#     negative_freq_pt = Counter(negative_phrases_pt)
-#     # Mendapatkan lima kata negatif yang paling umum berserta jumlah kemunculannya
-#     common_negative_pt = negative_freq_pt.most_common(5)
-#     # Membuat DataFrame dari common_negative_pt
-#     common_negative_df_pt = pd.DataFrame(common_negative_pt, columns=['Kata', 'Jumlah'])
-#     # Mendapatkan jumlah kemunculan setiap kombinasi review_score dan review_comment_title
-#     top_15_reasons_df = top_15_reasons.groupby(['review_score', 'review_comment_title']).size().reset_index(name='jumlah')
-#     #Grafik berdasarkan title    
-#     st.dataframe(top_15_reasons_df)
-#     plt.figure(figsize=(10, 6))
-#     sea.countplot(x='review_score', hue='review_comment_title', data=top_15_reasons, palette='Set2')
-#     plt.title('15 Faktor Mengapa Review Score Rendah Berdasarkan Comment Title')
-#     plt.xlabel('Review Score')
-#     plt.ylabel('Count')
-#     plt.legend(title='Review Comment Title', bbox_to_anchor=(1, 1), loc='upper left')
-#     fig = plt.gcf()
-#     st.pyplot(fig)
+    # Mendapatkan baris dengan nilai review_score kurang dari atau sama dengan 3
+    low_scores = reviews[reviews['review_score'] <= 3]
+    # Mendapatkan 15 judul komentar teratas yang paling sering muncul dalam DataFrame low_scores
+    top_15_comment_titles = low_scores['review_comment_title'].value_counts().nlargest(15).index
+    # Mendapatkan baris dari DataFrame low_scores di mana review_comment_title termasuk dalam 15 judul komentar teratas
+    top_15_reasons = low_scores[low_scores['review_comment_title'].isin(top_15_comment_titles)]
+    # Daftar kata-kata negatif dalam bahasa Portugis
+    negative_words_pt = ['ruim', 'lento', 'danificado', 'decepcionado', 'decepcionante', 'problema', 'chato', 'péssimo', 'horroroso', 'terrível', 'frustrante', 'errado', 'defeito']
+    # Mendapatkan baris dari DataFrame low_scores di mana panjang review_comment_message setidaknya 4 karakter
+    low_scores_len = low_scores[low_scores['review_comment_message'].str.len() >= 4]
+    # Mendapatkan frasa-frasa negatif yang diekstraksi dari kolom review_comment_message dalam DataFrame low_scores_len
+    negative_phrases_pt = low_scores_len['review_comment_message'].apply(lambda x: [word.lower() for word in x.split() if word.lower() in negative_words_pt])
+    negative_phrases_pt = [phrase for sublist in negative_phrases_pt for phrase in sublist]
+    # Menghitung frekuensi kemunculan setiap kata negatif
+    negative_freq_pt = Counter(negative_phrases_pt)
+    # Mendapatkan lima kata negatif yang paling umum berserta jumlah kemunculannya
+    common_negative_pt = negative_freq_pt.most_common(5)
+    # Membuat DataFrame dari common_negative_pt
+    common_negative_df_pt = pd.DataFrame(common_negative_pt, columns=['Kata', 'Jumlah'])
+    # Mendapatkan jumlah kemunculan setiap kombinasi review_score dan review_comment_title
+    top_15_reasons_df = top_15_reasons.groupby(['review_score', 'review_comment_title']).size().reset_index(name='jumlah')
+    #Grafik berdasarkan title    
+    st.dataframe(top_15_reasons_df)
+    plt.figure(figsize=(10, 6))
+    sea.countplot(x='review_score', hue='review_comment_title', data=top_15_reasons, palette='Set2')
+    plt.title('15 Faktor Mengapa Review Score Rendah Berdasarkan Comment Title')
+    plt.xlabel('Review Score')
+    plt.ylabel('Count')
+    plt.legend(title='Review Comment Title', bbox_to_anchor=(1, 1), loc='upper left')
+    fig = plt.gcf()
+    st.pyplot(fig)
     
     
-#     #Grafik berdasarkan kata2 
-#     st.dataframe(common_negative_df_pt)
-#     fig, ax = plt.subplots()
-#     ax.barh(common_negative_df_pt['Kata'], common_negative_df_pt['Jumlah'])
-#     ax.set_title('5 Kata Negatif Terbanyak Dalam Review Score Rendah Berdasarkan Review Message')
-#     ax.set_xlabel('Jumlah')
-#     ax.set_ylabel('Kata')
+    #Grafik berdasarkan kata2 
+    st.dataframe(common_negative_df_pt)
+    fig, ax = plt.subplots()
+    ax.barh(common_negative_df_pt['Kata'], common_negative_df_pt['Jumlah'])
+    ax.set_title('5 Kata Negatif Terbanyak Dalam Review Score Rendah Berdasarkan Review Message')
+    ax.set_xlabel('Jumlah')
+    ax.set_ylabel('Kata')
     
-#     st.pyplot(fig)
+    st.pyplot(fig)
     
-#     #Expander Grafik
-#     with st.expander("Penjelasan Mengenai Alasan Highlight Score Rendah") :
-#         st.write("""<list>
-#                         <li>Produto errado = Produk yang salah
-#                         <li>Produto com defeito = Produk cacat
-#                         <li>Nao recomendo = Tidak merekomendasikan
-#                         <li>Pessimo = Sangat buruk
-#                         <li>Producto nao entregue = Produk tidak terkirim
-#                         <li>Ruim = Buruk
-#                         <li>Nao recebi = Tidak diterima
-#                 </list>""", unsafe_allow_html=True) 
-#         st.write("""<list>
-#                         <li> Problema = Bermasalah
-#                         <li> Defeito = Cacat
-#                         <li> Errado = Salah
-#                         <li> Ruim = Buruk
-#                         <li> Pessimo = Sangat Buruk
-#                     </list>""", unsafe_allow_html=True)
-#         st.write("Dari grafik diatas dapat dilihat bahwa kata bermasalah sebanyak 303, cacat(154), dengan title Produk cacat(22), Produk salah(30), dll, walaupun terbilang sedikit, tetap saja harapannya perusahaan dapat memperbaiki produk yang salah, cacat, bahkan tidak terkirim, dll.")
+    #Expander Grafik
+    with st.expander("Penjelasan Mengenai Alasan Highlight Score Rendah") :
+        st.write("""<list>
+                        <li>Produto errado = Produk yang salah
+                        <li>Produto com defeito = Produk cacat
+                        <li>Nao recomendo = Tidak merekomendasikan
+                        <li>Pessimo = Sangat buruk
+                        <li>Producto nao entregue = Produk tidak terkirim
+                        <li>Ruim = Buruk
+                        <li>Nao recebi = Tidak diterima
+                </list>""", unsafe_allow_html=True) 
+        st.write("""<list>
+                        <li> Problema = Bermasalah
+                        <li> Defeito = Cacat
+                        <li> Errado = Salah
+                        <li> Ruim = Buruk
+                        <li> Pessimo = Sangat Buruk
+                    </list>""", unsafe_allow_html=True)
+        st.write("Dari grafik diatas dapat dilihat bahwa kata bermasalah sebanyak 303, cacat(154), dengan title Produk cacat(22), Produk salah(30), dll, walaupun terbilang sedikit, tetap saja harapannya perusahaan dapat memperbaiki produk yang salah, cacat, bahkan tidak terkirim, dll.")
 
-#     del low_scores, top_15_comment_titles, negative_words_pt, low_scores_len, negative_phrases_pt, negative_freq_pt, common_negative_pt, top_15_reasons_df, common_negative_df_pt
+    del low_scores, top_15_comment_titles, negative_words_pt, low_scores_len, negative_phrases_pt, negative_freq_pt, common_negative_pt, top_15_reasons_df, common_negative_df_pt
 
 def pertanyaan3_10122096(delivered_orders, shipped_orders, approved_orders, order_item):
     st.header("Apakah kesamaan negara asal antara seller dan customer berpengaruh terhadap jumlah pembelian?")
@@ -355,17 +355,16 @@ if (selected == '10122079') :
     tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
     
     with tab1:
-        pertanyaan4_10122096(df_geolocation_merging)
-        # st.dataframe(df_geolocation_merging)
+        pertanyaan2_10122096(df_order_review)
         
     with tab2:
         pertanyaan3_10122096(delivered_orders, shipped_orders, approved_orders, order_items)
         
     with tab3:
-        pertanyaan5_10122096(df_geolocation_merging, df_order_review)
+        pertanyaan4_10122096(df_geolocation_merging)
 
-    # with tab4:
-    #     pertanyaan4_10122096(df_orders, df_order_item, df_customers, df_sellers, df_geolocation)
+    with tab4:
+        pertanyaan5_10122096(df_geolocation_merging, df_order_review)
 
 elif (selected == '10122096'):
     st.header(f"Dashboard Analisis E-Commerce oleh Mizan")

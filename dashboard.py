@@ -112,7 +112,7 @@ def pertanyaan2_10122096(reviews):
                     </list>""", unsafe_allow_html=True)
         st.write("Dari grafik diatas dapat dilihat bahwa kata bermasalah sebanyak 303, cacat(154), dengan title Produk cacat(22), Produk salah(30), dll, walaupun terbilang sedikit, tetap saja harapannya perusahaan dapat memperbaiki produk yang salah, cacat, bahkan tidak terkirim, dll.")
         
-def pertanyaan3_10122096(orders, order_item, df_customers, sellers):
+def pertanyaan3_10122096(orders, order_item, customers, sellers):
     st.header("Apakah kesamaan negara asal antara seller dan customer berpengaruh terhadap jumlah pembelian?")
     
     #Mengambil data orders dengan status terkirim, diproses, dikirim

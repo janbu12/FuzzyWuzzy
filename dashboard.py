@@ -118,8 +118,8 @@ st.markdown("""
 
 with st.sidebar :
     selected = option_menu('Menu',['10122079','10122096', '10122104', '10122105','10122114', '220170203'],
-    icons =["easel2", "graph-up"],
-    menu_icon="cast",
+    icons =["person-circle","person-workspace","person-badge-fill"],
+    menu_icon="person-lines-fill",
     default_index=0,
     styles={
         "nav": {"font-family": 'Poppins'},

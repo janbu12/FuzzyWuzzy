@@ -7,7 +7,7 @@ from streamlit_option_menu import option_menu
 from collections import Counter
 from geopy.distance import geodesic
 
-@st.cache_data
+@st.cache_data(max_entries=1000) 
 #Load Data CSV
 def load_data(url) :
     df = pd.read_csv(url)

@@ -33,7 +33,7 @@ def pertanyaan1_10122096(reviews):
     top_15_reasons_df = top_15_reasons.groupby(['review_score', 'review_comment_title']).size().reset_index(name='jumlah')
     
     #Grafik berdasarkan title
-    with st.container(border=True):
+    with st.container():
         st.dataframe(top_15_reasons_df, use_container_width=True)
         
     plt.figure(figsize=(10, 6))
@@ -47,7 +47,7 @@ def pertanyaan1_10122096(reviews):
     
     
     #Grafik berdasarkan kata2 
-    with st.container(border=True):
+    with st.container(e):
         st.dataframe(common_negative_df_pt, use_container_width=True)
         
     fig, ax = plt.subplots()
@@ -103,7 +103,7 @@ def pertanyaan2_10122096(delivered_orders, shipped_orders, approved_orders, orde
     heatmap_data = top_5_transactions.pivot_table(index='seller_state', columns='customer_state', values='transaction_count')
 
     # Grafik Heatmap
-    with st.container(border=True):
+    with st.container():
         st.dataframe(heatmap_data, use_container_width=True)
 
     plt.figure()
@@ -125,7 +125,7 @@ def pertanyaan3_10122096(df_geolocation):
     rata_rata_jarak2 = df_geolocation.groupby('seller_state')['distance_KM'].mean().reset_index()
     rata_rata_jarak2 = rata_rata_jarak2.sort_values(ascending=True, by='distance_KM', ignore_index=True)
     
-    with st.container(border=True):
+    with st.container():
         st.dataframe(rata_rata_jarak2, use_container_width=True)
 
     sea.set_theme()

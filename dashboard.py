@@ -154,8 +154,21 @@ def hitung_jarak(row):
     seller_coords = (row['geolocation_lat_y'], row['geolocation_lng_y'])
     return geodesic(customer_coords, seller_coords).kilometers
 
-def pertanyaan4_10122096(delivered_orders, df_geolocation, order_items):
-    orders_geo = pd.merge(delivered_orders[delivered_orders["order_status"] != "canceled"], df_geolocation,  left_on='customer_zip_code_prefix', right_on='geolocation_zip_code_prefix', how="inner")
+def pertanyaan4_10122096(orders, geolocation, order_items):
+    order_items = pd.merge(order_items, sellers, on='seller_id', how="inner")
+    order_items_geo = pd.merge(order_items, geolocation, left_on="seller_zip_code_prefix", right_on="geolocation_zip_code_prefix", how="inner")
+    order_items_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
+    order_items_geo = order_items_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state','seller_city'])
+    orders = pd.merge(orders[orders['order_status']=='delivered'], customers, on='customer_id', how="inner")
+    orders_geo =  pd.merge(orders, geolocation, left_on="customer_zip_code_prefix", right_on="geolocation_zip_code_prefix", how="inner")
+    orders_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
+    orders_geo = orders_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state','customer_city','order_status',
+                                          'order_purchase_timestamp', 'order_approved_at', 'order_delivered_carrier_date', 'order_delivered_customer_date',
+                                          'order_estimated_delivery_date', 'customer_unique_id'])
+    merge_orders = pd.merge(orders_geo, order_items_geo, on="order_id", how="inner")
+    merge_orders['distance_KM'] = merge_orders.apply(hitung_jarak, axis=1)
+    rata_rata_jarak2 = merge_orders.groupby('seller_state')['distance_KM'].mean().reset_index()
+    rata_rata_jarak2 = rata_rata_jarak2.sort_values(ascending=True, by='distance_KM', ignore_index=True)
             
         # orders_geo['delivery_time'] = orders_geo['order_delivered_customer_date'] - orders_geo['order_delivered_carrier_date']
         # orders_geo['delivery_time'] = orders_geo['delivery_time'].dt.days
@@ -191,10 +204,10 @@ def pertanyaan4_10122096(delivered_orders, df_geolocation, order_items):
         # st.pyplot(fig)
         # del  rata_rata_jarak2
         
-    with st.expander("Penjelasan Mengenai Rata2 Jauh Pengiriman") :
-        st.write("""dari grafik diatas bisa kita lihat bahwa SP merupakan seller state yang paling kecil rata-rata jarak pengirimannya, 
-                 dan cocok dengan analasis pertanyaan sebelumnya tentang SP adalah seller state dengan tingkat populer yang tinggi 
-                 berdasarkan kesamaan state customer, yang cukup menjadi salah satu alasan mengapa seller state SP tingkat pembelinya tinggi""")
+    # with st.expander("Penjelasan Mengenai Rata2 Jauh Pengiriman") :
+    #     st.write("""dari grafik diatas bisa kita lihat bahwa SP merupakan seller state yang paling kecil rata-rata jarak pengirimannya, 
+    #              dan cocok dengan analasis pertanyaan sebelumnya tentang SP adalah seller state dengan tingkat populer yang tinggi 
+    #              berdasarkan kesamaan state customer, yang cukup menjadi salah satu alasan mengapa seller state SP tingkat pembelinya tinggi""")
 
     
 df_order_item = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_items_dataset.csv")
@@ -238,66 +251,6 @@ products.drop("product_category_name_english", axis = 1, inplace = True)
 products.rename(columns = {"product_name_lenght" : "product_name_length", "product_description_lenght" : "product_description_length"}, inplace = True)
 del product_category_name_translation
 
-order_items = df_order_item.join(products.set_index("product_id"), "product_id", validate = "m:1")
-order_items.drop("product_id", axis = 1, inplace = True)
-del products
-
-order_items = order_items.join(df_sellers.set_index("seller_id"), "seller_id", validate = "m:1")
-order_items.drop("seller_id", axis = 1, inplace = True)
-del df_sellers
-
-orders = df_orders.join(df_customers.set_index("customer_id"),"customer_id", validate = "1:1")
-orders.drop(["customer_id", "customer_unique_id"], axis = 1, inplace = True)
-del df_customers
-
-#Null Value Removal
-order_items.dropna(axis = 0, how = "any", inplace = True, ignore_index = True)
-
-order_reviews.drop(["review_comment_title", "review_comment_message"], axis = 1, inplace = True)
-
-canceled_orders    = orders[orders["order_status"] == "canceled"]
-created_orders     = orders[orders["order_status"] == "created"]
-shipped_orders     = orders[orders["order_status"] == "shipped"]
-unavailable_orders = orders[orders["order_status"] == "unavailable"]
-invoiced_orders    = orders[orders["order_status"] == "invoiced"]
-processing_orders  = orders[orders["order_status"] == "processing"]
-approved_orders    = orders[orders["order_status"] == "approved"]
-
-orders.drop(orders[orders["order_status"] == "canceled"].index, inplace = True)
-orders.drop(orders[orders["order_status"] == "created"].index, inplace = True)
-orders.drop(orders[orders["order_status"] == "unavailable"].index, inplace = True)
-orders.drop(orders[orders["order_status"] == "invoiced"].index, inplace = True)
-orders.drop(orders[orders["order_status"] == "processing"].index, inplace = True)
-orders.drop(orders[orders["order_status"] == "shipped"].index, inplace = True)
-orders.drop(orders[orders["order_status"] == "approved"].index, inplace = True)
-
-orders.dropna(axis = 0, how = "any", inplace = True, ignore_index = True)
-delivered_orders = orders
-del orders
-
-approved_orders = pd.concat([approved_orders, unavailable_orders, invoiced_orders, processing_orders], ignore_index = True)
-approved_orders.drop(["order_delivered_carrier_date", "order_delivered_customer_date"], axis = 1, inplace = True)
-del unavailable_orders, invoiced_orders, processing_orders
-
-created_orders.drop(["order_approved_at", "order_delivered_carrier_date", "order_delivered_customer_date"], axis = 1, inplace = True)
-shipped_orders.drop("order_delivered_customer_date", axis = 1, inplace = True)
-
-delivered = canceled_orders[canceled_orders["order_delivered_customer_date"].notnull()]
-shipped   = canceled_orders[(canceled_orders["order_delivered_carrier_date"].notnull()) & (canceled_orders["order_delivered_customer_date"].isnull())]
-approved  = canceled_orders[(canceled_orders["order_approved_at"].notnull()) & (canceled_orders["order_delivered_customer_date"].isnull()) & (canceled_orders["order_delivered_carrier_date"].isnull())]
-created   = canceled_orders[(canceled_orders["order_approved_at"].isnull()) & (canceled_orders["order_delivered_carrier_date"].isnull()) & (canceled_orders["order_delivered_customer_date"].isnull())]
-
-shipped.drop("order_delivered_customer_date", axis = 1, inplace = True)
-approved.drop(["order_delivered_customer_date", "order_delivered_carrier_date"], axis = 1, inplace = True)
-created.drop(["order_delivered_customer_date", "order_delivered_carrier_date", "order_approved_at"], axis = 1, inplace = True)
-
-delivered_orders = pd.concat([delivered_orders, delivered], ignore_index = True)
-shipped_orders   = pd.concat([shipped_orders, shipped], ignore_index = True)
-approved_orders  = pd.concat([approved_orders, approved], ignore_index = True)
-created_orders   = pd.concat([created_orders, created], ignore_index = True)
-
-del canceled_orders, delivered, shipped, approved, created
-
 with st.sidebar :
     selected = option_menu('Menu',['10122096', 'blablabla'],
     icons =["easel2", "graph-up"],
@@ -315,10 +268,10 @@ if (selected == '10122096') :
         pertanyaan2_10122096(df_order_review)
         
     with tab3:
-        pertanyaan3_10122096(delivered_orders, shipped_orders, approved_orders, order_items)
+        pertanyaan3_10122096(delivered_orders, shipped_orders, approved_orders, df_order_item)
 
     with tab4:
-        pertanyaan4_10122096(delivered_orders, df_geolocation, order_items)
+        pertanyaan4_10122096(df_orders, df_geolocation, order_items):
 
 elif (selected == 'blablabla'):
     st.header(f"Dashboard Analisis E-Commerce oleh blablabla")

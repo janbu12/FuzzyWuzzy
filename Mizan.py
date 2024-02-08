@@ -171,6 +171,8 @@ def pertanyaan4_10122096(df_geolocation, order_reviews):
     review_distance_df   = orders_review_df.groupby("review_score")["distance_KM"].mean()
     review_distance_df2  = pd.DataFrame({"review_score":review_distance_df.keys(), "distance":review_distance_df.values})
     mean_distance_deliver_time_df = orders_review_filtered.groupby("delivery_time")["distance_KM"].mean()
+    mean_distance_deliver_time_df2  = pd.DataFrame({"delivery_time":mean_distance_deliver_time_df.keys(), "distance":mean_distance_deliver_time_df.values})
+    
 
     with st.container(border=True):
         col1, col2 = st.columns([0.5,0.5])
@@ -200,9 +202,9 @@ def pertanyaan4_10122096(df_geolocation, order_reviews):
                      tetapi pada tabel korelasi antara distance dan review score hanya (-0.064719) maka hampir tidak ada pengaruh sama sekali.""")
 
     with st.container(border=True):
-        st.dataframe(mean_distance_deliver_time_df.highlight_max(subset='distance_KM', axis=0, color='#198754')
-                                                 .highlight_min(subset='distance_KM', axis=0, color='#dc3545'), 
-                                                  use_container_width=True)
+        st.dataframe(mean_distance_deliver_time_df2.highlight_max(subset='distance_KM', axis=0, color='#198754')
+                                                   .highlight_min(subset='distance_KM', axis=0, color='#dc3545'), 
+                                                   use_container_width=True)
         st.write("Dengan total data: ",len(orders_review_filtered))
     
     plt.figure()

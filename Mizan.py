@@ -157,10 +157,9 @@ def pertanyaan4_10122096(df_geolocation, order_reviews):
     mean_distance_deliver_time_df = orders_review_filtered.groupby("delivery_time")["distance_KM"].mean()
 
     col1, col2 = st.columns(2)
-
-        with col1:
-            st.header("Dataframe")
-            st.dataframe(review_distance_df)
+    with col1:
+        st.header("Dataframe")
+        st.dataframe(review_distance_df)
 
         with col1:
             st.header("Tabel Korelasi")

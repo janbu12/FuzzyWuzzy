@@ -157,7 +157,7 @@ def hitung_jarak(row):
 
 def pertanyaan4_10122096(orders, geolocation, df_order_item, customers, sellers):
     order_items = pd.merge(df_order_item, sellers, on='seller_id', how="inner")
-    order_items_geo = pd.merge(order_items, geolocation, left_on="seller_zip_code_prefix", right_on="geolocation_zip_code_prefix", how="inner")
+    # order_items_geo = pd.merge(order_items, geolocation, left_on="seller_zip_code_prefix", right_on="geolocation_zip_code_prefix", how="inner")
     # order_items_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
     # order_items_geo = order_items_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state','seller_city'])
     # orders = pd.merge(orders[orders['order_status']=='delivered'], customers, on='customer_id', how="inner")
@@ -171,39 +171,39 @@ def pertanyaan4_10122096(orders, geolocation, df_order_item, customers, sellers)
     # rata_rata_jarak2 = merge_orders.groupby('seller_state')['distance_KM'].mean().reset_index()
     # rata_rata_jarak2 = rata_rata_jarak2.sort_values(ascending=True, by='distance_KM', ignore_index=True)
             
-        # orders_geo['delivery_time'] = orders_geo['order_delivered_customer_date'] - orders_geo['order_delivered_carrier_date']
-        # orders_geo['delivery_time'] = orders_geo['delivery_time'].dt.days
-    
-        # orders_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
-        # orders_geo = orders_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state','customer_city','order_status',
-        #                                     'order_purchase_timestamp', 'order_approved_at', 'order_delivered_carrier_date', 'order_delivered_customer_date',
-        #                                     'order_estimated_delivery_date'])
-    
-        # order_items_geo = pd.merge(order_items[['order_id', 'seller_zip_code_prefix', 'seller_state']], df_geolocation, left_on="seller_zip_code_prefix", right_on="geolocation_zip_code_prefix", how="inner")
-    
-        # order_items_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
-        # order_items_geo = order_items_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state' ])
-    
-        # merge_orders_df = pd.merge(orders_geo, order_items_geo, on="order_id", how="inner")
-        # merge_orders_df['distance_KM'] = merge_orders_df.apply(hitung_jarak, axis=1)
+    # orders_geo['delivery_time'] = orders_geo['order_delivered_customer_date'] - orders_geo['order_delivered_carrier_date']
+    # orders_geo['delivery_time'] = orders_geo['delivery_time'].dt.days
 
-        # rata_rata_jarak2 = merge_orders_df.groupby('seller_state')['distance_KM'].mean().reset_index()
-        # rata_rata_jarak2 = rata_rata_jarak2.sort_values(ascending=True, by='distance_KM', ignore_index=True)
-        
-        # st.dataframe(rata_rata_jarak2)
-            
-        # sea.set_theme()
+    # orders_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
+    # orders_geo = orders_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state','customer_city','order_status',
+    #                                     'order_purchase_timestamp', 'order_approved_at', 'order_delivered_carrier_date', 'order_delivered_customer_date',
+    #                                     'order_estimated_delivery_date'])
+
+    # order_items_geo = pd.merge(order_items[['order_id', 'seller_zip_code_prefix', 'seller_state']], df_geolocation, left_on="seller_zip_code_prefix", right_on="geolocation_zip_code_prefix", how="inner")
+
+    # order_items_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
+    # order_items_geo = order_items_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state' ])
+
+    # merge_orders_df = pd.merge(orders_geo, order_items_geo, on="order_id", how="inner")
+    # merge_orders_df['distance_KM'] = merge_orders_df.apply(hitung_jarak, axis=1)
+
+    # rata_rata_jarak2 = merge_orders_df.groupby('seller_state')['distance_KM'].mean().reset_index()
+    # rata_rata_jarak2 = rata_rata_jarak2.sort_values(ascending=True, by='distance_KM', ignore_index=True)
     
-        # plt.figure(figsize=(10, 6))
-        # sea.barplot(data=rata_rata_jarak2, x='seller_state', y='distance_KM', palette='viridis', hue='seller_state')
-        # plt.xlabel('Seller State')
-        # plt.ylabel('Rata-rata Jarak (km)')
-        # plt.title('Rata-rata Jarak berdasarkan Seller State')
-        # plt.xticks(rotation=45)
-        # plt.tight_layout()
-        # fig = plt.gcf()
-        # st.pyplot(fig)
-        # del  rata_rata_jarak2
+    # st.dataframe(rata_rata_jarak2)
+        
+    # sea.set_theme()
+
+    # plt.figure(figsize=(10, 6))
+    # sea.barplot(data=rata_rata_jarak2, x='seller_state', y='distance_KM', palette='viridis', hue='seller_state')
+    # plt.xlabel('Seller State')
+    # plt.ylabel('Rata-rata Jarak (km)')
+    # plt.title('Rata-rata Jarak berdasarkan Seller State')
+    # plt.xticks(rotation=45)
+    # plt.tight_layout()
+    # fig = plt.gcf()
+    # st.pyplot(fig)
+    # del  rata_rata_jarak2
         
     # with st.expander("Penjelasan Mengenai Rata2 Jauh Pengiriman") :
     #     st.write("""dari grafik diatas bisa kita lihat bahwa SP merupakan seller state yang paling kecil rata-rata jarak pengirimannya, 

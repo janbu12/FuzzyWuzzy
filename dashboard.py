@@ -149,7 +149,7 @@ def pertanyaan3_10122096(delivered_orders, shipped_orders, approved_orders, orde
     
     del orders_concat, merge_order_for_state, transaction_count, top_5_transactions, heatmap_data
 
-def geoanalisis(delivered_orders, df_geolocation, order_items):
+def pertanyaan4_10122096(delivered_orders, df_geolocation, order_items):
         orders_geo = pd.merge(delivered_orders[delivered_orders["order_status"] != "canceled"], df_geolocation, 
                             left_on='customer_zip_code_prefix', 
                             right_on='geolocation_zip_code_prefix',
@@ -170,6 +170,29 @@ def geoanalisis(delivered_orders, df_geolocation, order_items):
     
         merge_orders_df = pd.merge(orders_geo, order_items_geo, on="order_id", how="inner")
         merge_orders_df['distance_KM'] = merge_orders_df.apply(hitung_jarak, axis=1)
+
+        rata_rata_jarak2 = merge_orders_df.groupby('seller_state')['distance_KM'].mean().reset_index()
+        rata_rata_jarak2 = rata_rata_jarak2.sort_values(ascending=True, by='distance_KM', ignore_index=True)
+        
+        st.dataframe(rata_rata_jarak2)
+            
+        sea.set_theme()
+    
+        plt.figure(figsize=(10, 6))
+        sea.barplot(data=rata_rata_jarak2, x='seller_state', y='distance_KM', palette='viridis', hue='seller_state')
+        plt.xlabel('Seller State')
+        plt.ylabel('Rata-rata Jarak (km)')
+        plt.title('Rata-rata Jarak berdasarkan Seller State')
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        fig = plt.gcf()
+        st.pyplot(fig)
+        del  rata_rata_jarak2
+        
+        with st.expander("Penjelasan Mengenai Rata2 Jauh Pengiriman") :
+            st.write("""dari grafik diatas bisa kita lihat bahwa SP merupakan seller state yang paling kecil rata-rata jarak pengirimannya, 
+                     dan cocok dengan analasis pertanyaan sebelumnya tentang SP adalah seller state dengan tingkat populer yang tinggi 
+                     berdasarkan kesamaan state customer, yang cukup menjadi salah satu alasan mengapa seller state SP tingkat pembelinya tinggi""")
 
     
 df_order_item = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_items_dataset.csv")
@@ -273,27 +296,6 @@ created_orders   = pd.concat([created_orders, created], ignore_index = True)
 
 del canceled_orders, delivered, shipped, approved, created
 
-orders_geo = pd.merge(delivered_orders[delivered_orders["order_status"] != "canceled"], df_geolocation, 
-                            left_on='customer_zip_code_prefix', 
-                            right_on='geolocation_zip_code_prefix',
-                            how="inner")
-            
-orders_geo['delivery_time'] = orders_geo['order_delivered_customer_date'] - orders_geo['order_delivered_carrier_date']
-orders_geo['delivery_time'] = orders_geo['delivery_time'].dt.days
-
-orders_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
-orders_geo = orders_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state','customer_city','order_status',
-                                    'order_purchase_timestamp', 'order_approved_at', 'order_delivered_carrier_date', 'order_delivered_customer_date',
-                                    'order_estimated_delivery_date'])
-
-order_items_geo = pd.merge(order_items[['order_id', 'seller_zip_code_prefix', 'seller_state']], df_geolocation, left_on="seller_zip_code_prefix", right_on="geolocation_zip_code_prefix", how="inner")
-
-order_items_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
-order_items_geo = order_items_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state' ])
-
-merge_orders_df = pd.merge(orders_geo, order_items_geo, on="order_id", how="inner")
-merge_orders_df['distance_KM'] = merge_orders_df.apply(hitung_jarak, axis=1)
-
 with st.sidebar :
     selected = option_menu('Menu',['10122096', 'blablabla'],
     icons =["easel2", "graph-up"],
@@ -312,6 +314,9 @@ if (selected == '10122096') :
         
     with tab3:
         pertanyaan3_10122096(delivered_orders, shipped_orders, approved_orders, order_items)
+
+    with tab4:
+        pertanyaan4_10122096(delivered_orders, df_geolocation, order_items)
 
 elif (selected == 'blablabla'):
     st.header(f"Dashboard Analisis E-Commerce oleh blablabla")

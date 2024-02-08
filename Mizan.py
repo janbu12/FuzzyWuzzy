@@ -35,7 +35,7 @@ def pertanyaan1_10122096(reviews):
     #Grafik berdasarkan title
     with st.container():
         st.dataframe(top_15_reasons_df.style.highlight_max(subset='jumlah', axis=0)
-                     .highlight_min(subset='jumlah', axis=0, color='red'), 
+                     .highlight_min(subset='jumlah', axis=0, color='#dc3545'), 
                      use_container_width=True, hide_index=True)
         
     plt.figure(figsize=(10, 6))
@@ -51,7 +51,7 @@ def pertanyaan1_10122096(reviews):
     #Grafik berdasarkan kata2 
     with st.container():
         st.dataframe(common_negative_df_pt.style.highlight_max(subset='Jumlah', axis=0)
-                     .highlight_min(subset='Jumlah', axis=0, color='red'), 
+                     .highlight_min(subset='Jumlah', axis=0, color='#dc3545'), 
                      use_container_width=True, hide_index=True)
         
     fig, ax = plt.subplots()

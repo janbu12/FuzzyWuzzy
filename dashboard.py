@@ -7,8 +7,7 @@ from streamlit_option_menu import option_menu
 from collections import Counter
 from geopy.distance import geodesic
 
-@st.cache_data(max_entries=1000) 
-#Load Data CSV
+@st.cache_data
 def load_data(url) :
     df = pd.read_csv(url)
     return df
@@ -153,14 +152,7 @@ def load_data(url) :
 
 #     del orders_df, merge_order_for_state, transaction_count, top_5_transactions, heatmap_data, order_item_df
 
-def pertanyaan4_10122096(df_orders, df_order_item, df_customers, df_sellers, df_geolocation):
-    order_items = pd.merge(df_order_item, df_sellers, on='seller_id', how='inner')
-    order_items.drop_duplicates(['order_id'], keep='last', inplace=True, ignore_index = True)
-    order_items = order_items.drop(columns=['order_item_id', 'product_id', 'shipping_limit_date', 'price', 'freight_value', 'seller_city'])
-    order_geo = pd.merge(order_items, df_geolocation, left_on='seller_zip_code_prefix', 
-                        right_on='geolocation_zip_code_prefix',
-                        how="inner", )
-    order_geo.drop_duplicates(['order_id'], keep='last', inplace=True, ignore_index = True)
+# def pertanyaan4_10122096(df_orders, df_order_item, df_customers, df_sellers, df_geolocation):
     # st.dataframe(order_geo)
     
 df_order_item = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_items_dataset.csv")
@@ -169,6 +161,20 @@ df_orders = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main
 df_sellers = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/sellers_dataset.csv")
 df_customers = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/customers_dataset.csv")
 df_geolocation = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/geolocation_dataset.csv")
+
+#Cleaning
+
+#Type Alteration
+df_order_item["shipping_limit_date"] = df_order_item["shipping_limit_date"].astype("datetime64[ns]")
+
+df_order_review["review_creation_date"]    = df_order_review["review_creation_date"].astype("datetime64[ns]")
+df_order_review["review_answer_timestamp"] = df_order_review["review_answer_timestamp"].astype("datetime64[ns]")
+
+df_orders["order_purchase_timestamp"]      = df_orders["order_purchase_timestamp"].astype("datetime64[ns]")
+df_orders["order_approved_at"]             = df_orders["order_approved_at"].astype("datetime64[ns]")
+df_orders["order_delivered_carrier_date"]  = df_orders["order_delivered_carrier_date"].astype("datetime64[ns]")
+df_orders["order_delivered_customer_date"] = df_orders["order_delivered_customer_date"].astype("datetime64[ns]")
+df_orders["order_estimated_delivery_date"] = df_orders["order_estimated_delivery_date"].astype("datetime64[ns]")
 
 with st.sidebar :
     selected = option_menu('Menu',['10122096', 'blablabla'],

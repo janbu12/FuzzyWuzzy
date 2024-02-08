@@ -170,10 +170,10 @@ def pertanyaan4_10122096(delivered_orders, df_geolocation, order_items):
     
         order_items_geo = pd.merge(order_items[['order_id', 'seller_zip_code_prefix', 'seller_state']], df_geolocation, left_on="seller_zip_code_prefix", right_on="geolocation_zip_code_prefix", how="inner")
     
-        order_items_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
-        order_items_geo = order_items_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state' ])
+        # order_items_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
+        # order_items_geo = order_items_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state' ])
     
-        merge_orders_df = pd.merge(orders_geo, order_items_geo, on="order_id", how="inner")
+        # merge_orders_df = pd.merge(orders_geo, order_items_geo, on="order_id", how="inner")
         # merge_orders_df['distance_KM'] = merge_orders_df.apply(hitung_jarak, axis=1)
 
         # rata_rata_jarak2 = merge_orders_df.groupby('seller_state')['distance_KM'].mean().reset_index()

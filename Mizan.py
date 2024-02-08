@@ -108,7 +108,9 @@ def pertanyaan2_10122096(delivered_orders, shipped_orders, approved_orders, orde
 
     # Grafik Heatmap
     with st.container():
-        st.dataframe(heatmap_data.style.highlight_max(axis=1, color='#198754'), use_container_width=True)
+        st.dataframe(heatmap_data.style.highlight_max(axis=1, color='#198754')
+                     .highlight_min(axis=1, color='#dc3545'),
+                     use_container_width=True)
 
     plt.figure()
     sea.heatmap(heatmap_data, cmap='coolwarm', annot=True, fmt='g')
@@ -173,7 +175,9 @@ def pertanyaan4_10122096(df_geolocation, order_reviews):
         col1, col2 = st.columns([0.5,0.5])
         with col1:
             st.write("Dataframe")
-            st.dataframe(review_distance_df, use_container_width=True, height = 140)
+            st.dataframe(review_distance_df.style.highlight_max(subset='distance_KM', axis=0, color='#198754')
+                                                 .highlight_min(subset='distance_KM', axis=0, color='#dc3545'), 
+                                                  use_container_width=True, height = 140)
     
         with col2:
             st.write("Tabel Korelasi")
@@ -195,7 +199,9 @@ def pertanyaan4_10122096(df_geolocation, order_reviews):
                      tetapi pada tabel korelasi antara distance dan review score hanya (-0.064719) maka hampir tidak ada pengaruh sama sekali.""")
 
     with st.container(border=True):
-        st.dataframe(mean_distance_deliver_time_df, use_container_width=True)
+        st.dataframe(mean_distance_deliver_time_df.highlight_max(subset='distance_KM', axis=0, color='#198754')
+                                                 .highlight_min(subset='distance_KM', axis=0, color='#dc3545'), 
+                                                  use_container_width=True)
         st.write("Dengan total data: ",len(orders_review_filtered))
     
     plt.figure()

@@ -181,7 +181,7 @@ def pertanyaan4_10122096(df_geolocation, order_reviews):
                      tetapi pada tabel korelasi antara distance dan review score hanya (-0.064719) maka hampir tidak ada pengaruh sama sekali.""")
 
     with st.container(border=True):
-        st.dataframe(mean_distance_deliver_time_df, user_container_width=True)
+        st.dataframe(mean_distance_deliver_time_df, use_container_width=True)
         st.write("Dengan total data: ",len(orders_review_filtered))
     
     plt.figure()

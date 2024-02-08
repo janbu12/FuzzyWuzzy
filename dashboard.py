@@ -141,7 +141,8 @@ def pertanyaan3_10122096(delivered_orders, shipped_orders, approved_orders, orde
 
     # Grafik Heatmap
     st.dataframe(heatmap_data)
-    
+
+    plt.figure()
     sea.heatmap(heatmap_data, cmap='coolwarm', annot=True, fmt='g')
     plt.title('Pengaruh Negara Asal antara Seller dan Customer State terhadap Jumlah Transaksi')
     plt.xlabel('Customer State')
@@ -152,7 +153,7 @@ def pertanyaan3_10122096(delivered_orders, shipped_orders, approved_orders, orde
     with st.expander("Penjelasan Mengenai Kesaaman State Antara Customer dan Seller") :
          st.write("Terlihat dari heatmap diatas seller state SP dan customer state SP dengan jumlah transaksi 30.767 yang menunjukkan bahwa kesamaan daerah asal antara seller dan customer sangat berpengaruh terhadap jumlah pembelian barang")
     
-    del orders_concat, merge_order_for_state, transaction_count, top_5_transactions, heatmap_data
+    del orders_concat, merge_order_for_state, transaction_count, top_5_transactions, heatmap_data, fig
 
 def pertanyaan4_10122096(df_geolocation):
     st.header("Berapakah rata-rata jauh pengiriman yang sudah diterima berdasarkan seller state?")

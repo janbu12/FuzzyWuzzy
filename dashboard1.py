@@ -145,7 +145,7 @@ def pertanyaan1_10122096(order_item, sellers, orders, customers, geolocation):
     
     order_items = pd.merge(order_item, sellers, on='seller_id', how="inner")
     
-    order_items_geo = pd.merge(order_items, geolocation, on="code_prefix", how="inner")
+    # order_items_geo = pd.merge(order_items, geolocation, on="code_prefix", how="inner")
     # order_items_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
     # order_items_geo = order_items_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state','seller_city'])
     # orders = pd.merge(orders[orders['order_status']=='delivered'], customers, on='customer_id', how="inner")

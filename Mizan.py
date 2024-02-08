@@ -184,7 +184,7 @@ def pertanyaan4_10122096(df_geolocation, order_reviews):
     
         with col2:
             st.write("Tabel Korelasi")
-            st.dataframe(orders_review_df.corr("spearman").style.text_gradient(axis=None, low=0.75, high=1.0, cmap='YlOrRd'), use_container_width=True, height = 140)
+            st.dataframe(orders_review_df.corr("spearman").style.text_gradient(axis=None, low=0.75, high=1.0, cmap='YlOrRd').pipe(make_pretty), use_container_width=True, height = 140)
     
     plt.figure()
     sea.lineplot(x = review_distance_df.keys(), y = review_distance_df.values)

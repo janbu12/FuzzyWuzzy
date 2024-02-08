@@ -169,14 +169,15 @@ def pertanyaan4_10122096(df_geolocation, order_reviews):
     orders_review_filtered = orders_review_filtered.drop(columns='review_score')
     
     review_distance_df   = orders_review_df.groupby("review_score")["distance_KM"].mean()
+    review_distance_df2  = pd.DataFrame({"review_score":review_distance_df.keys(), "distance":review_distance_df.values})
     mean_distance_deliver_time_df = orders_review_filtered.groupby("delivery_time")["distance_KM"].mean()
 
     with st.container(border=True):
         col1, col2 = st.columns([0.5,0.5])
         with col1:
             st.write("Dataframe")
-            st.dataframe(review_distance_df.style.highlight_max(subset='distance_KM', axis=0, color='#198754')
-                                                 .highlight_min(subset='distance_KM', axis=0, color='#dc3545'), 
+            st.dataframe(review_distance_df2.style.highlight_max(subset='distance', axis=0, color='#198754')
+                                                 .highlight_min(subset='distance', axis=0, color='#dc3545'), 
                                                   use_container_width=True, height = 140)
     
         with col2:

@@ -218,7 +218,7 @@ def pertanyaan5_10122096(df_geolocation, order_reviews):
     sea.lineplot(x = mean_distance_deliver_time_df.keys(), y = mean_distance_deliver_time_df.values, 
                 style = mean_distance_deliver_time_df.keys(), 
                 markers =["o", "o", "o", "o", "o", "o","o","o","o","o","o","o","o","o","o",], 
-                dashes = False, , legend=False)
+                dashes = False, legend=False)
     plt.title("Korelasi jauh pengiriman dan waktu pengiriman")
     plt.xlabel("Waktu Pengiriman (hari)")
     plt.ylabel("Rata-rata Pengiriman (km)")

@@ -13,16 +13,16 @@ def load_data(url) :
     df = pd.read_csv(url)
     return df
 
-df_order_item = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_items_dataset.csv")
-df_order_review = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_reviews_dataset.csv")
-order_reviews = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_reviews_dataset.csv")
-df_orders = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/orders_dataset.csv")
-df_sellers = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/sellers_dataset.csv")
-df_customers = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/customers_dataset.csv")
+df_order_item = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/order_items_dataset.csv")
+df_order_review = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/order_reviews_dataset.csv")
+order_reviews = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/order_reviews_dataset.csv")
+df_orders = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/orders_dataset.csv")
+df_sellers = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/sellers_dataset.csv")
+df_customers = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/customers_dataset.csv")
 #karena data terlalu besar untuk dicleaning & merging, jadi dibuat csv yang sudah dicleaningnya untuk membatasi limit ram usage
-df_geolocation_merging = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/Geolocation_merging.csv")
-products = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/products_dataset.csv")
-product_category_name_translation = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/product_category_name_translation.csv")
+df_geolocation_merging = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/Geolocation_merging.csv")
+products = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/products_dataset.csv")
+product_category_name_translation = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/product_category_name_translation.csv")
 
 #Cleaning
 

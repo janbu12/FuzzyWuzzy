@@ -49,7 +49,7 @@ def load_data(url) :
 #     del data, merge_reviews_deliver_order
 
 
-def pertanyaan2_10122096(reviews):
+def pertanyaan1_10122096(reviews):
     st.header("Apakah highlight yang membuat customer memberikan review score yang kecil?")
     
     # Mendapatkan baris dengan nilai review_score kurang dari atau sama dengan 3
@@ -117,7 +117,7 @@ def pertanyaan2_10122096(reviews):
 
     del low_scores, top_15_comment_titles, negative_words_pt, low_scores_len, negative_phrases_pt, negative_freq_pt, common_negative_pt, top_15_reasons_df, common_negative_df_pt
 
-def pertanyaan3_10122096(delivered_orders, shipped_orders, approved_orders, order_item):
+def pertanyaan2_10122096(delivered_orders, shipped_orders, approved_orders, order_item):
     st.header("Apakah kesamaan negara asal antara seller dan customer berpengaruh terhadap jumlah pembelian?")
     
     #Mengambil data orders dengan status terkirim, diproses, dikirim
@@ -155,7 +155,7 @@ def pertanyaan3_10122096(delivered_orders, shipped_orders, approved_orders, orde
     
     del orders_concat, merge_order_for_state, transaction_count, top_5_transactions, heatmap_data, fig
 
-def pertanyaan4_10122096(df_geolocation):
+def pertanyaan3_10122096(df_geolocation):
     st.header("Berapakah rata-rata jauh pengiriman yang sudah diterima berdasarkan seller state?")
     
     rata_rata_jarak2 = df_geolocation.groupby('seller_state')['distance_KM'].mean().reset_index()
@@ -182,7 +182,7 @@ def pertanyaan4_10122096(df_geolocation):
                  dan cocok dengan analasis pertanyaan sebelumnya tentang SP adalah seller state dengan tingkat populer yang tinggi 
                  berdasarkan kesamaan state customer, yang cukup menjadi salah satu alasan mengapa seller state SP tingkat pembelinya tinggi""")
 
-def pertanyaan5_10122096(df_geolocation, order_reviews):
+def pertanyaan4_10122096(df_geolocation, order_reviews):
     st.header("Apakah jauh pengiriman berdampak pada waktu pengiriman dan review score?")
     reviewsSort = order_reviews[["order_id", "review_score", "review_answer_timestamp"]].sort_values(["order_id", "review_answer_timestamp"])
     reviewsSort.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
@@ -356,16 +356,16 @@ if (selected == '10122079') :
     tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
     
     with tab1:
-        pertanyaan2_10122096(order_reviews)
+        pertanyaan1_10122096(order_reviews)
         
     with tab2:
-        pertanyaan3_10122096(delivered_orders, shipped_orders, approved_orders, order_items)
+        pertanyaan2_10122096(delivered_orders, shipped_orders, approved_orders, order_items)
         
     with tab3:
-        pertanyaan4_10122096(df_geolocation_merging)
+        pertanyaan3_10122096(df_geolocation_merging)
 
     with tab4:
-        pertanyaan5_10122096(df_geolocation_merging, df_order_review)
+        pertanyaan4_10122096(df_geolocation_merging, df_order_review)
 
 elif (selected == '10122096'):
     st.header(f"Dashboard Analisis E-Commerce oleh Mizan")

@@ -108,7 +108,7 @@ def pertanyaan2_10122096(delivered_orders, shipped_orders, approved_orders, orde
 
     # Grafik Heatmap
     with st.container():
-        st.dataframe(heatmap_data.style.highlight_max(axis=0, color='#198754'), use_container_width=True)
+        st.dataframe(heatmap_data.style.highlight_max(axis=1, color='#198754'), use_container_width=True)
 
     plt.figure()
     sea.heatmap(heatmap_data, cmap='coolwarm', annot=True, fmt='g')

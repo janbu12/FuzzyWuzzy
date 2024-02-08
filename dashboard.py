@@ -161,6 +161,8 @@ df_orders = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main
 df_sellers = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/sellers_dataset.csv")
 df_customers = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/customers_dataset.csv")
 df_geolocation = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/geolocation_dataset.csv")
+products = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/products_dataset.csv")
+product_category_name_translation = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/product_category_name_translation.csv")
 
 #Cleaning
 

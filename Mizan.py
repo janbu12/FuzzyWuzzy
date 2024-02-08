@@ -34,7 +34,7 @@ def pertanyaan1_10122096(reviews):
     
     #Grafik berdasarkan title
     with st.container():
-        st.dataframe(top_15_reasons_df.style.highlight_max(subset='jumlah', axis=1), use_container_width=True)
+        st.dataframe(top_15_reasons_df.style.highlight_max(subset='jumlah', axis=0), use_container_width=True)
         
     plt.figure(figsize=(10, 6))
     sea.countplot(x='review_score', hue='review_comment_title', data=top_15_reasons, palette='Set2')

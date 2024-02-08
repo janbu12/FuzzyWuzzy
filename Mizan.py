@@ -159,11 +159,11 @@ def pertanyaan4_10122096(df_geolocation, order_reviews):
     col1, col2 = st.columns([0.5,0.5])
     with col1:
         st.write("Dataframe")
-        st.dataframe(review_distance_df, use_container_width=True, height = 300)
+        st.dataframe(review_distance_df, use_container_width=True, height = 100)
 
         with col2:
             st.write("Tabel Korelasi")
-            st.dataframe(orders_review_df.corr("spearman"), use_container_width=True, height = 300)
+            st.dataframe(orders_review_df.corr("spearman"), use_container_width=True)
     
     plt.figure()
     sea.lineplot(x = review_distance_df.keys(), y = review_distance_df.values)

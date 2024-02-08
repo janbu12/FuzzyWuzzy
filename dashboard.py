@@ -238,6 +238,7 @@ def pertanyaan5_10122096(df_geolocation, order_reviews):
     
 df_order_item = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_items_dataset.csv")
 df_order_review = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_reviews_dataset.csv")
+order_reviews = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_reviews_dataset.csv")
 df_orders = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/orders_dataset.csv")
 df_sellers = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/sellers_dataset.csv")
 df_customers = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/customers_dataset.csv")
@@ -355,7 +356,7 @@ if (selected == '10122079') :
     tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
     
     with tab1:
-        pertanyaan2_10122096(df_order_review)
+        pertanyaan2_10122096(order_reviews)
         
     with tab2:
         pertanyaan3_10122096(delivered_orders, shipped_orders, approved_orders, order_items)

@@ -200,7 +200,7 @@ del df_customers
 #Null Value Removal
 order_items.dropna(axis = 0, how = "any", inplace = True, ignore_index = True)
 
-order_reviews.drop(["review_comment_title", "review_comment_message"], axis = 1, inplace = True)
+df_order_review.drop(["review_comment_title", "review_comment_message"], axis = 1, inplace = True)
 
 canceled_orders    = orders[orders["order_status"] == "canceled"]
 created_orders     = orders[orders["order_status"] == "created"]

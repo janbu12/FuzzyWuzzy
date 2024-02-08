@@ -147,7 +147,7 @@ def pertanyaan3_10122096(orders, order_item, customers, sellers):
     with st.expander("Penjelasan Mengenai Kesaaman State Antara Customer dan Seller") :
          st.write("Terlihat dari heatmap diatas seller state SP dan customer state SP dengan jumlah transaksi 30.767 yang menunjukkan bahwa kesamaan daerah asal antara seller dan customer sangat berpengaruh terhadap jumlah pembelian barang")
     
-    del orders_concat, merge_order_for_state, transaction_count, top_5_transactions, heatmap_data
+    del merge_order_for_state, transaction_count, top_5_transactions, heatmap_data
 
 def hitung_jarak(row):
     customer_coords = (row['geolocation_lat_x'], row['geolocation_lng_x'])

@@ -48,6 +48,9 @@ def pertanyaan1_10122096(orders, reviews):
     #Expander Grafik
     with st.expander("Penjelasan Pengaruh Waktu Pengiriman terhadap Ulasan ") :
         st.write('Terlihat dari grafik diatas bahwa lama pengiriman cukup berpengaruh terhadap review score, hal yang bisa dilakukan adalah tahap processing ke shipped harus lebih diperbaiki untuk memperpendek jarak waktu dari kurir pada customer') 
+    
+    del merge_reviews_deliver_order, data
+    
 
 def pertanyaan2_10122096(reviews):
     st.header("Apakah highlight yang membuat customer memberikan review score yang kecil?")
@@ -82,6 +85,7 @@ def pertanyaan2_10122096(reviews):
 
     # Mendapatkan jumlah kemunculan setiap kombinasi review_score dan review_comment_title
     top_15_reasons_df = top_15_reasons.groupby(['review_score', 'review_comment_title']).size().reset_index(name='jumlah')
+    
 
     #Grafik berdasarkan title    
     st.dataframe(top_15_reasons_df)
@@ -125,16 +129,18 @@ def pertanyaan2_10122096(reviews):
                     </list>""", unsafe_allow_html=True)
         st.write("Dari grafik diatas dapat dilihat bahwa kata bermasalah sebanyak 303, cacat(154), dengan title Produk cacat(22), Produk salah(30), dll, walaupun terbilang sedikit, tetap saja harapannya perusahaan dapat memperbaiki produk yang salah, cacat, bahkan tidak terkirim, dll.")
 
-def pertanyaan3_10122096(orders, order_item, customers, sellers):
+    del low_scores, top_15_comment_titles, negative_words_pt, low_scores_len, negative_phrases_pt, negative_freq_pt, common_negative_pt, top_15_reasons_df, common_negative_df_pt
+    
+    
+def pertanyaan3_10122096(delivered_orders, shipped_orders, approved_orders, order_item):
     st.header("Apakah kesamaan negara asal antara seller dan customer berpengaruh terhadap jumlah pembelian?")
     
     #Mengambil data orders dengan status terkirim, diproses, dikirim
-    orders_df = orders[(orders['order_status'] == 'delivered') | (orders['order_status'] == 'shipped') | (orders['order_status'] == 'processing')]
+    orders_concat = pd.concat([delivered_orders[delivered_orders["order_status"] != "canceled"], shipped_orders[shipped_orders['order_status'] != 'canceled']], ignore_index=True)
+    orders_concat = pd.concat([orders_concat, approved_orders[approved_orders["order_status"] != "canceled"]], ignore_index=True)
     
     #Penggabungan dataframe untuk mengintegrasikan data customer dan seller ke dalam dataframe orders
-    order_item_df = pd.merge(order_item, sellers, on='seller_id', how='inner')
-    merge_order_for_state = pd.merge(orders_df, customers, on='customer_id', how='inner')
-    merge_order_for_state = pd.merge(merge_order_for_state, order_item_df, on='order_id', how='inner')
+    merge_order_for_state = pd.merge(orders_concat, order_item, on='order_id', how='inner')
     
     #Membuang data yang duplikasi, dan menyimpan data terakhirnya karena valuenya berbeda beda
     merge_order_for_state.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
@@ -159,23 +165,242 @@ def pertanyaan3_10122096(orders, order_item, customers, sellers):
     st.pyplot(fig)
     
     with st.expander("Penjelasan Mengenai Kesaaman State Antara Customer dan Seller") :
-         st.write("Terlihat dari heatmap diatas seller state SP dan customer state SP dengan jumlah transaksi 31,065 yang menunjukkan bahwa kesamaan daerah asal antara seller dan customer sangat berpengaruh terhadap jumlah pembelian barang")
+         st.write("Terlihat dari heatmap diatas seller state SP dan customer state SP dengan jumlah transaksi 30.767 yang menunjukkan bahwa kesamaan daerah asal antara seller dan customer sangat berpengaruh terhadap jumlah pembelian barang")
+    
+    del orders_concat, merge_order_for_state, transaction_count, top_5_transactions, heatmap_data
+    
+    
+def hitung_jarak(row):
+    customer_coords = (row['geolocation_lat_x'], row['geolocation_lng_x'])
+    seller_coords = (row['geolocation_lat_y'], row['geolocation_lng_y'])
+    return geodesic(customer_coords, seller_coords).kilometers
+
+def pertanyaan4_10122096(merge_orders_df):
+    st.header("Berapakah rata-rata jauh pengiriman yang sudah diterima berdasarkan seller state?")
+    
+    
+    rata_rata_jarak2 = merge_orders_df.groupby('seller_state')['distance_KM'].mean().reset_index()
+    rata_rata_jarak2 = rata_rata_jarak2.sort_values(ascending=True, by='distance_KM', ignore_index=True)
+    
+    st.dataframe(rata_rata_jarak2)
+        
+    sea.set_theme()
+
+    plt.figure(figsize=(10, 6))
+    sea.barplot(data=rata_rata_jarak2, x='seller_state', y='distance_KM', palette='viridis', hue='seller_state')
+    plt.xlabel('Seller State')
+    plt.ylabel('Rata-rata Jarak (km)')
+    plt.title('Rata-rata Jarak berdasarkan Seller State')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    fig = plt.gcf()
+    st.pyplot(fig)
+    del  rata_rata_jarak2
+    
+    with st.expander("Penjelasan Mengenai Rata2 Jauh Pengiriman") :
+        st.write("""dari grafik diatas bisa kita lihat bahwa SP merupakan seller state yang paling kecil rata-rata jarak pengirimannya, 
+                 dan cocok dengan analasis pertanyaan sebelumnya tentang SP adalah seller state dengan tingkat populer yang tinggi 
+                 berdasarkan kesamaan state customer, yang cukup menjadi salah satu alasan mengapa seller state SP tingkat pembelinya tinggi""")
+    
+    
+def pertanyaan5_10122096(merge_orders_df, order_reviews):
+    st.header("Apakah jauh pengiriman berdampak pada waktu pengiriman dan review score?")
+    reviewsSort = order_reviews[["order_id", "review_score", "review_answer_timestamp"]].sort_values(["order_id", "review_answer_timestamp"])
+    reviewsSort.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
+    
+    orders_review_df = pd.merge(merge_orders_df[['order_id', 'distance_KM','delivery_time']], reviewsSort, on="order_id", how="inner")
+    
+    orders_review_df.drop(["order_id", "review_answer_timestamp"], axis = 1, inplace = True)
+
+    #Filter waktu pengiriman dengan data <= 15 karena sangat banyak
+    orders_review_filtered = orders_review_df[(orders_review_df['delivery_time'] <= 15) & (orders_review_df['delivery_time'] > 0)]
+    orders_review_filtered = orders_review_filtered.drop(columns='review_score')
+    
+    review_distance_df   = orders_review_df.groupby("review_score")["distance_KM"].mean()
+    mean_distance_deliver_time_df = orders_review_filtered.groupby("delivery_time")["distance_KM"].mean()
+
+    st.dataframe(review_distance_df)
+    st.write("Tabel Korelasi")
+    st.write(orders_review_df.corr("spearman"))
+    
+    plt.figure()
+    sea.lineplot(x = review_distance_df.keys(), y = review_distance_df.values)
+    sea.lineplot(x = review_distance_df.keys(), y = review_distance_df.values, style = review_distance_df.keys(), 
+                markers =["o", "o", "o", "o", "o"], 
+                dashes = False)
+    plt.title("Korelasi jauh pengiriman dan nilai review")
+    plt.xlabel("Nilai Review")
+    plt.ylabel("Rata-rata Pengiriman (km)")
+    fig = plt.gcf()
+    st.pyplot(fig)
+    
+    plt.figure()
+    sea.lineplot(x = mean_distance_deliver_time_df.keys(), y = mean_distance_deliver_time_df.values)
+    sea.lineplot(x = mean_distance_deliver_time_df.keys(), y = mean_distance_deliver_time_df.values, 
+                style = mean_distance_deliver_time_df.keys(), 
+                markers =["o", "o", "o", "o", "o", "o","o","o","o","o","o","o","o","o","o",], 
+                dashes = False)
+    plt.title("Korelasi jauh pengiriman dan waktu pengiriman")
+    plt.xlabel("Waktu Pengiriman (hari)")
+    plt.ylabel("Rata-rata Pengiriman (km)")
+    fig = plt.gcf()
+    st.pyplot(fig)
+    
+    with st.expander("Penjelasan Mengenai Dampak Jauh Pengiriman pada Nilai Review dan Waktu Pengiriman") :
+        st.write("""<li>Korelasi Jauh Pengiriman pada Nilai Review</li>
+                        walaupun memang grafik terlihat signifikan semakin kecil reviewnya maka rata2 jaraknya semakin jauh pula, 
+                        tetapi pada tabel korelasi antara distance dan review score hanya (-0.064719) maka hampir tidak ada pengaruh sama sekali.
+                    <li>Korelasi Jauh Pengiriman pada Waktu Pengiriman</li>
+                        dari grafik dan tabel korelasi diatas dapat dilihat bahwa jarak pengiriman cukup berpegaruh terhadap waktu 
+                        pegiriman dengan korelasi (0.615205) dan grafiknya menggambarkan kenaikan yang signifikan""", unsafe_allow_html=True)
+    
+    del reviewsSort, orders_review_filtered, review_distance_df, mean_distance_deliver_time_df
     
 
+        
+        
+#Data Gathering        
 df_order_item = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_items_dataset.csv")
 df_order_review = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_reviews_dataset.csv")
 df_orders = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/orders_dataset.csv")
 df_sellers = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/sellers_dataset.csv")
 df_customers = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/customers_dataset.csv")
 df_geolocation = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/geolocation_dataset.csv")
+products = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/products_dataset.csv")
+product_category_name_translation = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/product_category_name_translation.csv")
+order_payments = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_payments_dataset.csv")
+order_reviews = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_reviews_dataset.csv")
+
+
+#Cleaning
+
+#Type Alteration
+df_order_item["shipping_limit_date"] = df_order_item["shipping_limit_date"].astype("datetime64[ns]")
+
+df_order_review["review_creation_date"]    = df_order_review["review_creation_date"].astype("datetime64[ns]")
+df_order_review["review_answer_timestamp"] = df_order_review["review_answer_timestamp"].astype("datetime64[ns]")
+
+df_orders["order_purchase_timestamp"]      = df_orders["order_purchase_timestamp"].astype("datetime64[ns]")
+df_orders["order_approved_at"]             = df_orders["order_approved_at"].astype("datetime64[ns]")
+df_orders["order_delivered_carrier_date"]  = df_orders["order_delivered_carrier_date"].astype("datetime64[ns]")
+df_orders["order_delivered_customer_date"] = df_orders["order_delivered_customer_date"].astype("datetime64[ns]")
+df_orders["order_estimated_delivery_date"] = df_orders["order_estimated_delivery_date"].astype("datetime64[ns]")
+
+#Tabel Merging
+products = products.join(product_category_name_translation.set_index("product_category_name"), "product_category_name", validate = "m:1")
+products["product_category_name"] = products["product_category_name_english"]
+products.drop("product_category_name_english", axis = 1, inplace = True)
+products.rename(columns = {"product_name_lenght" : "product_name_length", "product_description_lenght" : "product_description_length"}, inplace = True)
+del product_category_name_translation
+
+order_items = df_order_item.join(products.set_index("product_id"), "product_id", validate = "m:1")
+order_items.drop("product_id", axis = 1, inplace = True)
+del products
+
+order_items = order_items.join(df_sellers.set_index("seller_id"), "seller_id", validate = "m:1")
+order_items.drop("seller_id", axis = 1, inplace = True)
+del df_sellers
+
+orders = df_orders.join(df_customers.set_index("customer_id"),"customer_id", validate = "1:1")
+orders.drop(["customer_id", "customer_unique_id"], axis = 1, inplace = True)
+del df_customers
+
+#Null Value Removal
+order_items.dropna(axis = 0, how = "any", inplace = True, ignore_index = True)
+
+order_reviews.drop(["review_comment_title", "review_comment_message"], axis = 1, inplace = True)
+
+canceled_orders    = orders[orders["order_status"] == "canceled"]
+created_orders     = orders[orders["order_status"] == "created"]
+shipped_orders     = orders[orders["order_status"] == "shipped"]
+unavailable_orders = orders[orders["order_status"] == "unavailable"]
+invoiced_orders    = orders[orders["order_status"] == "invoiced"]
+processing_orders  = orders[orders["order_status"] == "processing"]
+approved_orders    = orders[orders["order_status"] == "approved"]
+
+orders.drop(orders[orders["order_status"] == "canceled"].index, inplace = True)
+orders.drop(orders[orders["order_status"] == "created"].index, inplace = True)
+orders.drop(orders[orders["order_status"] == "unavailable"].index, inplace = True)
+orders.drop(orders[orders["order_status"] == "invoiced"].index, inplace = True)
+orders.drop(orders[orders["order_status"] == "processing"].index, inplace = True)
+orders.drop(orders[orders["order_status"] == "shipped"].index, inplace = True)
+orders.drop(orders[orders["order_status"] == "approved"].index, inplace = True)
+
+orders.dropna(axis = 0, how = "any", inplace = True, ignore_index = True)
+delivered_orders = orders
+del orders
+
+approved_orders = pd.concat([approved_orders, unavailable_orders, invoiced_orders, processing_orders], ignore_index = True)
+approved_orders.drop(["order_delivered_carrier_date", "order_delivered_customer_date"], axis = 1, inplace = True)
+del unavailable_orders, invoiced_orders, processing_orders
+
+created_orders.drop(["order_approved_at", "order_delivered_carrier_date", "order_delivered_customer_date"], axis = 1, inplace = True)
+shipped_orders.drop("order_delivered_customer_date", axis = 1, inplace = True)
+
+delivered = canceled_orders[canceled_orders["order_delivered_customer_date"].notnull()]
+shipped   = canceled_orders[(canceled_orders["order_delivered_carrier_date"].notnull()) & (canceled_orders["order_delivered_customer_date"].isnull())]
+approved  = canceled_orders[(canceled_orders["order_approved_at"].notnull()) & (canceled_orders["order_delivered_customer_date"].isnull()) & (canceled_orders["order_delivered_carrier_date"].isnull())]
+created   = canceled_orders[(canceled_orders["order_approved_at"].isnull()) & (canceled_orders["order_delivered_carrier_date"].isnull()) & (canceled_orders["order_delivered_customer_date"].isnull())]
+
+shipped.drop("order_delivered_customer_date", axis = 1, inplace = True)
+approved.drop(["order_delivered_customer_date", "order_delivered_carrier_date"], axis = 1, inplace = True)
+created.drop(["order_delivered_customer_date", "order_delivered_carrier_date", "order_approved_at"], axis = 1, inplace = True)
+
+delivered_orders = pd.concat([delivered_orders, delivered], ignore_index = True)
+shipped_orders   = pd.concat([shipped_orders, shipped], ignore_index = True)
+approved_orders  = pd.concat([approved_orders, approved], ignore_index = True)
+created_orders   = pd.concat([created_orders, created], ignore_index = True)
+
+del canceled_orders, delivered, shipped, approved, created
+
+st.markdown("""
+    <header>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    </header>
+    <style>
+        html, body, h1, h2, h3, p, b, nav-link [class*="css"] {font-family: 'Poppins', sans-serif;}
+    </style>
+""", unsafe_allow_html=True)
 
 with st.sidebar :
-    selected = option_menu('Menu',['10122096', 'blablabla'],
-    icons =["easel2", "graph-up"],
-    menu_icon="cast",
-    default_index=0)
+    selected = option_menu('NIM',['blablabal1','10122096', 'blablabla'],
+    icons =["person-circle","person-workspace","person-badge-fill"],
+    menu_icon="person-lines-fill",
+    default_index=0,
+    styles={
+        "nav": {"font-family": 'Poppins'},
+        "menu-title": {"font-family": 'Poppins', "font-weight": "700"},
+        "nav-link-selected": {"font-weight": "700", "background-color": "#dc3545"},
+        "icon": {"font-size": "20px"},
+        "nav-link": {"--hover-color": "#dc3545"}
+        }
+    )
     
 if (selected == '10122096') :
+    #Geolocation analysis
+    orders_geo = pd.merge(delivered_orders[delivered_orders["order_status"] != "canceled"], df_geolocation, 
+                        left_on='customer_zip_code_prefix', 
+                        right_on='geolocation_zip_code_prefix',
+                        how="inner")
+        
+    orders_geo['delivery_time'] = orders_geo['order_delivered_customer_date'] - orders_geo['order_delivered_carrier_date']
+    orders_geo['delivery_time'] = orders_geo['delivery_time'].dt.days
+
+    orders_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
+    orders_geo = orders_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state','customer_city','order_status',
+                                        'order_purchase_timestamp', 'order_approved_at', 'order_delivered_carrier_date', 'order_delivered_customer_date',
+                                        'order_estimated_delivery_date'])
+
+    order_items_geo = pd.merge(order_items[['order_id', 'seller_zip_code_prefix', 'seller_state']], df_geolocation, left_on="seller_zip_code_prefix", right_on="geolocation_zip_code_prefix", how="inner")
+
+    order_items_geo.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
+    order_items_geo = order_items_geo.drop(columns=['geolocation_zip_code_prefix','geolocation_city','geolocation_state' ])
+
+    merge_orders_df = pd.merge(orders_geo, order_items_geo, on="order_id", how="inner")
+    merge_orders_df['distance_KM'] = merge_orders_df.apply(hitung_jarak, axis=1)
+    
     st.header(f"Dashboard Analisis E-Commerce oleh Mizan")
     tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
     
@@ -186,7 +411,17 @@ if (selected == '10122096') :
         pertanyaan2_10122096(df_order_review)
         
     with tab3:
-        pertanyaan3_10122096(df_orders, df_order_item, df_customers, df_sellers)
+        pertanyaan3_10122096(delivered_orders, shipped_orders, approved_orders, order_items)
+        
+    with tab4:
+        pertanyaan4_10122096(merge_orders_df)
+        
+    with tab5:
+        pertanyaan5_10122096(merge_orders_df, order_reviews)
+        
+elif (selected == 'blablabal1'):
+    st.header(f"Dashboard Analisis E-Commerce oleh blablabal1")
+    tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
 
 elif (selected == 'blablabla'):
     st.header(f"Dashboard Analisis E-Commerce oleh blablabla")

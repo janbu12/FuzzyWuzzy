@@ -31,8 +31,11 @@ def pertanyaan1_10122096(reviews):
     common_negative_df_pt = pd.DataFrame(common_negative_pt, columns=['Kata', 'Jumlah'])
     # Mendapatkan jumlah kemunculan setiap kombinasi review_score dan review_comment_title
     top_15_reasons_df = top_15_reasons.groupby(['review_score', 'review_comment_title']).size().reset_index(name='jumlah')
-    #Grafik berdasarkan title    
-    st.dataframe(top_15_reasons_df)
+    
+    #Grafik berdasarkan title
+    with st.container(border=True):
+        st.dataframe(top_15_reasons_df, use_container_width=True)
+        
     plt.figure(figsize=(10, 6))
     sea.countplot(x='review_score', hue='review_comment_title', data=top_15_reasons, palette='Set2')
     plt.title('15 Faktor Mengapa Review Score Rendah Berdasarkan Comment Title')
@@ -44,7 +47,9 @@ def pertanyaan1_10122096(reviews):
     
     
     #Grafik berdasarkan kata2 
-    st.dataframe(common_negative_df_pt)
+    with st.container(border=True):
+        st.dataframe(common_negative_df_pt, use_container_width=True)
+        
     fig, ax = plt.subplots()
     ax.barh(common_negative_df_pt['Kata'], common_negative_df_pt['Jumlah'])
     ax.set_title('5 Kata Negatif Terbanyak Dalam Review Score Rendah Berdasarkan Review Message')
@@ -98,7 +103,8 @@ def pertanyaan2_10122096(delivered_orders, shipped_orders, approved_orders, orde
     heatmap_data = top_5_transactions.pivot_table(index='seller_state', columns='customer_state', values='transaction_count')
 
     # Grafik Heatmap
-    st.dataframe(heatmap_data)
+    with st.container(border=True):
+        st.dataframe(heatmap_data, use_container_width=True)
 
     plt.figure()
     sea.heatmap(heatmap_data, cmap='coolwarm', annot=True, fmt='g')
@@ -118,8 +124,9 @@ def pertanyaan3_10122096(df_geolocation):
     
     rata_rata_jarak2 = df_geolocation.groupby('seller_state')['distance_KM'].mean().reset_index()
     rata_rata_jarak2 = rata_rata_jarak2.sort_values(ascending=True, by='distance_KM', ignore_index=True)
-
-    st.dataframe(rata_rata_jarak2)
+    
+    with st.container(border=True):
+        st.dataframe(rata_rata_jarak2, use_container_width=True)
 
     sea.set_theme()
 
@@ -160,11 +167,11 @@ def pertanyaan4_10122096(df_geolocation, order_reviews):
         col1, col2 = st.columns([0.5,0.5])
         with col1:
             st.write("Dataframe")
-            st.dataframe(review_distance_df, use_container_width=True, height = 150)
+            st.dataframe(review_distance_df, use_container_width=True, height = 140)
     
         with col2:
             st.write("Tabel Korelasi")
-            st.dataframe(orders_review_df.corr("spearman"), use_container_width=True, height = 150)
+            st.dataframe(orders_review_df.corr("spearman"), use_container_width=True, height = 140)
     
     plt.figure()
     sea.lineplot(x = review_distance_df.keys(), y = review_distance_df.values)

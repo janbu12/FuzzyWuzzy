@@ -8,7 +8,7 @@ from collections import Counter
 from geopy.distance import geodesic
 
 def pertanyaan1_10122096(reviews):
-    st.write("<h4>Apakah highlight yang membuat customer memberikan review score yang kecil?<h4>", unsafe_allow_html=True)
+    st.subheader("Apakah highlight yang membuat customer memberikan review score yang kecil?")
     
     # Mendapatkan baris dengan nilai review_score kurang dari atau sama dengan 3
     low_scores = reviews[reviews['review_score'] <= 3]

@@ -191,7 +191,7 @@ del products
 
 order_items = order_items.join(df_sellers.set_index("seller_id"), "seller_id", validate = "m:1")
 order_items.drop("seller_id", axis = 1, inplace = True)
-order_items = pd.merge(order_items, df_geolocation, left_on='customer_zip_code_prefix', 
+order_items = pd.merge(order_items, df_geolocation, left_on='seller_zip_code_prefix', 
                         right_on='geolocation_zip_code_prefix',
                         how="inner")
 del df_sellers

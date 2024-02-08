@@ -167,6 +167,66 @@ def pertanyaan4_10122096(df_geolocation):
     plt.tight_layout()
     fig = plt.gcf()
     st.pyplot(fig)
+
+    del  rata_rata_jarak2, fig
+    
+    with st.expander("Penjelasan Mengenai Rata2 Jauh Pengiriman") :
+        st.write("""dari grafik diatas bisa kita lihat bahwa SP merupakan seller state yang paling kecil rata-rata jarak pengirimannya, 
+                 dan cocok dengan analasis pertanyaan sebelumnya tentang SP adalah seller state dengan tingkat populer yang tinggi 
+                 berdasarkan kesamaan state customer, yang cukup menjadi salah satu alasan mengapa seller state SP tingkat pembelinya tinggi""")
+
+def pertanyaan5_10122096(df_geolocation, order_reviews):
+    st.header("Apakah jauh pengiriman berdampak pada waktu pengiriman dan review score?")
+    reviewsSort = order_reviews[["order_id", "review_score", "review_answer_timestamp"]].sort_values(["order_id", "review_answer_timestamp"])
+    reviewsSort.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
+    
+    orders_review_df = pd.merge(df_geolocation[['order_id', 'distance_KM','delivery_time']], reviewsSort, on="order_id", how="inner")
+    
+    orders_review_df.drop(["order_id", "review_answer_timestamp"], axis = 1, inplace = True)
+
+    #Filter waktu pengiriman dengan data <= 15 karena sangat banyak
+    orders_review_filtered = orders_review_df[(orders_review_df['delivery_time'] <= 15) & (orders_review_df['delivery_time'] > 0)]
+    orders_review_filtered = orders_review_filtered.drop(columns='review_score')
+    
+    review_distance_df   = orders_review_df.groupby("review_score")["distance_KM"].mean()
+    mean_distance_deliver_time_df = orders_review_filtered.groupby("delivery_time")["distance_KM"].mean()
+
+    st.dataframe(review_distance_df)
+    st.write("Tabel Korelasi")
+    st.write(orders_review_df.corr("spearman"))
+    
+    plt.figure()
+    sea.lineplot(x = review_distance_df.keys(), y = review_distance_df.values)
+    sea.lineplot(x = review_distance_df.keys(), y = review_distance_df.values, style = review_distance_df.keys(), 
+                markers =["o", "o", "o", "o", "o"], 
+                dashes = False)
+    plt.title("Korelasi jauh pengiriman dan nilai review")
+    plt.xlabel("Nilai Review")
+    plt.ylabel("Rata-rata Pengiriman (km)")
+    fig = plt.gcf()
+    st.pyplot(fig)
+    
+    plt.figure()
+    sea.lineplot(x = mean_distance_deliver_time_df.keys(), y = mean_distance_deliver_time_df.values)
+    sea.lineplot(x = mean_distance_deliver_time_df.keys(), y = mean_distance_deliver_time_df.values, 
+                style = mean_distance_deliver_time_df.keys(), 
+                markers =["o", "o", "o", "o", "o", "o","o","o","o","o","o","o","o","o","o",], 
+                dashes = False)
+    plt.title("Korelasi jauh pengiriman dan waktu pengiriman")
+    plt.xlabel("Waktu Pengiriman (hari)")
+    plt.ylabel("Rata-rata Pengiriman (km)")
+    fig = plt.gcf()
+    st.pyplot(fig)
+    
+    with st.expander("Penjelasan Mengenai Dampak Jauh Pengiriman pada Nilai Review dan Waktu Pengiriman") :
+        st.write("""<li>Korelasi Jauh Pengiriman pada Nilai Review</li>
+                        walaupun memang grafik terlihat signifikan semakin kecil reviewnya maka rata2 jaraknya semakin jauh pula, 
+                        tetapi pada tabel korelasi antara distance dan review score hanya (-0.064719) maka hampir tidak ada pengaruh sama sekali.
+                    <li>Korelasi Jauh Pengiriman pada Waktu Pengiriman</li>
+                        dari grafik dan tabel korelasi diatas dapat dilihat bahwa jarak pengiriman cukup berpegaruh terhadap waktu 
+                        pegiriman dengan korelasi (0.615205) dan grafiknya menggambarkan kenaikan yang signifikan""", unsafe_allow_html=True)
+    
+    del reviewsSort, orders_review_filtered, review_distance_df, mean_distance_deliver_time_df, fig
     
 df_order_item = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_items_dataset.csv")
 df_order_review = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_reviews_dataset.csv")

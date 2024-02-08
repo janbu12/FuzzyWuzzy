@@ -47,7 +47,7 @@ def pertanyaan1_10122096(reviews):
     
     
     #Grafik berdasarkan kata2 
-    with st.container(e):
+    with st.container():
         st.dataframe(common_negative_df_pt, use_container_width=True)
         
     fig, ax = plt.subplots()

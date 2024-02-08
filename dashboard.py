@@ -117,44 +117,48 @@ def load_data(url) :
 
 #     del low_scores, top_15_comment_titles, negative_words_pt, low_scores_len, negative_phrases_pt, negative_freq_pt, common_negative_pt, top_15_reasons_df, common_negative_df_pt
 
-# def pertanyaan3_10122096(orders, order_item, customers, sellers):
-#     st.header("Apakah kesamaan negara asal antara seller dan customer berpengaruh terhadap jumlah pembelian?")
+def pertanyaan3_10122096(orders, order_item, customers, sellers):
+    st.header("Apakah kesamaan negara asal antara seller dan customer berpengaruh terhadap jumlah pembelian?")
     
-#     #Mengambil data orders dengan status terkirim, diproses, dikirim
-#     orders_df = orders[(orders['order_status'] == 'delivered') | (orders['order_status'] == 'shipped') | (orders['order_status'] == 'processing')]
+    #Mengambil data orders dengan status terkirim, diproses, dikirim
+    orders_df = orders[(orders['order_status'] == 'delivered') | (orders['order_status'] == 'shipped') | (orders['order_status'] == 'processing')]
     
-#     #Penggabungan dataframe untuk mengintegrasikan data customer dan seller ke dalam dataframe orders
-#     order_item_df = pd.merge(order_item, sellers, on='seller_id', how='inner')
-#     merge_order_for_state = pd.merge(orders_df, customers, on='customer_id', how='inner')
-#     merge_order_for_state = pd.merge(merge_order_for_state, order_item_df, on='order_id', how='inner')
+    #Penggabungan dataframe untuk mengintegrasikan data customer dan seller ke dalam dataframe orders
+    order_item_df = pd.merge(order_item, sellers, on='seller_id', how='inner')
+    merge_order_for_state = pd.merge(orders_df, customers, on='customer_id', how='inner')
+    merge_order_for_state = pd.merge(merge_order_for_state, order_item_df, on='order_id', how='inner')
     
-#     #Membuang data yang duplikasi, dan menyimpan data terakhirnya karena valuenya berbeda beda
-#     merge_order_for_state.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
+    #Membuang data yang duplikasi, dan menyimpan data terakhirnya karena valuenya berbeda beda
+    merge_order_for_state.drop_duplicates(["order_id"], keep = "last", inplace = True, ignore_index = True)
     
-#     # Menghitung jumlah transaksi untuk setiap kombinasi dari negara bagian penjual dan negara bagian pelanggan
-#     transaction_count = merge_order_for_state.groupby(['seller_state', 'customer_state']).size().reset_index(name='transaction_count')
-#     # Mendapatkan lima kombinasi negara bagian penjual dan negara bagian pelanggan dengan jumlah transaksi terbanyak
-#     top_5_transactions = transaction_count.nlargest(5, 'transaction_count')
-#     # Mengubah data menjadi bentuk yang sesuai untuk digunakan dalam heatmap
-#     heatmap_data = top_5_transactions.pivot_table(index='seller_state', columns='customer_state', values='transaction_count')
-#     # Grafik Heatmap
-#     st.dataframe(heatmap_data)
+    # Menghitung jumlah transaksi untuk setiap kombinasi dari negara bagian penjual dan negara bagian pelanggan
+    transaction_count = merge_order_for_state.groupby(['seller_state', 'customer_state']).size().reset_index(name='transaction_count')
+    # Mendapatkan lima kombinasi negara bagian penjual dan negara bagian pelanggan dengan jumlah transaksi terbanyak
+    top_5_transactions = transaction_count.nlargest(5, 'transaction_count')
+    # Mengubah data menjadi bentuk yang sesuai untuk digunakan dalam heatmap
+    heatmap_data = top_5_transactions.pivot_table(index='seller_state', columns='customer_state', values='transaction_count')
+    # Grafik Heatmap
+    st.dataframe(heatmap_data)
     
-#     sea.heatmap(heatmap_data, cmap='coolwarm', annot=True, fmt='g')
-#     plt.title('Pengaruh Negara Asal antara Seller dan Customer State terhadap Jumlah Transaksi')
-#     plt.xlabel('Customer State')
-#     plt.ylabel('Seller State')
-#     fig = plt.gcf()
-#     st.pyplot(fig)
+    sea.heatmap(heatmap_data, cmap='coolwarm', annot=True, fmt='g')
+    plt.title('Pengaruh Negara Asal antara Seller dan Customer State terhadap Jumlah Transaksi')
+    plt.xlabel('Customer State')
+    plt.ylabel('Seller State')
+    fig = plt.gcf()
+    st.pyplot(fig)
     
-#     with st.expander("Penjelasan Mengenai Kesaaman State Antara Customer dan Seller") :
-#          st.write("Terlihat dari heatmap diatas seller state SP dan customer state SP dengan jumlah transaksi 31,065 yang menunjukkan bahwa kesamaan daerah asal antara seller dan customer sangat berpengaruh terhadap jumlah pembelian barang")
+    with st.expander("Penjelasan Mengenai Kesaaman State Antara Customer dan Seller") :
+         st.write("Terlihat dari heatmap diatas seller state SP dan customer state SP dengan jumlah transaksi 31,065 yang menunjukkan bahwa kesamaan daerah asal antara seller dan customer sangat berpengaruh terhadap jumlah pembelian barang")
 
-#     del orders_df, merge_order_for_state, transaction_count, top_5_transactions, heatmap_data, order_item_df
+    del orders_df, merge_order_for_state, transaction_count, top_5_transactions, heatmap_data, order_item_df
 
 def pertanyaan4_10122096(df_geolocation):
+    st.header("Berapakah rata-rata jauh pengiriman yang sudah diterima berdasarkan seller state?")
+    
     rata_rata_jarak2 = df_geolocation.groupby('seller_state')['distance_KM'].mean().reset_index()
     rata_rata_jarak2 = rata_rata_jarak2.sort_values(ascending=True, by='distance_KM', ignore_index=True)
+
+    st.dataframe(rata_rata_jarak2)
 
     sea.set_theme()
 
@@ -353,8 +357,8 @@ if (selected == '10122079') :
     with tab2:
         pertanyaan5_10122096(df_geolocation_merging, df_order_review)
         
-    # with tab3:
-    #     pertanyaan3_10122096(df_orders, df_order_item, df_customers, df_sellers)
+    with tab3:
+        pertanyaan3_10122096(df_orders, df_order_item, df_customers, df_sellers)
 
     # with tab4:
     #     pertanyaan4_10122096(df_orders, df_order_item, df_customers, df_sellers, df_geolocation)

@@ -154,7 +154,7 @@ def pertanyaan3_10122096(orders, order_item, customers, sellers):
 
 def pertanyaan4_10122096(orders, order_item, customers, sellers, geolocation):
     order_items = pd.merge(order_item, sellers, on='seller_id', how='inner')
-    order_items = pd.merge(order_item, df_geolocation, left_on='seller_zip_code_prefix', 
+    order_items = pd.merge(order_items, df_geolocation, left_on='seller_zip_code_prefix', 
                         right_on='geolocation_zip_code_prefix',
                         how="inner")
     st.dataframe(order_items)

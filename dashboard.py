@@ -144,8 +144,8 @@ def pertanyaan3_10122096(orders, order_item, customers, sellers):
     with st.expander("Penjelasan Mengenai Kesaaman State Antara Customer dan Seller") :
          st.write("Terlihat dari heatmap diatas seller state SP dan customer state SP dengan jumlah transaksi 31,065 yang menunjukkan bahwa kesamaan daerah asal antara seller dan customer sangat berpengaruh terhadap jumlah pembelian barang")
 
-def pertanyaan4_10122096(orders, order-item, customers, sellers):
-    order_items = pd.merge(order-item, sellers, on='seller_id', how='inner')
+def pertanyaan4_10122096(orders, order_item, customers, sellers):
+    order_items = pd.merge(order_item, sellers, on='seller_id', how='inner')
     st.dataframe(order_items)
     
 df_order_item = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_items_dataset.csv")

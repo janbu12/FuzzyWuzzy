@@ -176,14 +176,32 @@ df_orders["order_delivered_carrier_date"]  = df_orders["order_delivered_carrier_
 df_orders["order_delivered_customer_date"] = df_orders["order_delivered_customer_date"].astype("datetime64[ns]")
 df_orders["order_estimated_delivery_date"] = df_orders["order_estimated_delivery_date"].astype("datetime64[ns]")
 
+st.markdown("""
+    <header>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    </header>
+    <style>
+        html, body, h1, h2, h3, p, b, nav-link [class*="css"] {font-family: 'Poppins', sans-serif;}
+    </style>
+""", unsafe_allow_html=True)
+
 with st.sidebar :
-    selected = option_menu('Menu',['10122096', 'blablabla'],
+    selected = option_menu('Menu',['10122079','10122096', '10122104', '10122105','10122114', '220170203'],
     icons =["easel2", "graph-up"],
     menu_icon="cast",
-    default_index=0)
+    default_index=0,
+    styles={
+        "nav": {"font-family": 'Poppins'},
+        "menu-title": {"font-family": 'Poppins', "font-weight": "700"},
+        "nav-link-selected": {"font-weight": "700", "background-color": "#dc3545"},
+        "icon": {"font-size": "20px"},
+        "nav-link": {"--hover-color": "#dc3545"}
+    })
     
-if (selected == '10122096') :
-    st.header(f"Dashboard Analisis E-Commerce oleh Mizan")
+if (selected == '10122079') :
+    st.header(f"Dashboard Analisis E-Commerce oleh Hana")
     tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
     
     # with tab1:
@@ -198,6 +216,18 @@ if (selected == '10122096') :
     # with tab4:
     #     pertanyaan4_10122096(df_orders, df_order_item, df_customers, df_sellers, df_geolocation)
 
-elif (selected == 'blablabla'):
-    st.header(f"Dashboard Analisis E-Commerce oleh blablabla")
+elif (selected == '10122096'):
+    st.header(f"Dashboard Analisis E-Commerce oleh Mizan")
+    tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
+elif (selected == '10122104'):
+    st.header(f"Dashboard Analisis E-Commerce oleh Cissy")
+    tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
+elif (selected == '10122105'):
+    st.header(f"Dashboard Analisis E-Commerce oleh Amira")
+    tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
+elif (selected == '10122114'):
+    st.header(f"Dashboard Analisis E-Commerce oleh Stefanus")
+    tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
+elif (selected == '220170203'):
+    st.header(f"Dashboard Analisis E-Commerce oleh Desi")
     tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])

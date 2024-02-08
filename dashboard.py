@@ -176,6 +176,28 @@ df_orders["order_delivered_carrier_date"]  = df_orders["order_delivered_carrier_
 df_orders["order_delivered_customer_date"] = df_orders["order_delivered_customer_date"].astype("datetime64[ns]")
 df_orders["order_estimated_delivery_date"] = df_orders["order_estimated_delivery_date"].astype("datetime64[ns]")
 
+#Tabel Merging
+products = products.join(product_category_name_translation.set_index("product_category_name"), "product_category_name", validate = "m:1")
+products["product_category_name"] = products["product_category_name_english"]
+products.drop("product_category_name_english", axis = 1, inplace = True)
+products.rename(columns = {"product_name_lenght" : "product_name_length", "product_description_lenght" : "product_description_length"}, inplace = True)
+del product_category_name_translation
+
+order_items = df_order_item.join(products.set_index("product_id"), "product_id", validate = "m:1")
+order_items.drop("product_id", axis = 1, inplace = True)
+del products
+
+order_items = order_items.join(df_sellers.set_index("seller_id"), "seller_id", validate = "m:1")
+order_items.drop("seller_id", axis = 1, inplace = True)
+order_items = pd.merge(order_items, df_geolocation, left_on='customer_zip_code_prefix', 
+                        right_on='geolocation_zip_code_prefix',
+                        how="inner"))
+del df_sellers
+
+orders = df_orders.join(df_customers.set_index("customer_id"),"customer_id", validate = "1:1")
+orders.drop(["customer_id", "customer_unique_id"], axis = 1, inplace = True)
+del df_customers
+
 st.markdown("""
     <header>
         <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -155,10 +155,10 @@ def pertanyaan3_10122096(orders, order_item, customers, sellers):
 def pertanyaan4_10122096(orders, order_item, customers, sellers, geolocation):
     order_items = pd.merge(order_item, sellers, on='seller_id', how='inner')
     order_items.drop_duplicates(['order_id'], keep='last', inplace=True, ignore_index = True)
-    order_items = order_items.drop(columns=['order_item_id', 'product_id', 'seller_id', 'shipping_limit_date', 'price', 'freight_value', 'seller_city'])
-    # order_items = pd.merge(order_items, df_geolocation, left_on='seller_zip_code_prefix', 
-    #                     right_on='geolocation_zip_code_prefix',
-    #                     how="inner", )
+    order_items = order_items.drop(columns=['order_item_id', 'product_id', 'shipping_limit_date', 'price', 'freight_value', 'seller_city'])
+    order_items = pd.merge(order_items, df_geolocation, left_on='seller_zip_code_prefix', 
+                        right_on='geolocation_zip_code_prefix',
+                        how="inner", )
     st.dataframe(order_items)
     
 df_order_item = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_items_dataset.csv")

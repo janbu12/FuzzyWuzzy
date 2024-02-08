@@ -152,8 +152,11 @@ def pertanyaan3_10122096(orders, order_item, customers, sellers):
 
     del orders_df, merge_order_for_state, transaction_count, top_5_transactions, heatmap_data, order_item_df
 
-def pertanyaan4_10122096(orders, order_item, customers, sellers):
+def pertanyaan4_10122096(orders, order_item, customers, sellers, geolocation):
     order_items = pd.merge(order_item, sellers, on='seller_id', how='inner')
+    order_items = pd.merge(order_item, df_geolocation, left_on='customer_zip_code_prefix', 
+                        right_on='geolocation_zip_code_prefix',
+                        how="inner")
     st.dataframe(order_items)
     
 df_order_item = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/order_items_dataset.csv")
@@ -183,7 +186,7 @@ if (selected == '10122096') :
         pertanyaan3_10122096(df_orders, df_order_item, df_customers, df_sellers)
 
     with tab4:
-        pertanyaan4_10122096(df_orders, df_order_item, df_customers, df_sellers)
+        pertanyaan4_10122096(df_orders, df_order_item, df_customers, df_sellers, df_geolocation)
 
 elif (selected == 'blablabla'):
     st.header(f"Dashboard Analisis E-Commerce oleh blablabla")

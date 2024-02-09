@@ -5,7 +5,7 @@ from streamlit_option_menu import option_menu
 from Mizan import *
 from Stefanus import *
 from Cissy import *
-
+from Amira import *
 @st.cache_data
 def load_data(url) :
     df = pd.read_csv(url)
@@ -79,6 +79,9 @@ elif (selected == '10122104'):
 elif (selected == '10122105'):
     st.header(f"Dashboard Analisis E-Commerce oleh Amira")
     tab1, tab2, tab3, tab4, tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
+
+    with tab1:
+        pertanyaan1_10122104(order_items)
     
 elif (selected == '10122114'):
     st.header(f"Dashboard Analisis E-Commerce oleh Stefanus Gratilio")

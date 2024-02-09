@@ -35,7 +35,11 @@ def pertanyaan2_10122104(delivered_orders):
 
     plt.pie(grup1, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90, shadow=True, explode=myexplode)
     plt.title('Pembatalan Pesanan')
-    plt.show()
+    grafik2 = plt.gcf()
+    plt.close()
+    st.pyplot(grafik2)
+
+    del grafik2
 
     st.caption('PART 2')
     batal               = delivered_orders
@@ -53,7 +57,11 @@ def pertanyaan2_10122104(delivered_orders):
 
     plt.pie(grup2, labels=labels, colors=colors, autopct='%1.2f%%',  shadow=True, explode=myexplode)
     plt.title('Barang Yang Datang Melebihi Tanggal Estimasi Dan di Cancel')
-    plt.show()
+    grafik3 = plt.gcf()
+    plt.close()
+    st.pyplot(grafik3)
+
+    del grafik3
 
     with st.expander("Kesimpulan"):
         st.write("Maka dari hasil diatas\

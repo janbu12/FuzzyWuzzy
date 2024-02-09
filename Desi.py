@@ -6,12 +6,15 @@ def pertanyaan1_220170203(order_items):
 
     with st.container():
         plt.pie(category_photo.head(), labels = category_photo.head().keys())
+        grf = plt.gcf()
+        st.pyplot(grf)
+
+        plt.close()
         plt.pie(category_photo.tail(), labels = category_photo.tail().keys())
         grf = plt.gcf()
-        plt.close()
         st.pyplot(grf)
     
-    del grf
+    del grf, category_photo
     
     with st.expander("Kesimpulan"):
             st.write("Kategori terbesar dari jumlah foto yangdi publikasikan adalah fashion shoes dengan rata rata 5.229008 adapun kategori terkecil dari jumlah foto yang dipublikasikan adalah home comfort 2 dengan rata rata 1.033333") 

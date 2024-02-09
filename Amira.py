@@ -8,7 +8,7 @@ def pertanyaan1_10122105(min_order):
 
     min_order = categories_count_min_order.head(10)
     del categories_count_min_order
-    st.dataframe(min_order, use_container_width = True, hide_index = True)
+    st.dataframe(min_order)
 
     plt.figure(figsize=(10, 6))
     min_order.plot(kind='bar', color='lightgreen')

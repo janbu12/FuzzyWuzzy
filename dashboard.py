@@ -6,7 +6,6 @@ from Mizan import *
 from Stefanus import *
 from Cissy import *
 from Amira import *
-from Hanna import *
 
 @st.cache_data
 def load_data(url) :

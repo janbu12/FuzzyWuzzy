@@ -7,6 +7,7 @@ from Mizan import *
 from Stefanus import *
 from Cissy import *
 from Amira import *
+from Desi import *
 
 @st.cache_data
 def load_data(url) :
@@ -96,5 +97,5 @@ elif (selected == '10122114'):
     
 elif (selected == '220170203'):
     st.header(f"Dashboard Analisis E-Commerce oleh Desi")
-    tab1, tab2, tab3, tab4, tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
+        pertanyaan1_220170203(order_items)
     

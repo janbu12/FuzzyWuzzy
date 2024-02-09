@@ -5,7 +5,6 @@ from streamlit_option_menu import option_menu
 from Mizan import *
 from Stefanus import *
 from Cissy import *
-from Hanna import *
 
 @st.cache_data
 def load_data(url) :

@@ -51,7 +51,7 @@ def pertanyaan2_10122104(delivered_orders):
     st.dataframe(batal.head())
     
     with st.container():
-        grup2 = batal.groupby('order_status').size()
+        grup2 = batal.groupby('order_status')
         #grup2.rename(columns = {'0' : 'jumlah'})
         st.dataframe(grup2)
     del batal

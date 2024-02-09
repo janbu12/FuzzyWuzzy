@@ -39,6 +39,8 @@ def pertanyaan2_10122104(delivered_orders):
     grafik2 = plt.gcf()
     plt.close()
     st.pyplot(grafik2)
+    st.markdown("Pada grafik pertama dimulai dari menelusuri status pesanan yang dibatalkan lalu memfilter\
+                tanggal kedatangan barang di kostumer yang melebihi tanggal estimasi")
 
     del grafik2
 
@@ -61,10 +63,12 @@ def pertanyaan2_10122104(delivered_orders):
     grafik3 = plt.gcf()
     plt.close()
     st.pyplot(grafik3)
+    st.markdown("Pada grafik kedua dimulai dari memfilter tanggal kedatangan barang yang melebihi tanggal\
+                estimasi lalu memfilter status pesanan yang dibatalkan")
 
     del grafik3
 
     with st.expander("Kesimpulan"):
-        st.write("Maka dari hasil diatas\
-                 Keterlambatan kedatangan barang kepada konsumen melebihi estimasi\
+        st.write("Maka dari hasil kedua grafik diatas meskipun memiliki persentase yang berbeda\
+                 hasilnya keterlambatan kedatangan barang kepada konsumen melebihi tanggal estimasi\
                   tidak mempengaruhi secara besar dalam pembatalan pesanan.")

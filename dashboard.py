@@ -3,7 +3,6 @@ from streamlit_option_menu import option_menu
 from Mizan import pertanyaan1_10122096, pertanyaan2_10122096, pertanyaan3_10122096, pertanyaan4_10122096
 from Stefanus import *
 from Cissy import pertanyaan1_10122104, pertanyaan2_10122104
-%matplotlib inline
 pd.options.mode.chained_assignment = None
 
 @st.cache_data

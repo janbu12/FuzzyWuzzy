@@ -1,24 +1,23 @@
-import streamlit as st, pandas as pd, matplotlib.pyplot as plt, numpy as np, seaborn as sea
+import streamlit as st
 from streamlit_option_menu import option_menu
-from Mizan import pertanyaan1_10122096, pertanyaan2_10122096, pertanyaan3_10122096, pertanyaan4_10122096
+
+# Import Pertanyaan
+from Mizan import *
 from Stefanus import *
-from Cissy import pertanyaan1_10122104, pertanyaan2_10122104
-pd.options.mode.chained_assignment = None
+from Cissy import *
 
 @st.cache_data
 def load_data(url) :
     df = pd.read_csv(url)
     return df
 
-#karena data terlalu besar untuk dicleaning & merging, jadi dibuat csv yang sudah dicleaningnya untuk membatasi limit ram usage
-order_reviews = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/order_reviews.csv")
-delivered_orders = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/delivered_orders.csv")
-shipped_orders = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/shipped_orders.csv")
-approved_orders = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/approved_orders.csv")
-order_items = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/order_items.csv")
+# Karena data terlalu besar untuk dicleaning & merging, jadi dibuat csv yang sudah dicleaningnya untuk membatasi limit ram usage
+order_reviews          = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/order_reviews.csv")
+delivered_orders       = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/delivered_orders.csv")
+shipped_orders         = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/shipped_orders.csv")
+approved_orders        = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/approved_orders.csv")
+order_items            = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/order_items.csv")
 df_geolocation_merging = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/Geolocation_merging.csv")
-
-
 
 st.markdown("""
     <header>
@@ -32,25 +31,24 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 with st.sidebar :
-    selected = option_menu('NIM',['10122079','10122096', '10122104', '10122105','10122114', '220170203'],
-    icons =["person-circle","person-workspace","person-badge-fill", "person-circle","person-workspace","person-badge-fill"],
-    menu_icon="person-lines-fill",
-    default_index=0,
-    styles={
-        "nav": {"font-family": 'Poppins'},
-        "menu-title": {"font-family": 'Poppins', "font-weight": "700"},
-        "nav-link-selected": {"font-weight": "700", "background-color": "#dc3545"},
-        "icon": {"font-size": "20px"},
-        "nav-link": {"--hover-color": "#dc3545"}
-    })
+    selected = option_menu('NIM',
+                           ['10122079', '10122096', '10122104', '10122105', '10122114', '220170203'],
+                           icons = ["person-circle", "person-workspace", "person-badge-fill", "person-circle", "person-workspace", "person-badge-fill"],
+                           menu_icon = "person-lines-fill",
+                           default_index = 0,
+                           styles={"nav" : {"font-family" : 'Poppins'},
+                                   "menu-title" : {"font-family" : 'Poppins', "font-weight" : "700"},
+                                   "nav-link-selected" : {"font-weight" : "700", "background-color" : "#dc3545"},
+                                   "icon" : {"font-size" : "20px"},
+                                   "nav-link" : {"--hover-color" : "#dc3545"}})
     
 if (selected == '10122079') :
     st.header(f"Dashboard Analisis E-Commerce oleh Hana")
-    tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
+    tab1, tab2, tab3, tab4, tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
     
 elif (selected == '10122096'):
     st.header(f"Dashboard Analisis E-Commerce oleh Mizan")
-    tab1,tab2,tab3,tab4= st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4"])
+    tab1 ,tab2, tab3, tab4 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4"])
 
     with tab1:
         #Dibutuhkan untuk mengambil data review title dan messagenya
@@ -68,15 +66,15 @@ elif (selected == '10122096'):
         pertanyaan4_10122096(df_geolocation_merging, order_reviews)
         
 elif (selected == '10122104'):
-    st.header(f"Dashboard Analisis E-Commerce oleh Dyandra")
-    tab1,tab2 = st.tabs(["Pertanyaan 1", "Pertanyaan 2"])
+    st.header(f"Dashboard Analisis E-Commerce oleh Dyandra Cissy")
+    tab1, tab2 = st.tabs(["Pertanyaan 1", "Pertanyaan 2"])
     
 elif (selected == '10122105'):
     st.header(f"Dashboard Analisis E-Commerce oleh Amira")
-    tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
+    tab1, tab2, tab3, tab4, tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
     
 elif (selected == '10122114'):
-    st.header(f"Dashboard Analisis E-Commerce oleh Stefanus")
+    st.header(f"Dashboard Analisis E-Commerce oleh Stefanus Gratilio")
     tab1, tab2, tab3 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3"])
 
     with tab1:
@@ -90,5 +88,5 @@ elif (selected == '10122114'):
     
 elif (selected == '220170203'):
     st.header(f"Dashboard Analisis E-Commerce oleh Desi")
-    tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
+    tab1, tab2, tab3, tab4, tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
     

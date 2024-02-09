@@ -11,6 +11,9 @@ def pertanyaan1_10122104(order_items):
     plt.pie(categories_count.head(7).values, labels = categories_count.head(7).keys(), explode=myexplode, shadow=True, colors=sea.color_palette('Set3'), autopct='%1.2f%%', startangle=90)
     plt.title(label="Kategori Produk yang paling banyak di pesan")
     plt.show()
+    with st.expander("Kesimpulan"):
+        st.write("Maka dari hasil diatas\
+                 Kategori Produk yang sering dipesan adalah bed_bath_table.")
 
 def pertanyaan2_10122104(delivered_orders):
     st.write("<h4>Apakah barang yang datang ke costumer melebihi tanggal estimasinya dapat mempengaruhi pembatalan pesanan?<h4>", unsafe_allow_html=True)
@@ -47,3 +50,8 @@ def pertanyaan2_10122104(delivered_orders):
     plt.pie(grup2, labels=labels, colors=colors, autopct='%1.2f%%',  shadow=True, explode=myexplode)
     plt.title('Barang Yang Datang Melebihi Tanggal Estimasi Dan di Cancel')
     plt.show()
+
+    with st.expander("Kesimpulan"):
+        st.write("Maka dari hasil diatas\
+                 Keterlambatan kedatangan barang kepada konsumen melebihi estimasi\
+                  tidak mempengaruhi secara besar dalam pembatalan pesanan.")

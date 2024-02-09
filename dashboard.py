@@ -68,6 +68,12 @@ elif (selected == '10122096'):
 elif (selected == '10122104'):
     st.header(f"Dashboard Analisis E-Commerce oleh Dyandra Cissy")
     tab1, tab2 = st.tabs(["Pertanyaan 1", "Pertanyaan 2"])
+
+    with tab1:
+        pertanyaan1_10122104(order_items)
+
+    with tab2:
+        pertanyaan2_10122104(delivered_orders)
     
 elif (selected == '10122105'):
     st.header(f"Dashboard Analisis E-Commerce oleh Amira")

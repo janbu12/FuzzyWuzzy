@@ -49,7 +49,7 @@ def satu(items : pd.core.frame.DataFrame):
     Harga yang didapat dari model regresi tersebut ialah ~18,40853, di mana nilai tersebu tidak jauh dari rata-rata harga pengiriman barang yang sudah ada, yakni ~20,02548.")
     
     with st.expander("Kesimpulan"):
-        st.markdown("Kesimpulan dari pertanyaan ini ialah:\
+        st.write("Kesimpulan dari pertanyaan ini ialah:\
                      <li>Apabila ada suatu barang dengan berat dan volume yang mendekati rata-rata berat dan volume pada data tersebut, harga pengiriman yang harus dibayar berkisar pada 18 - 20 Brazilian Real.\
                      <li>Model regresi hasil proses ini dapat dipakai untuk menentukan harga pengiriman, dikarenakan data prediksi dan data real tidak memiliki perbedaan yang siginfikan.", unsafe_allow_html = True)
     

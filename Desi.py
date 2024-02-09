@@ -6,9 +6,7 @@ def pertanyaan1_220170203(order_items):
     display(category_photo.tail())
 with st.container():
     plt.pie(category_photo.head(), labels = category_photo.head().keys())
-    plt.show()
     plt.pie(category_photo.tail(), labels = category_photo.tail().keys())
-    plt.show()
     grf = plt.gcf()
     plt.close()
     st.pyplot(grf)

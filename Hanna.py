@@ -15,7 +15,8 @@ def pertanyaan1_10122079(order_items):
     plt.ylabel('Order Count')
     plt.xticks(rotation=45, ha='right')  
     plt.tight_layout()
-    plt.show()
+    grf = plt.gcf()
+    st.pyplot(grf)
 
 
     with st.expander("Kesimpulan"):

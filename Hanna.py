@@ -16,7 +16,10 @@ def pertanyaan1_10122079(order_items):
     plt.xticks(rotation=45, ha='right')  
     plt.tight_layout()
     grf = plt.gcf()
+    plt.close()
     st.pyplot(grf)
+
+    del grf
 
 
     with st.expander("Kesimpulan"):

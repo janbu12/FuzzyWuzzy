@@ -36,10 +36,11 @@ def satu(items : pd.core.frame.DataFrame):
                  hide_index          = True)
     st.pyplot(Scatter1)
     st.pyplot(Scatter2)
-    st.write("Rata-rata berat barang  : 2108.657148732713")
-    st.write("Rata-rata volume barang : 15273.488057169297")
-    st.write("Perkiraan harga pengiriman barang : 18.40853503")
-    st.write("Rata-rata harga pengiriman barang : 20.025485039001275")
+    st.write("<center>Rata-rata berat barang  : 2108.657148732713\
+                  <br>Rata-rata volume barang : 15273.488057169297\
+                  <br>Perkiraan harga pengiriman barang : 18.40853503\
+                  <br>Rata-rata harga pengiriman barang : 20.025485039001275\
+              <center>", unsafe_allow_html = True)
 
     st.markdown("Dari data yang didapat dari tabel order_items, dapat diketahui bahwa rata-rata berat barang ialah ~2.108,65715 $g$ dan rata-rata volume barang adalah ~15.273,48806 $cm^{3}$ . \
                 Dengan menggunakan algoritma pembelajaran mesin regresi kuantil, model akan dilatih dengan seluruh data berat dan volume barang yang ada. \

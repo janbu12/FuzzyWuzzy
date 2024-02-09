@@ -52,7 +52,7 @@ def pertanyaan2_10122104(delivered_orders):
     
     with st.container():
         grup2 = batal.groupby('order_status').size()
-        grup2.rename(columns = {'0' : 'jumlah'})
+        #grup2.rename(columns = {'0' : 'jumlah'})
         st.dataframe(grup2)
     del batal
 

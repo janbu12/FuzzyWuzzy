@@ -60,6 +60,7 @@ elif (selected == '10122096'):
 
     with tab1:
         pertanyaan1_10122096(order_reviews_notClean)
+        del order_reviews_notClean
         
     with tab2:
         pertanyaan2_10122096(delivered_orders, shipped_orders, approved_orders, order_items)

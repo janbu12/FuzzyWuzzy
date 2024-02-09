@@ -47,7 +47,7 @@ if (selected == '10122079') :
     tab1 = st.tabs(["Pertanyaan 1"])
 
     with tab1:
-        pertanyaan1_10122104(order_items)
+        pertanyaan1_10122079(order_items)
 
 
 elif (selected == '10122096'):

@@ -43,7 +43,14 @@ def satu(items : pd.core.frame.DataFrame):
     st.write("Perkiraan harga pengiriman barang : 18.40853503")
     st.write("Rata-rata harga pengiriman barang : 20.025485039001275")
 
-    with st.expander():
-        st.markdown("Dari data yang didapat dari tabel order_items, dapat diketahui bahwa rata-rata berat barang ialah ~2.108,65715 $g$ dan rata-rata volume barang adalah ~15.273,48806 $cm^{3}$ . Dengan menggunakan algoritma pembelajaran mesin regresi kuantil, model akan dilatih dengan seluruh data berat dan volume barang yang ada. Setelah model selesai dilatih, dengan memasukkan rata-rata berat dan volume barang, model regresi dapat memprediksi harga pengiriman barang. Harga yang didapat dari model regresi tersebut ialah ~18,40853, di mana nilai tersebu tidak jauh dari rata-rata harga pengiriman barang yang sudah ada, yakni ~20,02548.")
+    st.markdown("Dari data yang didapat dari tabel order_items, dapat diketahui bahwa rata-rata berat barang ialah ~2.108,65715 $g$ dan rata-rata volume barang adalah ~15.273,48806 $cm^{3}$ . \
+    Dengan menggunakan algoritma pembelajaran mesin regresi kuantil, model akan dilatih dengan seluruh data berat dan volume barang yang ada. \
+    Setelah model selesai dilatih, dengan memasukkan rata-rata berat dan volume barang, model regresi dapat memprediksi harga pengiriman barang. \
+    Harga yang didapat dari model regresi tersebut ialah ~18,40853, di mana nilai tersebu tidak jauh dari rata-rata harga pengiriman barang yang sudah ada, yakni ~20,02548.")
+    
+    with st.expander("Kesimpulan"):
+        st.markdown("Kesimpulan dari pertanyaan ini ialah:\
+                     <li>Apabila ada suatu barang dengan berat dan volume yang mendekati rata-rata berat dan volume pada data tersebut, harga pengiriman yang harus dibayar berkisar pada 18 - 20 Brazilian Real.\
+                     <li>Model regresi hasil proses ini dapat dipakai untuk menentukan harga pengiriman, dikarenakan data prediksi dan data real tidak memiliki perbedaan yang siginfikan.", unsafe_allow_html = True)
     
     del itemsDf, correlation, Scatter1, Scatter2

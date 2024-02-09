@@ -2,6 +2,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 
 # Import Pertanyaan
+from Hanna import *
 from Mizan import *
 from Stefanus import *
 from Cissy import *
@@ -78,7 +79,7 @@ elif (selected == '10122104'):
     
 elif (selected == '10122105'):
     st.header(f"Dashboard Analisis E-Commerce oleh Amira")
-    pertanyaan1_10122105(min_order)
+    pertanyaan1_10122105(order_items)
     
 elif (selected == '10122114'):
     st.header(f"Dashboard Analisis E-Commerce oleh Stefanus Gratilio")

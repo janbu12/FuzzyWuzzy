@@ -80,6 +80,9 @@ elif (selected == '10122114'):
 
     with tab1:
         satu(order_items)
+
+    with tab2:
+        dua(order_items, order_reviews)
     
 elif (selected == '220170203'):
     st.header(f"Dashboard Analisis E-Commerce oleh Desi")

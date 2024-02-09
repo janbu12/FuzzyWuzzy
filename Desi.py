@@ -1,4 +1,4 @@
-import pandas as pd, numpy as np, mathplotlib.pyplot as plt, seaborn as sea, streamlit as st
+import pandas as pd, numpy as np, matplotlib.pyplot as plt, seaborn as sea, streamlit as st
 def pertanyaan1_220170203(orders_items):
     st.write("<h4>Berapakah rata-rata kategori terbesar dan terkecil dari jumlah poto yang dipublikasikan untuk produk<h4>",unsafe_allow_html=True)
     category_photo = order_items[["product_category_name","product_photos_qty"]]

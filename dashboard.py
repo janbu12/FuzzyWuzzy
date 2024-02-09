@@ -69,7 +69,7 @@ elif (selected == '10122096'):
         
 elif (selected == '10122104'):
     st.header(f"Dashboard Analisis E-Commerce oleh Dyandra")
-    tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2"])
+    tab1,tab2 = st.tabs(["Pertanyaan 1", "Pertanyaan 2"])
     
 elif (selected == '10122105'):
     st.header(f"Dashboard Analisis E-Commerce oleh Amira")

@@ -8,7 +8,6 @@ def pertanyaan1_10122079(order_items):
     max_order = categories_count_max_order.head(10)
     del categories_count_max_order
 
-    st.bar_chart(max_order)
 
     plt.figure(figsize=(10, 6))
     max_order.plot(kind='bar', color='lightblue')
@@ -17,7 +16,7 @@ def pertanyaan1_10122079(order_items):
     plt.ylabel('Order Count')
     plt.xticks(rotation=45, ha='right')  
     plt.tight_layout()
-    st.pyplot()
+
 
     with st.expander("Kesimpulan"):
         st.write("Ini adalah 10 Kategori produk dengan penjualan tertinggi Bed bath table, Health beauty, Sports leisure, Furniture decor, Computer accessories, Housewares, Watches gifts, Telephon, Garden Tools, Auto")

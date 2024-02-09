@@ -1,11 +1,8 @@
-import Stefanus
 import streamlit as st, pandas as pd, matplotlib.pyplot as plt, numpy as np, seaborn as sea
-
 from streamlit_option_menu import option_menu
-#from collections import Counter
-#from geopy.distance import geodesic
-
 from Mizan import pertanyaan1_10122096, pertanyaan2_10122096, pertanyaan3_10122096, pertanyaan4_10122096
+from Stefanus import *
+
 
 @st.cache_data
 def load_data(url) :

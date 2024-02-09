@@ -1,11 +1,10 @@
-import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
-import seaborn as sea
+import Stefanus
+import streamlit as st, pandas as pd, matplotlib.pyplot as plt, numpy as np, seaborn as sea
+
 from streamlit_option_menu import option_menu
-from collections import Counter
-from geopy.distance import geodesic
+#from collections import Counter
+#from geopy.distance import geodesic
+
 from Mizan import pertanyaan1_10122096, pertanyaan2_10122096, pertanyaan3_10122096, pertanyaan4_10122096
 
 @st.cache_data
@@ -80,7 +79,10 @@ elif (selected == '10122105'):
     
 elif (selected == '10122114'):
     st.header(f"Dashboard Analisis E-Commerce oleh Stefanus")
-    tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
+    tab1, tab2, tab3 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3"])
+
+with tab1:
+    satu(order_items)
     
 elif (selected == '220170203'):
     st.header(f"Dashboard Analisis E-Commerce oleh Desi")

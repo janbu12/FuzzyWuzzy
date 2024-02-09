@@ -19,14 +19,4 @@ def pertanyaan1_10122079(order_items):
 
 
     with st.expander("Kesimpulan"):
-    st.write("Ini adalah 10 Kategori produk dengan penjualan tertinggi 
-    Bed bath table, 
-    Health beauty, 
-    Sports leisure, 
-    Furniture decor, 
-    Computer accessories, 
-    Housewares, 
-    Watches gifts, 
-    Telephon, 
-    Garden Tools, 
-    Auto")
+    st.write("Ini adalah 10 Kategori produk dengan penjualan tertinggi Bed bath table, Health beauty, Sports leisure, Furniture decor, Computer accessories, Housewares, Watches gifts, Telephon, Garden Tools, Auto")

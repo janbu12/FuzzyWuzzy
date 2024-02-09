@@ -45,3 +45,5 @@ def satu(items : pd.core.frame.DataFrame):
     st.write("Rata-rata berat barang  :", itemsDf["product_weight_g"].mean())
     st.write("Rata-rata volume barang :", itemsDf["product_volume_cm"].mean())
     st.write("Perkiraan harga pengiriman barang :", quantile_regressor.predict(means))
+
+    del itemsDf, correlation, Scatter1, Scatter2, quantile_regressor, means

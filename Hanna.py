@@ -8,16 +8,16 @@ def pertanyaan1_10122079(order_items):
 
     
     with st.container():
-    plt.figure(figsize=(10, 6))
-    max_order.plot(kind='bar', color='lightblue')
-    plt.title('10 Kategori Produk dengan Penjualan Tertinggi')
-    plt.xlabel('Product Category')
-    plt.ylabel('Order Count')
-    plt.xticks(rotation=45, ha='right')  
-    plt.tight_layout()
-    grf = plt.gcf()
-    plt.close()
-    st.pyplot(grf)
+        plt.figure(figsize=(10, 6))
+        max_order.plot(kind='bar', color='lightblue')
+        plt.title('10 Kategori Produk dengan Penjualan Tertinggi')
+        plt.xlabel('Product Category')
+        plt.ylabel('Order Count')
+        plt.xticks(rotation=45, ha='right')  
+        plt.tight_layout()
+        grf = plt.gcf()
+        plt.close()
+        st.pyplot(grf)
 
     del grf
 

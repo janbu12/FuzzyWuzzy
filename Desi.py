@@ -1,7 +1,9 @@
 import pandas as pd, numpy as np, matplotlib.pyplot as plt, seaborn as sea, streamlit as st
 def pertanyaan1_220170203(order_items):
     st.write("<h4>Berapakah rata rata kategori terbesar dan terkecil dari jumlah foto yang dipublikasikan untuk produk?<h4>", unsafe_allow_html=True)
-    category_photo = category_photo.groupby("product_category_name")["product_photos_qty"].mean().sort_values(ascending = False)
+   category_photo = order_items[["product_category_name","product_photos_qty"]]
+    display(category_photo.head())
+    category_photo = order_items.groupby("product_category_name")["product_photos_qty"].mean().sort_values(ascending = False)
     display(category_photo.head())
     display(category_photo.tail())
 with st.container():

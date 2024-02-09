@@ -2,9 +2,9 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sea
 
-def pertanyaan1_10122105(order_items):
+def pertanyaan1_10122105(min_order):
     st.write("Apa 10 kategori produk dengan penjualan terendah?<h4>", unsafe_allow_html=True)
-    categories_count_min_order = order_items["product_category_name"].value_counts(ascending=True)
+    categories_count_min_order = min_order["product_category_name"].value_counts(ascending=True)
 
     min_order                  = categories_count_min_order.head(10)
     del categories_count_min_order

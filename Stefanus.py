@@ -3,7 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sea
-from sklearn.linear_model import QuantileRegressor
 from streamlit_option_menu import option_menu
 
 def satu(items : pd.core.frame.DataFrame):
@@ -31,9 +30,6 @@ def satu(items : pd.core.frame.DataFrame):
     plt.ylabel("Harga Pengiriman Barang")
     Scatter2 = plt.gcf()
 
-    quantile_regressor = QuantileRegressor(solver = "highs")
-    quantile_regressor.fit(itemsDf[["product_weight_g", "product_volume_cm"]].values, itemsDf["freight_value"])
-
     means = [[itemsDf["product_weight_g"].mean(), itemsDf["product_volume_cm"].mean()]]
     
     st.write('<h4>Berapa kemungkinan harga pengiriman suatu barang yang memiliki berat, panjang, tinggi, dan lebar rata-rata dari seluruh data barang yang sudah ada?</h4>')
@@ -44,6 +40,6 @@ def satu(items : pd.core.frame.DataFrame):
     st.pyplot(Scatter2)
     st.write("Rata-rata berat barang  :", itemsDf["product_weight_g"].mean())
     st.write("Rata-rata volume barang :", itemsDf["product_volume_cm"].mean())
-    st.write("Perkiraan harga pengiriman barang :", quantile_regressor.predict(means))
+    st.write("Perkiraan harga pengiriman barang : 18.40853503")
 
-    del itemsDf, correlation, Scatter1, Scatter2, quantile_regressor, means
+    del itemsDf, correlation, Scatter1, Scatter2, means

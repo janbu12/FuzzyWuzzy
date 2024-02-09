@@ -84,7 +84,7 @@ elif (selected == '10122105'):
     tab1 = st.tabs(["Pertanyaan 1"])
 
     with tab1:
-        pertanyaan1_10122105(order_items)
+        pertanyaan1_10122105(min_order)
     
 elif (selected == '10122114'):
     st.header(f"Dashboard Analisis E-Commerce oleh Stefanus Gratilio")

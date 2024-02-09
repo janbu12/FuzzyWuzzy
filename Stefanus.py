@@ -18,17 +18,19 @@ def satu(items : pd.core.frame.DataFrame):
     #Data Mining
     correlation = itemsDf.corr("pearson")
 
-    fig1 = sea.scatterplot(x = itemsDf["product_volume_cm"], y = itemsDf["freight_value"])
-    fig1.title("Scatterplot volume dan harga pengiriman barang")
-    fig1.xlabel("Volume Barang")
-    fig1.ylabel("Harga Pengiriman Barang")
-    Scatter1 = fig1.gcf()
+    sea.scatterplot(x = itemsDf["product_volume_cm"], y = itemsDf["freight_value"])
+    plt.title("Scatterplot volume dan harga pengiriman barang")
+    plt.xlabel("Volume Barang")
+    plt.ylabel("Harga Pengiriman Barang")
+    Scatter1 = plt.gcf()
+    plt.clf()
 
-    fig2 = sea.scatterplot(x = itemsDf["product_weight_g"], y = itemsDf["freight_value"])
-    fig2.title("Scatterplot berat dan harga pengiriman barang")
-    fig2.xlabel("Berat Barang")
-    fig2.ylabel("Harga Pengiriman Barang")
-    Scatter2 = fig2.gcf()
+    sea.scatterplot(x = itemsDf["product_weight_g"], y = itemsDf["freight_value"])
+    plt.title("Scatterplot berat dan harga pengiriman barang")
+    plt.xlabel("Berat Barang")
+    plt.ylabel("Harga Pengiriman Barang")
+    Scatter2 = plt.gcf()
+    plt.close()
     
     st.write('<h4>Berapa kemungkinan harga pengiriman suatu barang yang memiliki berat, panjang, tinggi, dan lebar rata-rata dari seluruh data barang yang sudah ada?</h4>', unsafe_allow_html = True)
     st.dataframe(correlation,
@@ -43,4 +45,4 @@ def satu(items : pd.core.frame.DataFrame):
     st.write("Perkiraan harga pengiriman barang : 18.40853503")
     st.write("Rata-rata harga pengiriman barang : 20.025485039001275")
 
-    del itemsDf, correlation, Scatter1, Scatter2, fig1, fig2
+    del itemsDf, correlation, Scatter1, Scatter2

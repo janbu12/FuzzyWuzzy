@@ -117,7 +117,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 with st.sidebar :
-    selected = option_menu('Menu',['10122079','10122096', '10122104', '10122105','10122114', '220170203'],
+    selected = option_menu('NIM',['10122079','10122096', '10122104', '10122105','10122114', '220170203'],
     icons =["person-circle","person-workspace","person-badge-fill", "person-circle","person-workspace","person-badge-fill"],
     menu_icon="person-lines-fill",
     default_index=0,

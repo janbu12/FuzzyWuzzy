@@ -49,7 +49,7 @@ if (selected == '10122079') :
     tab1 = st.tabs(["Pertanyaan 1"])
 
     with tab1:
-        pertanyaan1_10122079(min_order)
+        pertanyaan1_10122079(max_order)
 
 elif (selected == '10122096'):
     st.header(f"Dashboard Analisis E-Commerce oleh Mizan")

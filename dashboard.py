@@ -13,9 +13,6 @@ def load_data(url) :
     df = pd.read_csv(url)
     return df
 
-#Dibutuhkan untuk mengambil data review title dan messagenya
-order_reviews_notClean = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/order_reviews_dataset.csv")
-
 #karena data terlalu besar untuk dicleaning & merging, jadi dibuat csv yang sudah dicleaningnya untuk membatasi limit ram usage
 order_reviews = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/order_reviews.csv")
 delivered_orders = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/delivered_orders.csv")
@@ -59,6 +56,8 @@ elif (selected == '10122096'):
     tab1,tab2,tab3,tab4= st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4"])
 
     with tab1:
+        #Dibutuhkan untuk mengambil data review title dan messagenya
+        order_reviews_notClean = load_data("https://raw.githubusercontent.com/janbu12/FuzzyWuzzy/main/dataset/order_reviews_dataset.csv")
         pertanyaan1_10122096(order_reviews_notClean)
         del order_reviews_notClean
         

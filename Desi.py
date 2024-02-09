@@ -4,7 +4,7 @@ def pertanyaan1_220170203(order_items):
     category_photo = order_items[["product_category_name","product_photos_qty"]]
     category_photo = category_photo.groupby("product_category_name")["product_photos_qty"].mean().sort_values(ascending = False)
 
-    with st.cointainer():
+    with st.container():
         plt.pie(category_photo.head(), labels = category_photo.head().keys())
         grf = plt.gcf()
         st.pyplot(grf)

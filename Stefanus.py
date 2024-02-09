@@ -23,7 +23,7 @@ def satu(items : pd.core.frame.DataFrame):
     plt.xlabel("Volume Barang")
     plt.ylabel("Harga Pengiriman Barang")
     Scatter1 = plt.gcf()
-    plt.clf()
+    plt.close()
 
     sea.scatterplot(x = itemsDf["product_weight_g"], y = itemsDf["freight_value"])
     plt.title("Scatterplot berat dan harga pengiriman barang")
@@ -38,8 +38,6 @@ def satu(items : pd.core.frame.DataFrame):
                  hide_index=True)
     st.pyplot(Scatter1)
     st.pyplot(Scatter2)
-    st.pyplot(fig1)
-    st.pyplot(fig2)
     st.write("Rata-rata berat barang  : 2108.657148732713")
     st.write("Rata-rata volume barang : 15273.488057169297")
     st.write("Perkiraan harga pengiriman barang : 18.40853503")

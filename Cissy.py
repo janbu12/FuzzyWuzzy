@@ -51,7 +51,7 @@ def pertanyaan2_10122104(delivered_orders):
     
     with st.container():
         grup2 = batal.groupby('order_status').size()
-        st.dataframe(batal)
+        st.dataframe(grup2)
     del batal
 
     labels    = ['canceled', 'delivered']

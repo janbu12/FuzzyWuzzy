@@ -5,7 +5,6 @@ import numpy as np
 import seaborn as sea
 from sklearn.linear_model import QuantileRegressor
 from streamlit_option_menu import option_menu
-from collections import Counter
 
 def satu(items : pd.core.frame.DataFrame):
     #Gathering

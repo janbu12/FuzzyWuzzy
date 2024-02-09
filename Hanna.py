@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 
-def pertanyaan1_10122079(order_items):
+def pertanyaan1_10122079(max_items):
     st.markdown("<h4>10 Kategori Produk Dengan Penjualan tertinggi?</h4>", unsafe_allow_html=True)
     
     categories_count_max_order = order_items["product_category_name"].value_counts()

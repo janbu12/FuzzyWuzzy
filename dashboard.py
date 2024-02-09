@@ -68,8 +68,8 @@ elif (selected == '10122096'):
         pertanyaan4_10122096(df_geolocation_merging, order_reviews)
         
 elif (selected == '10122104'):
-    st.header(f"Dashboard Analisis E-Commerce oleh Cissy")
-    tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
+    st.header(f"Dashboard Analisis E-Commerce oleh Dyandra")
+    tab1,tab2,tab3,tab4,tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2"])
     
 elif (selected == '10122105'):
     st.header(f"Dashboard Analisis E-Commerce oleh Amira")

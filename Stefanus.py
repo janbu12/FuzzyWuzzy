@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sea
+pd.options.mode.chained_assignment = None
 
 def satu(items : pd.core.frame.DataFrame):
     # Gathering

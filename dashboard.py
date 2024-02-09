@@ -46,7 +46,7 @@ with st.sidebar :
     
 if (selected == '10122079') :
     st.header(f"Dashboard Analisis E-Commerce oleh Hanna")
-    tab1, tab2, tab3, tab4, tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
+    tab1 = st.tabs(["Pertanyaan 1"])
 
     with tab1:
         pertanyaan1_10122079(order_items)

@@ -10,7 +10,11 @@ def pertanyaan1_10122104(order_items):
         myexplode = [0.2 ,0 ,0 ,0 ,0 ,0 ,0]
     plt.pie(categories_count.head(7).values, labels = categories_count.head(7).keys(), explode=myexplode, shadow=True, colors=sea.color_palette('Set3'), autopct='%1.2f%%', startangle=90)
     plt.title(label="Kategori Produk yang paling banyak di pesan")
-    plt.show()
+    grafik1 = plt.gcf()
+    plt.close()
+    st.pyplot(grafik1)
+
+    del grafik1
     with st.expander("Kesimpulan"):
         st.write("Maka dari hasil diatas\
                  Kategori Produk yang sering dipesan adalah bed_bath_table.")

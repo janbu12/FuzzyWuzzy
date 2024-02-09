@@ -45,10 +45,7 @@ with st.sidebar :
     
 if (selected == '10122079') :
     st.header(f"Dashboard Analisis E-Commerce oleh Hanna")
-    tab1 = st.tabs(["Pertanyaan 1"])
-
-    with tab1:
-        pertanyaan1_10122079(order_items)
+    pertanyaan1_10122079(order_items)
 
 elif (selected == '10122096'):
     st.header(f"Dashboard Analisis E-Commerce oleh Mizan")
@@ -81,10 +78,7 @@ elif (selected == '10122104'):
     
 elif (selected == '10122105'):
     st.header(f"Dashboard Analisis E-Commerce oleh Amira")
-    tab1 = st.tabs(["Pertanyaan 1"])
-
-    with tab1:
-        pertanyaan1_10122105(min_order)
+    pertanyaan1_10122105(min_order)
     
 elif (selected == '10122114'):
     st.header(f"Dashboard Analisis E-Commerce oleh Stefanus Gratilio")

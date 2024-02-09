@@ -25,7 +25,6 @@ def pertanyaan2_10122104(delivered_orders):
     batal               = (delivered_orders[delivered_orders["order_status"] == "canceled"])
     batal['is_delayed'] = batal['order_delivered_customer_date'] > batal['order_estimated_delivery_date']
 
-    with st.write(batal[['order_id','order_status','order_delivered_customer_date', 'order_estimated_delivery_date', 'is_delayed']])
     
     with st.container():
         grup1 = batal.groupby('is_delayed').size()

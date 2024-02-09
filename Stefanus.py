@@ -1,9 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 import seaborn as sea
-from streamlit_option_menu import option_menu
 
 def satu(items : pd.core.frame.DataFrame):
     # Gathering
@@ -239,7 +237,7 @@ def tiga(items : pd.core.frame.DataFrame, reviews : pd.core.frame.DataFrame):
                bbox_to_anchor = (0, -1.1, 0.5, 1))
 
     plt.suptitle("10 Kategori Dengan Nilai Review 3 Terbanyak (Kiri) dan Tersedikit (Kanan)", y = 0.82)
-    Figure3 = plt.show()
+    Figure3 = plt.gcf()
     plt.close()
 
     plt.subplot(1, 2, 1)

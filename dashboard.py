@@ -6,6 +6,7 @@ from Mizan import *
 from Stefanus import *
 from Cissy import *
 from Amira import *
+from Hanna import *
 @st.cache_data
 def load_data(url) :
     df = pd.read_csv(url)
@@ -46,6 +47,9 @@ if (selected == '10122079') :
     st.header(f"Dashboard Analisis E-Commerce oleh Hanna")
     tab1 = st.tabs(["Pertanyaan 1"])
 
+    with tab1:
+        pertanyaan1_10122079(min_order)
+
 elif (selected == '10122096'):
     st.header(f"Dashboard Analisis E-Commerce oleh Mizan")
     tab1 ,tab2, tab3, tab4 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4"])
@@ -80,7 +84,7 @@ elif (selected == '10122105'):
     tab1, tab2, tab3, tab4, tab5 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Pertanyaan 4", "Pertanyaan 5"])
 
     with tab1:
-        pertanyaan1_10122105(order_items)
+        pertanyaan1_10122105(min_order)
     
 elif (selected == '10122114'):
     st.header(f"Dashboard Analisis E-Commerce oleh Stefanus Gratilio")

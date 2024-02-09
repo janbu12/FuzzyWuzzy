@@ -81,8 +81,8 @@ elif (selected == '10122114'):
     st.header(f"Dashboard Analisis E-Commerce oleh Stefanus")
     tab1, tab2, tab3 = st.tabs(["Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3"])
 
-with tab1:
-    satu(order_items)
+    with tab1:
+        satu(order_items)
     
 elif (selected == '220170203'):
     st.header(f"Dashboard Analisis E-Commerce oleh Desi")

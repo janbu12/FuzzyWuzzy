@@ -7,7 +7,6 @@ def pertanyaan1_10122105(min_order):
     categories_count_min_order = min_order["product_category_name"].value_counts(ascending=True)
 
     min_order = categories_count_min_order.head(10)
-    del categories_count_min_order
     st.dataframe(min_order)
 
     plt.figure(figsize=(10, 6))
@@ -22,3 +21,5 @@ def pertanyaan1_10122105(min_order):
     with st.expander("Kesimpulan"):
         st.write("Maka kesimpulan dari hasil diatas\
                  10 Kategori Produk dengan penjualan terendah adalah security_and_service, fashion_childrens_clothes, la_cuisine, cds_dvds_musicals, arts_and_craftmanship, fashion_sport, home_comfort_2, flowers, furniture_mattress_and_upholstery, music..")
+
+    del categories_count_min_order, min_order

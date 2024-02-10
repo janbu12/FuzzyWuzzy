@@ -18,7 +18,7 @@ def pertanyaan1_10122104(order_items):
         st.write("Maka dari hasil diatas\
                  Kategori Produk yang sering dipesan adalah bed_bath_table.")
     
-    del categories_count, myexplore, grafik1
+    del categories_count, myexplode, grafik1
 
 def pertanyaan2_10122104(delivered_orders):
     st.write("<h4>Apakah barang yang datang ke costumer melebihi tanggal estimasinya dapat mempengaruhi pembatalan pesanan?<h4>", unsafe_allow_html=True)

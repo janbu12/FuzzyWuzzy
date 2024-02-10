@@ -24,7 +24,7 @@ def pertanyaan2_10122104(delivered_orders):
     st.caption('PART 1')
     batal               = (delivered_orders[delivered_orders["order_status"] == "canceled"])
     batal['is_delayed'] = batal['order_delivered_customer_date'] > batal['order_estimated_delivery_date']
-    batal.drop(columns = batal.columns[0], inplace=True)
+    batal.drop(columns = batal.columns[0,4], inplace=True)
     st.dataframe(batal.head(), use_container_width = True)
     
     with st.container():

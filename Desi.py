@@ -1,4 +1,4 @@
-#import matplotlib.pyplot as plt, streamlit as st
+import matplotlib.pyplot as plt, streamlit as st
 
 def pertanyaan1_220170203(order_items):
     st.write("<h4>Berapakah rata-rata kategori terbesar dan terkecil dari jumlah poto yang dipublikasikan untuk produk<h4>",unsafe_allow_html=True)

@@ -16,10 +16,11 @@ def pertanyaan1_10122104(order_items):
         st.pyplot(grafik1)
         plt.close()
 
-    del grafik1
     with st.expander("Kesimpulan"):
         st.write("Maka dari hasil diatas\
                  Kategori Produk yang sering dipesan adalah bed_bath_table.")
+    
+    del categories_count, myexplore, grafik1
 
 def pertanyaan2_10122104(delivered_orders):
     st.write("<h4>Apakah barang yang datang ke costumer melebihi tanggal estimasinya dapat mempengaruhi pembatalan pesanan?<h4>", unsafe_allow_html=True)
@@ -34,7 +35,6 @@ def pertanyaan2_10122104(delivered_orders):
         grup1 = batal.groupby('is_delayed').size()
         st.markdown("Tabel Jumlah pesanan Yang Statusnya dibatalkan dan Mengalami keterlambatan ")
         st.dataframe(grup1, use_container_width = True)
-    del batal
     labels    = ['Not delayed', 'Delayed']
     myexplode = [0.2,0]
     colors    = sea.color_palette('Set3')
@@ -47,7 +47,7 @@ def pertanyaan2_10122104(delivered_orders):
     st.markdown("Pada grafik pertama dimulai dari menelusuri status pesanan yang dibatalkan lalu memfilter\
                 tanggal kedatangan barang di kostumer yang melebihi tanggal estimasi")
 
-    del grafik2
+    del batal, grup1, labels, myexplode, colors, grafik2
 
     st.write("<li><b>PART 2</b>", unsafe_allow_html=True)
     batal               = delivered_orders
@@ -61,7 +61,6 @@ def pertanyaan2_10122104(delivered_orders):
         grup2 = batal.groupby('order_status').size()
         st.markdown("Tabel Jumlah dari pesanan Yang Statusnya dibatalkan akibat keterlambatan")
         st.dataframe(grup2, use_container_width = True)
-    del batal
 
     labels    = ['canceled', 'delivered']
     myexplode = [0.10,0]
@@ -75,7 +74,7 @@ def pertanyaan2_10122104(delivered_orders):
     st.markdown("Pada grafik kedua dimulai dari memfilter tanggal kedatangan barang yang melebihi tanggal\
                 estimasi lalu memfilter status pesanan yang dibatalkan")
 
-    del grafik3
+    del batal, grup2, labels, myexplode, colors, grafik3
 
     with st.expander("Kesimpulan"):
         st.write("Maka dari hasil kedua grafik diatas meskipun memiliki persentase yang berbeda\

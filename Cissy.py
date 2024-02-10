@@ -10,11 +10,11 @@ def pertanyaan1_10122104(order_items):
 
     with st.container():
         myexplode = [0.2 ,0 ,0 ,0 ,0 ,0 ,0]
-    plt.pie(categories_count.head(7).values, labels = categories_count.head(7).keys(), explode=myexplode, shadow=True, colors=sea.color_palette('Set3'), autopct='%1.2f%%', startangle=90)
-    plt.title(label="Kategori Produk yang paling banyak di pesan")
-    grafik1 = plt.gcf()
-    plt.close()
-    st.pyplot(grafik1)
+        plt.pie(categories_count.head(7).values, labels = categories_count.head(7).keys(), explode=myexplode, shadow=True, colors=sea.color_palette('Set3'), autopct='%1.2f%%', startangle=90)
+        plt.title(label="Kategori Produk yang paling banyak di pesan")
+        grafik1 = plt.gcf() 
+        st.pyplot(grafik1)
+        plt.close()
 
     del grafik1
     with st.expander("Kesimpulan"):

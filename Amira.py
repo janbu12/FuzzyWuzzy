@@ -17,6 +17,7 @@ def pertanyaan1_10122105(min_order):
     plt.xticks(rotation=45, ha='right')  
     plt.tight_layout()
     st.pyplot(plt.gcf())
+    plt.close()
 
     with st.expander("Kesimpulan"):
         st.write("Maka kesimpulan dari hasil diatas\

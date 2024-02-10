@@ -21,7 +21,7 @@ def pertanyaan1_10122104(order_items):
 
 def pertanyaan2_10122104(delivered_orders):
     st.write("<h4>Apakah barang yang datang ke costumer melebihi tanggal estimasinya dapat mempengaruhi pembatalan pesanan?<h4>", unsafe_allow_html=True)
-    st.caption('PART 1')
+    st.caption('<li>PART 1</li>')
     batal               = (delivered_orders[delivered_orders["order_status"] == "canceled"])
     batal['is_delayed'] = batal['order_delivered_customer_date'] > batal['order_estimated_delivery_date']
     batal.drop(columns = batal.columns[0], inplace=True)

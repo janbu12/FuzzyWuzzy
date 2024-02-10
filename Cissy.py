@@ -28,7 +28,7 @@ def pertanyaan2_10122104(delivered_orders):
     
     with st.container():
         grup1 = batal.groupby('is_delayed').size()
-
+        st.dataframe(grup1, use_container_width = True)
     del batal
     labels    = ['Not delayed', 'Delayed']
     myexplode = [0.2,0]

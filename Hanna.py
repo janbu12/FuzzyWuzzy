@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt, streamlit as st
+#import matplotlib.pyplot as plt, streamlit as st
 
 def pertanyaan1_10122079(order_items):
     st.write("<h4>10 Kategori Produk Dengan Penjualan tertinggi?<h4>", unsafe_allow_html=True)

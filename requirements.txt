@@ -1,4 +1,6 @@
+streamlit_option_menu
+streamlit
+pandas
 matplotlib
 seaborn
-streamlit_option_menu
-geopy
+collections

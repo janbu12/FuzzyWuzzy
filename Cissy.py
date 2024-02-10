@@ -1,6 +1,5 @@
 import streamlit as st, matplotlib.pyplot as plt, seaborn as sea
 
-
 def pertanyaan1_10122104(order_items):
     st.write("<h4>Kategori barang apa yang paling banyak dibeli?<h4>", unsafe_allow_html=True)
     categories_count = order_items["product_category_name"].value_counts()

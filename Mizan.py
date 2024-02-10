@@ -217,4 +217,4 @@ def pertanyaan4_10122096(df_geolocation, order_reviews):
         st.write("""Data waktu pengiriman yang diambil adalah 15 hari kebawah, dengan total data 79.715. Dari grafik dan tabel korelasi diatas dapat dilihat bahwa jarak pengiriman cukup berpegaruh terhadap waktu 
                     pegiriman dengan korelasi (0.615205) dan grafiknya menggambarkan kenaikan yang signifikan""")
     
-    del reviewsSort, order_review_df, orders_review_filtered, review_distance_df, mean_distance_deliver_time_df, mean_distance_deliver_time_df2, col1, col2, fig
+    del reviewsSort, orders_review_df, orders_review_filtered, review_distance_df, mean_distance_deliver_time_df, mean_distance_deliver_time_df2, col1, col2, fig

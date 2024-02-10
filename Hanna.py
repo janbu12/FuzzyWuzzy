@@ -4,8 +4,6 @@ def pertanyaan1_10122079(order_items):
     st.write("<h4>10 Kategori Produk Dengan Penjualan tertinggi?<h4>", unsafe_allow_html=True)
     categories_count_max_order = order_items["product_category_name"].value_counts()
     max_order = categories_count_max_order.head(10)
-    del categories_count_max_order
-
     
     with st.container():
         plt.figure(figsize=(10, 6))

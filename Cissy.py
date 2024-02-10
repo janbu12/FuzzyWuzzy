@@ -49,10 +49,12 @@ def pertanyaan2_10122104(delivered_orders):
     batal["is_delayed"] = batal['order_delivered_customer_date'] > batal['order_estimated_delivery_date']
     batal               = batal[batal["is_delayed"]]
     batal.drop(columns = batal.columns[0], inplace=True)
+    st.markdown("Tabel Yang mengalami keterlambatan melebihi tanggal estimasi sampai")
     st.dataframe(batal.head(), use_container_width = True)
     
     with st.container():
         grup2 = batal.groupby('order_status').size()
+        st.markdown("Tabel Jumlah dari pesanan Yang dibatalkan akibat keterlambatan")
         st.dataframe(grup2, use_container_width = True)
     del batal
 

@@ -24,11 +24,11 @@ def pertanyaan2_10122104(delivered_orders):
     st.caption('PART 1')
     batal               = (delivered_orders[delivered_orders["order_status"] == "canceled"])
     batal['is_delayed'] = batal['order_delivered_customer_date'] > batal['order_estimated_delivery_date']
-    st.dataframe(batal.head())
+    st.dataframe(batal.head(), use_container_width = True)
     
     with st.container():
         grup1 = batal.groupby('is_delayed').size()
-        st.dataframe(grup1, use_container_width = True)
+        st.dataframe(grup1)
     del batal
     labels    = ['Not delayed', 'Delayed']
     myexplode = [0.2,0]

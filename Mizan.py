@@ -76,7 +76,7 @@ def pertanyaan1_10122096(reviews):
                     </list>""", unsafe_allow_html=True)
         st.write("Dari grafik diatas dapat dilihat bahwa kata bermasalah sebanyak 303, cacat(154), dengan title Produk cacat(22), Produk salah(30), dll, walaupun terbilang sedikit, tetap saja harapannya perusahaan dapat memperbaiki produk yang salah, cacat, bahkan tidak terkirim, dll.")
 
-    del low_scores, top_15_comment_titles, negative_words_pt, low_scores_len, negative_phrases_pt, negative_freq_pt, common_negative_pt, top_15_reasons_df, common_negative_df_pt
+    del low_scores, top_15_comment_titles, top_15_reasons, negative_words_pt, low_scores_len, negative_phrases_pt, negative_freq_pt, common_negative_pt, common_negative_df_pt, top_15_reasons_df, fig
 
 def pertanyaan2_10122096(delivered_orders, shipped_orders, approved_orders, order_item):
     st.write("<h4>Apakah kesamaan negara asal antara seller dan customer berpengaruh terhadap jumlah pembelian?<h4>",unsafe_allow_html=True)
@@ -217,4 +217,4 @@ def pertanyaan4_10122096(df_geolocation, order_reviews):
         st.write("""Data waktu pengiriman yang diambil adalah 15 hari kebawah, dengan total data 79.715. Dari grafik dan tabel korelasi diatas dapat dilihat bahwa jarak pengiriman cukup berpegaruh terhadap waktu 
                     pegiriman dengan korelasi (0.615205) dan grafiknya menggambarkan kenaikan yang signifikan""")
     
-    del reviewsSort, orders_review_filtered, review_distance_df, mean_distance_deliver_time_df, fig
+    del reviewsSort, order_review_df, orders_review_filtered, review_distance_df, mean_distance_deliver_time_df, mean_distance_deliver_time_df2, col1, col2, fig

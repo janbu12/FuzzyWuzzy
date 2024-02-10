@@ -1,5 +1,4 @@
-import streamlit as st
-import matplotlib.pyplot as plt, seaborn as sea
+import streamlit as st, matplotlib.pyplot as plt, seaborn as sea
 
 
 def pertanyaan1_10122104(order_items):

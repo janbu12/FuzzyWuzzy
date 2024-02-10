@@ -19,8 +19,7 @@ def pertanyaan1_10122079(order_items):
         plt.close()
         st.pyplot(grf)
 
-    del grf
-
-
     with st.expander("Kesimpulan"):
         st.write("Ini adalah 10 Kategori produk dengan penjualan tertinggi Bed bath table, Health beauty, Sports leisure, Furniture decor, Computer accessories, Housewares, Watches gifts, Telephon, Garden Tools, Auto")
+
+    del categories_count_max_order, max_order, grf

@@ -1,5 +1,7 @@
-import streamlit as st
+import streamlit as st, pandas as pd, matplotlib.pyplot as plt, seaborn as sea
 from streamlit_option_menu import option_menu
+from collections import Counter
+pd.options.mode.chained_assignment = None
 
 # Import Pertanyaan
 from Hanna import *

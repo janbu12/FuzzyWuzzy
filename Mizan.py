@@ -1,5 +1,5 @@
-#import streamlit as st, pandas as pd, matplotlib.pyplot as plt, seaborn as sea
-#from collections import Counter
+import streamlit as st, pandas as pd, matplotlib.pyplot as plt, seaborn as sea
+from collections import Counter
 
 def pertanyaan1_10122096(reviews):
     st.write("<h4>Apakah highlight yang membuat customer memberikan review score yang kecil?<h4>", unsafe_allow_html=True)

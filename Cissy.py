@@ -25,12 +25,13 @@ def pertanyaan2_10122104(delivered_orders):
     batal               = (delivered_orders[delivered_orders["order_status"] == "canceled"])
     batal['is_delayed'] = batal['order_delivered_customer_date'] > batal['order_estimated_delivery_date']
     batal.drop(columns = batal.columns[0], inplace=True)
-    batal.drop(columns = batal.columns[4], inplace=True)
+    st.markdown("Tabel Pesanan Yang statusnya dibatalkan")
     st.dataframe(batal.head(), use_container_width = True)
     
     with st.container():
         grup1 = batal.groupby('is_delayed').size()
-        st.dataframe(grup1)
+        st.markdown("Tabel Jumlah pesanan Yang Statusnya dibatalkan dan Mengalami keterlambatan ")
+        st.dataframe(grup1, use_container_width = True)
     del batal
     labels    = ['Not delayed', 'Delayed']
     myexplode = [0.2,0]
@@ -56,7 +57,7 @@ def pertanyaan2_10122104(delivered_orders):
     
     with st.container():
         grup2 = batal.groupby('order_status').size()
-        st.markdown("Tabel Jumlah dari pesanan Yang dibatalkan akibat keterlambatan")
+        st.markdown("Tabel Jumlah dari pesanan Yang Statusnya dibatalkan akibat keterlambatan")
         st.dataframe(grup2, use_container_width = True)
     del batal
 

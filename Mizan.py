@@ -1,4 +1,4 @@
-import streamlit as st, pandas as pd, import matplotlib.pyplot as plt, seaborn as sea
+import streamlit as st, pandas as pd, matplotlib.pyplot as plt, seaborn as sea
 from collections import Counter
 
 def pertanyaan1_10122096(reviews):

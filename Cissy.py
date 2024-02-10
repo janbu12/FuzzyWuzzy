@@ -24,7 +24,7 @@ def pertanyaan2_10122104(delivered_orders):
     st.caption('PART 1')
     batal               = (delivered_orders[delivered_orders["order_status"] == "canceled"])
     batal['is_delayed'] = batal['order_delivered_customer_date'] > batal['order_estimated_delivery_date']
-
+    st.dataframe(batal.head())
     
     with st.container():
         grup1 = batal.groupby('is_delayed').size()

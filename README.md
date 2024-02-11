@@ -1,2 +1,2 @@
 # FuzzyWuzzy
-[fuzzywuzzy.streamlit.app](https://fuzzywuzzy.streamlit.app/)
+Streamlit Link : [fuzzywuzzy.streamlit.app](https://fuzzywuzzy.streamlit.app/)
